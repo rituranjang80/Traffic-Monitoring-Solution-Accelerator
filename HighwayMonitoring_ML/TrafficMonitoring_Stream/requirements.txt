@@ -1,0 +1,7 @@
+azure-cosmos
+pyodbc
+Flask==2.1.2
+numpy==1.23.1
+opencv_python==4.6.0.66
+pandas==1.4.3
+PyYAML==6.0

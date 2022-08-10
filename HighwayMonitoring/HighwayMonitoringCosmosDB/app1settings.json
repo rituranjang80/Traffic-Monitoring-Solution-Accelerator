@@ -1,0 +1,16 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*",
+  "CosmosDb": {
+    "Account": "https://mspocdb.documents.azure.com:443//",
+    "Key": "R79EBwOGMIbYFnwFXbN33p1eLX30uLVAT1XnIckuxpaZ7y9ZXa1LGaRTeHHD3jIJYuzzTo21cq9NLxHPqPf9uw==",
+    "DatabaseName": "HighwayMonitoring2",
+    "ContainerName": "Vehicletrend2"
+  }
+}

@@ -1,0 +1,16 @@
+diff a/src/authConfig.js b/src/authConfig.js	(rejected hunks)
+@@ -53,9 +53,11 @@
+  * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
+  */
+ export const loginRequest = {
+-  scopes: ["https://analysis.windows.net/powerbi/api/Workspace.Read.All",
+-    "https://analysis.windows.net/powerbi/api/Report.Read.All",
+-    "https://analysis.windows.net/powerbi/api/Dashboard.Read.All"]
++  scopes: [
++    'https://analysis.windows.net/powerbi/api/Workspace.Read.All',
++    'https://analysis.windows.net/powerbi/api/Report.Read.All',
++    'https://analysis.windows.net/powerbi/api/Dashboard.Read.All',
++  ],
+ };
+ 
+ /**

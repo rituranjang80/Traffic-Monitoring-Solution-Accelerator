@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="“Phalkon” is our clients’ wealth genie"
+    />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="./config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://microsoft.github.io/PowerBI-JavaScript/demo/node_modules/powerbi-client/dist/powerbi.js"></script>
+    <script type=”text/javascript” src=”//cdn.jsdelivr.net/afterglow/latest/afterglow.min.js”></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Microsoft Traffic Monitor System</title>
+    <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" />
+
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AuU1ciWa-v2D4MXrLhXxgbVY6676TOmemFJ3LpCO52P5Mnx8_KIdez1M7G2j0ZIN&cp=47.621065~-122.352534&style=o&lvl=14&trfc=1' async defer></script>
+
+    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+     
+    
+     <!-- <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AuU1ciWa-v2D4MXrLhXxgbVY6676TOmemFJ3LpCO52P5Mnx8_KIdez1M7G2j0ZIN&cp=47.621065~-122.352534&style=o&lvl=14&trfc=1' async defer></script> -->
+     <!-- <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key='+window.bingMapKey+'&cp=47.621065~-122.352534&style=o&lvl=14&trfc=1' async defer></script> -->
+     <!-- <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key='+window.bingMapKey+'' async defer></script> -->
+     <!-- <script type='text/javascript' src='./Vforward/dist/video.min.js'  ></script>
+     
+    
+     <script type='text/javascript' src='./Vforward/dist/videojs-replayforward.min.js'  ></script>
+     -->
+     <!-- <link href="https://cdn.jsdelivr.net/npm/videojs-seek-buttons/dist/videojs-seek-buttons.css" rel="stylesheet">
+     <script src="https://cdn.jsdelivr.net/npm/videojs-seek-buttons/dist/videojs-seek-buttons.min.js"></script> -->
+   
+    </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <div id="loading" style='display:none;'>
+    <img alt="loading"  src="%PUBLIC_URL%/loading.gif" />
+  </div>
+
+  
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+   
+
+    <div style="text-align:center"> 
+      <button onclick="playPause()">Play/Pause</button>  
+      <button onclick="makeBig()">Big</button>
+      <button onclick="makeSmall()">Small</button>
+      <button onclick="makeNormal()">Normal</button>
+      <button onclick="restart();">Restart</button> 
+      <button onclick="skip(-10)">Rewind</button>
+      <button onclick="skip(10)">Fastforward</button>
+      
+      <br><br>
+      <video id="video1" width="420">
+        <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+    </div> 
+     -->
+  <script>
+    
+//  window.baseURL= 'https://localhost:5001/api'; 
+//  window.baseURL='https://highwaymonitoringwebapi.azurewebsites.net/api/';
+
+   </script> 
+    <div id="myMap1" style="display:none;position:relative;width:600px;height:300px;"></div>
+    <script type='text/javascript'>
+     function GetMap1() {alert('1');}
+
+      function GetMap() {
+
+       // new Element("script", {src: "http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AuU1ciWa-v2D4MXrLhXxgbVY6676TOmemFJ3LpCO52P5Mnx8_KIdez1M7G2j0ZIN", type: "text/javascript"});
+         
+        window.map = new window.Microsoft.Maps.Map('#myMap', {});
+        var result={};
+        result.latitude=window.lat1;//47.7511;  
+         result.longitude=window.long1;//-120.7401;
+       // FindMAp(result);
+        window.Microsoft.Maps.Events.addHandler(map, 'click', function (e) { set_latitudes_and_longitude(e); });
+        Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', {
+            callback: function () {
+                var manager = new Microsoft.Maps.AutosuggestManager({
+                    placeSuggestions: false
+                });
+                manager.attachAutosuggest('#Search', '#searchBoxContainer', suggestionSelected);
+            },
+            errorCallback: function(msg){
+                alert(msg);
+            }
+        });
+      }
+
+
+      
+    function suggestionSelected(result) {
+        //Populate the address textbox values
+       // alert(result);
+        
+        /*document.getElementById('addressLineTbx').value = result.address.addressLine || '';
+        document.getElementById('cityTbx').value = result.address.locality || '';
+        document.getElementById('countyTbx').value = result.address.district || '';
+        document.getElementById('stateTbx').value = result.address.adminDistrict || '';
+        document.getElementById('postalCodeTbx').value = result.address.postalCode || '';
+        document.getElementById('countryTbx').value = result.address.countryRegion || '';*/
+        window.map.entities.clear();
+//Show the suggestion as a pushpin and center map over it.
+    var pin = new Microsoft.Maps.Pushpin(result.location);
+    document.getElementById("Latitude").value=result.location.latitude;
+      document.getElementById("Longitude").value=result.location.longitude;
+    window.map.entities.push(pin);
+
+window.map.setView({ bounds: result.bestView });
+    }
+      function set_latitudes_and_longitude(map)
+    {
+      document.getElementById("Latitude").value=map.location.latitude;
+      document.getElementById("Longitude").value=map.location.longitude;
+    //     console.log(map.location.latitude);
+    //     console.log(map.location.longitude);
+
+    //     var curPos = new Microsoft.Maps.Location(map.location.latitude,  map.location.longitude);
+    //   var calloutOptions = { title: "Location Information", description:   "This is your current location." };
+    //   var callout = new Microsoft.Maps.Infobox(curPos, calloutOptions);
+    //  // window.map.entities=[];
+
+    //   //window.map.entities.push(callout);
+    var result={};
+      result.latitude=map.location.latitude;
+      result.longitude=map.location.longitude;
+     // FindMAp(result);
+    }
+
+    function FindMAp(result){
+      
+      var curPos = new Microsoft.Maps.Location(result.latitude,   result.longitude);
+      var calloutOptions = { title: "Location Information", description:   "This is your current location." };
+      var callout = new Microsoft.Maps.Infobox(curPos, calloutOptions);
+      var mapOptions = {
+          credentials:window.bingMapKey,// 'AuU1ciWa-v2D4MXrLhXxgbVY6676TOmemFJ3LpCO52P5Mnx8_KIdez1M7G2j0ZIN',
+          center: curPos,
+          mapTypeId: Microsoft.Maps.MapTypeId.road,
+          zoom: 9
+      };
+      window.map = new window.Microsoft.Maps.Map('#myMap',mapOptions);
+
+     // window.map = new Microsoft.Maps.Map(("#myMap").get(0), mapOptions);
+     // window.map.entities.push(callout);
+      window.Microsoft.Maps.Events.addHandler(map, 'click', function (e) { set_latitudes_and_longitude(e); });
+      MapPositionShow3(result,map)
+    
+    }
+
+    function loginRedirect(){
+    window.location.href="/";
+    }
+    function MapPositionShow3(cityLatLong,pinNumber) {
+      try{
+      //  if(window.lat1!=cityLatLong.latitude){
+      let lat=cityLatLong.latitude;   
+      let lon=cityLatLong.longitude;
+   // let lat=cityLatLong.lat1;let lon= cityLatLong.long1; 
+   var locs = [];
+     locs[0] = new Microsoft.Maps.Location(cityLatLong.latitude, cityLatLong.longitude);
+        var pinLayer = new Microsoft.Maps.EntityCollection();
+	var pin = new Microsoft.Maps.Pushpin(locs[0], {icon: './Mylocation.png', width:'20px', height:'20px'});
+    pinLayer.push(pin);    
+    map.entities.push(pin);
+       // }
+    }
+    catch(error){
+      console.log(error);
+    }
+}
+
+
+    function initGeolocation()
+     {
+        if( navigator.geolocation )
+        {
+           // Call getCurrentPosition with success and failure callbacks
+           navigator.geolocation.getCurrentPosition( success, fail );
+        }
+        else
+        {
+           alert("Sorry, your browser does not support geolocation services.");
+        }
+     }
+
+     function success(position)
+     {
+      
+      var result={};
+      result.latitude= position.coords.latitude;
+      result.longitude=position.coords.longitude;
+     // FindMAp(result);
+
+
+        // document.getElementById('long').value = position.coords.longitude;
+         //document.getElementById('lat').value = position.coords.latitude
+     }
+
+     function fail()
+     {
+        // Could not obtain location
+     }
+      function getMediaPlayer(){ 
+    var player = videojs('my-video');
+     
+    //  player.replayforward();
+      }
+
+
+
+
+    </script> 
+   <script>
+    // var player = videojs('example_video_1');
+  
+    // player.seekButtons({
+    //   forward: 30,
+    //   back: 10
+    // });
+  
+  
+  // You could alternatively include the plugin in the setup options, e.g.
+  // var player = videojs('my-video', {
+  //   plugins: {
+  //     seekButtons: {
+  //       forward: 30,
+  //       back: 10
+  //     }
+  //   }
+  // });
+  
+  </script>
+  
+  </body>
+</html>

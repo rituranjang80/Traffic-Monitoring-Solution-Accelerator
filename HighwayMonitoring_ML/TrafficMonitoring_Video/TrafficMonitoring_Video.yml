@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: msproc3
+  labels:
+    app: msproc3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: msproc3
+  template:
+    metadata:
+      labels:
+        app: msproc3
+    spec:
+      nodeSelector:
+      containers:
+      - image: mspoccr.azurecr.io/vehicle_monitoring:2.1
+        name: msproc3
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+        ports:
+        - containerPort: 8082
+      imagePullSecrets:
+      - name: vechicle
+      
+      
+
+

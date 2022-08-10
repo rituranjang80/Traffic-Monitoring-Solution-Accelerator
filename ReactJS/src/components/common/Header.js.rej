@@ -1,0 +1,22 @@
+diff a/src/components/common/Header.js b/src/components/common/Header.js	(rejected hunks)
+@@ -2,12 +2,19 @@
+ import { NavLink, withRouter } from 'react-router-dom';
+ import logo_white from '../../images/logo_white.png';
+ import menuarrow from '../../images/downarrow.png';
+-import Cookies from 'universal-cookie';
+ import { Accordion, Button } from 'react-bootstrap';
+ import { MsalContext } from '@azure/msal-react';
+ import user from '../../images/ic-user.png';
+ import { SignOutButton } from './Logout';
++import jwt_decode from 'jwt-decode';
++import {
++  postApi,
++  postApiWithoutReqAsyn,
++  formatDateMMDDYY,
++} from '../Services/PostAPI';
++import { PageURL } from './typeofassets.js';
+ import { loginRequest } from '../../authConfig';
++import Cookies from 'universal-cookie';
+ const cookies = new Cookies();
+ class Header extends Component {
+   static contextType = MsalContext;

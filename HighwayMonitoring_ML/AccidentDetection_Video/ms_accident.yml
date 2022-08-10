@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: msproc2
+  labels:
+    app: mosproc2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: msproc2
+  template:
+    metadata:
+      labels:
+        app: msproc2
+    spec:
+      nodeSelector:
+      containers:
+      - image: mspoccr.azurecr.io/accident_detection:3.0
+        name: msrproc2
+        ports:
+        - containerPort: 8083
+      imagePullSecrets:
+      - name: vechicle
