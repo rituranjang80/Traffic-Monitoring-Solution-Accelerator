@@ -1,0 +1,70 @@
+<head>
+    <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" />
+
+    <script>
+
+
+window.onload = (event) => {
+
+    var video=getParameterByName('video');
+    alert(video);
+        video='https://msstorageblob.blob.core.windows.net/microsofttraficmgmt/cam04.mp4?sp=r&st=2022-05-31T14:29:07Z&se=2022-10-27T22:29:07Z&sv=2020-08-04&sr=b&sig=UffEjSERsU95h4QdGQYtyMYyoarUlTOf%2FJWOwdGDBGQ%3D'    
+    addVideo(video);
+};
+
+  function getParameterByName(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+
+
+function addVideo(video){
+var variable = '' + 
+'  <video' + 
+'      id="my-video"' + 
+'      class="video-js"' + 
+'      controls' + 
+'      preload="auto"' + 
+'      width="640"' + 
+'      height="264"' + 
+'      poster="MY_VIDEO_POSTER.jpg"' + 
+'      data-setup="{}"' + 
+'    >' + 
+'      <source  src="'+video+'"  src1="https://msstorageblob.blob.core.windows.net/microsofttraficmgmt/cam04.mp4?sp=r&st=2022-05-31T14:29:07Z&se=2022-10-27T22:29:07Z&sv=2020-08-04&sr=b&sig=UffEjSERsU95h4QdGQYtyMYyoarUlTOf%2FJWOwdGDBGQ%3D" type="video/mp4" />' + 
+'      <source   src="'+video+'" src1="https://msstorageblob.blob.core.windows.net/microsofttraficmgmt/cam04.mp4?sp=r&st=2022-05-31T14:29:07Z&se=2022-10-27T22:29:07Z&sv=2020-08-04&sr=b&sig=UffEjSERsU95h4QdGQYtyMYyoarUlTOf%2FJWOwdGDBGQ%3D" type="video/webm" />' + 
+'      <p class="vjs-no-js">' + 
+'        To view this video please enable JavaScript, and consider upgrading to a' + 
+'        web browser that' + 
+'        <a href="https://videojs.com/html5-video-support/" target="_blank"' + 
+'          >supports HTML5 video</a' + 
+'        >' + 
+'      </p>' + 
+'    </video>' + 
+'';
+document.body.innerHTML = variable;//"Some new HTML content";
+
+//document.body.innerHTML += variable;
+}
+
+
+    </script>
+  
+    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+    <!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
+
+
+  </head>
+  
+  <body>
+   
+    <script src="https://vjs.zencdn.net/7.19.2/video.min.js"></script>
+<script>
+    var s=document.getElementById("my-video");
+var s='';
+    </script>
+  </body>

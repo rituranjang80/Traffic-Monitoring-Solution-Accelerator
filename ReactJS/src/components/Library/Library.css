@@ -1,0 +1,114 @@
+.uploadButton {
+  position: inherit;
+  margin-left: 20em;
+}
+.editButton {
+  width: 3px;
+  position: inherit;
+  padding-right: 2ex;
+  margin-left: 20em;
+  padding-left: 0ex;
+  border: none;
+}
+.divheight {
+  min-height: 200px !important;
+}
+.AnlButton {
+  width: 75px;
+  position: relative;
+  margin-top: 36ex;
+  margin-left: -23ex;
+}
+
+.pageSubtitle {
+  position: relative;
+  font-size: 17px;
+  margin-bottom: 20px;
+  font-weight: bolder;
+}
+
+.img-wraps {
+  position: relative;
+  display: inline-block;
+
+  font-size: 0;
+}
+.img-wraps .closes {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  z-index: 100;
+  background-color: #fff;
+  padding: 4px 3px;
+
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+
+  text-align: center;
+  font-size: 22px;
+  line-height: 10px;
+  border-radius: 50%;
+  border: 1px solid red;
+}
+.img-wraps:hover .closes {
+  opacity: 1;
+}
+.divcss {
+  display: flex;
+}
+
+.anylsisVideo {
+  font-size: medium;
+  font-style: italic;
+  font-weight: bold;
+  margin: 1ex 0ex 2.5ex 0.5ex;
+}
+.videobox {
+  position: relative;
+}
+.videobox > button {
+  position: absolute;
+
+  background: transparent !important;
+  border: none !important;
+}
+.videobox > button:first-child {
+  top: 5px;
+  right: 1px;
+}
+.videobox > button:nth-child(2) {
+  top: 35px;
+  right: 1px;
+}
+
+.video_name_box {
+  display: flex;
+  justify-content: space-between;
+}
+.video_name_box:first-child {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.video_name_btn_box > button {
+  border: none;
+  background-color: transparent;
+  margin-right: 4px;
+}
+
+.timeinSecond {
+  position: relative;
+  left: 514px;
+  bottom: 20px;
+  z-index: 100;
+  font-size: 12px;
+}
+
+.timeinSecond2 {
+  position: relative;
+  left: 514px;
+  bottom: 60px;
+  z-index: 100;
+  font-size: 12px;
+}
