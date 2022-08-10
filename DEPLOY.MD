@@ -85,8 +85,28 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		5.	Deploy traffic monitoring model on Kubernetes cluster using yml file.
 		o	 Command: Kubectl apply -f [<yml file Name>]
 
-## Step  7 Deploy ML Models.
+## Step  7 Setup configuration for Ml models
+		•	Edit config file for TrafficMonitoring_Stream model
+		1.	Account: "Enter the account name for sql server"
+		2.	Key: "Enter Key of sql server"
+		3.	DatabaseName: "Enter Database Name"
+		4.	containerName: "Enter container Name"
 
+		•	Edit Config file for TrafficMonitoring_Video model
+		1.	azure_storage_connectionstring: <Enter azure storage connection string for blob storage>;
+		2.	AccountName = <Enter blob storage Account name> 
+		3.	AccountKey = <Enter Account key of blob storage"
+		4.	process_container_name: "Enter process video container name"
+		5.	Traffic_mon_url: <Enter the traffic monitoring frontend api url for video>
+
+		•	Edit Config file for AccidentDetection_Live Model
+		1.	Account: <Enter the account name for sql server>
+		2.	Key: <Enter the key of sql server>
+		3.	DatabaseName: "Enter Database Name"
+		4.	containerName: "Enter container Name"
+
+		•	Edit Config file for AccidentDetection_Video Model
+		1.	Traffic_accident_url: < Enter the accident detection frontend api url for video>
 
 
 
