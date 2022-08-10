@@ -87,3 +87,4 @@ TrafficmonitoringAutoSystem/traffic_monitoring_app/traffic_monitoring_app/app/yo
 HighwayMonitoring_ML/AccidentDetection_Video/app/trafficnet_resnet_model_ex-055_acc-0.913750.h5
 HighwayMonitoring_ML/TrafficMonitoring_Stream/app/yolov4.weights
 HighwayMonitoring_ML/TrafficMonitoring_Video/app/yolov4.weights
+HighwayMonitoring_ML/AccidentDetection_Live/app/trafficnet_resnet_model_ex-055_acc-0.913750.h5
