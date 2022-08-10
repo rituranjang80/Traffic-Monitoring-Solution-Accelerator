@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liveaccident
+  labels:
+    app: liveaccident
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: liveaccident
+  template:
+    metadata:
+      labels:
+        app: liveaccident
+    spec:
+      nodeSelector:
+      containers:
+      - image: mspoccr.azurecr.io/live_accident:2.2
+        name: liveaccident
+        ports:
+        - containerPort: 8083
+      imagePullSecrets:
+      - name: vechicle
