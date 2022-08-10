@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: livestream
+  name: livestream1
   labels:
-    app: livestream
+    app: livestream1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: livestream
+      app: livestream1
   template:
     metadata:
       labels:
-        app: livestream
+        app: livestream1
     spec:
       nodeSelector:
       containers:
-      - image: mspoccr.azurecr.io/live_stream:
-        name: livestream
+      - image: mspoccr.azurecr.io/live_stream_vehicle:2.0
+        name: livestream1
         resources:
           limits:
             nvidia.com/gpu: 1
         ports:
-        - containerPort: 8082
+        - containerPort: 5000
       imagePullSecrets:
       - name: vechicle
       
