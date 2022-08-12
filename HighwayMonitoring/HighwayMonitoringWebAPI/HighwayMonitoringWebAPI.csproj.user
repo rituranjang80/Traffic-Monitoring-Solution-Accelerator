@@ -5,7 +5,7 @@
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
     <ActiveDebugProfile>HighwayMonitoringWebAPI</ActiveDebugProfile>
     <ShowAllFiles>false</ShowAllFiles>
-    <NameOfLastUsedPublishProfile>C:\Users\RituranjanGupta\Documents\GitHub\Traffic-Monitoring-Solution-Accelerator\HighwayMonitoring\HighwayMonitoringWebAPI\Properties\PublishProfiles\HighwayMonitoringWebAPI - Web Deploy5.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\RituranjanGupta\Documents\GitHub2\Traffic-Monitoring-Solution-Accelerator\HighwayMonitoring\HighwayMonitoringWebAPI\Properties\PublishProfiles\HighwayMonitoringWebAPIdemo - Web Deploy1.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
