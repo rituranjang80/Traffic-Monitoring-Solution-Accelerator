@@ -17,7 +17,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 ## Step 3. Setup site and  Databases
 	
 	* Create a SQL Server instance or use exciting SQL server instance 
-        * Run the SQL script (SQL/script.sql) SQL instance
+        * Run the SQL script (1-SQL/MPOCSchemascript.sql 2- MPOCInsertScript.sql) SQL instance
     * Create below Container in storage blob        
 			* process video
 			* Unprocessed video 
