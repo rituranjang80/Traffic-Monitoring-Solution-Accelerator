@@ -48,6 +48,7 @@ Thumbs.db
 *.mov
 *.wmv
 /vs
+./vs
 /HighwayMonitoring_ML/AccidentDetection_Stream/app/trafficnet_resnet_model_ex-055_acc-0.913750.h5
 /HighwayMonitoring/UtilityLibrary/bin/
 /HighwayMonitoring/UtilityLibrary/obj/
