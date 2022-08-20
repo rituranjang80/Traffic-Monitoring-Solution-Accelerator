@@ -51,6 +51,12 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
                 "Key": "************************",
                 "DatabaseName": "********"                
                 }
+## Step 5 B Deploy the WebAPI
+
+		* open the solution(/Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring/HighwayMonitoringWebAPI) in visual studio
+		* Get the publish settings file from azure portal app service (Website)
+		* In the visual studio solution right click the project (HighwayMonitoringWebAPI)->publish->new->Import profile->browse the publish settings file->click ok ->click publish
+
 ## Step 5 Set up  configuration Reactjs public/Config.js in HighwayMonitoring      
 
 
@@ -61,9 +67,14 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
            * window.bingMapKey='***************************
 		   
 		* Enter the   Live Stream API      
-           * window.MLAPI='*****************		
+           * window.MLAPI='*****************
+		   
+## Step 5 B Deploy the ReactJS	
 		
-			
+		* Open the React JS folder/appliction(/Traffic-Monitoring-Solution-Acceleraton/ReactJS) in Visual studio code	
+		* Install the project library run the (npm install) in terminal
+		* Create the build  run the command  (npm run build)
+		* Upload the files((/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build) to websever using FTP
 			
 ## Step 6 Deploy ML Models.
 		
