@@ -27,7 +27,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
         * HighwayMonitoring-React.js(Frontend)
 
 
-## Step 4 Set up  configuration appsetting.json in HighwayMonitoringWebAPI
+## Step 4A. Set up  configuration appsetting.json in HighwayMonitoringWebAPI
         
         * Enter the SQL sever connection strings        
            * "ConnectionStrings": {  "XXXXXXXXXXXX" },
@@ -51,13 +51,13 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
                 "Key": "************************",
                 "DatabaseName": "********"                
                 }
-## Step 5 B Deploy the WebAPI
+## Step 4B. Deploy the WebAPI
 
 		* open the solution(/Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring/HighwayMonitoringWebAPI) in visual studio
 		* Get the publish settings file from azure portal app service (Website)
 		* In the visual studio solution right click the project (HighwayMonitoringWebAPI)->publish->new->Import profile->browse the publish settings file->click ok ->click publish
 
-## Step 5 Set up  configuration Reactjs public/Config.js in HighwayMonitoring      
+## Step 5A. Set up  configuration Reactjs public/Config.js in HighwayMonitoring      
 
 
         * Enter the Web API URL        
@@ -69,12 +69,12 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		* Enter the   Live Stream API      
            * window.MLAPI='*****************
 		   
-## Step 5 B Deploy the ReactJS	
+## Step 5B. Deploy the ReactJS	
 		
 		* Open the React JS folder/appliction(/Traffic-Monitoring-Solution-Acceleraton/ReactJS) in Visual studio code	
 		* Install the project library run the (npm install) in terminal
 		* Create the build  run the command  (npm run build)
-		* Upload the files((/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build) to websever using FTP
+		* Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build) to websever using FTP
 			
 ## Step 6 Deploy ML Models.
 		
