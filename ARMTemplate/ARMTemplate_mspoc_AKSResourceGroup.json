@@ -5,14 +5,6 @@
         "managedClusters_mspocaksBatchdemo_name": {
             "defaultValue": "mspocaksBatchdemo",
             "type": "String"
-        },
-        "publicIPAddresses_280521bd_bbbc_40df_b61d_385883f07e96_externalid": {
-            "defaultValue": "/subscriptions/422cf0b3-8d06-4fc7-8903-2cb72dd00d8f/resourceGroups/MC_MC_MSPOCtrafficmonitoring_mspocAKS_eastus_mspocaksBatchdemo_eastus/providers/Microsoft.Network/publicIPAddresses/280521bd-bbbc-40df-b61d-385883f07e96",
-            "type": "String"
-        },
-        "userAssignedIdentities_mspocaksBatchdemo_agentpool_externalid": {
-            "defaultValue": "/subscriptions/422cf0b3-8d06-4fc7-8903-2cb72dd00d8f/resourceGroups/MC_MC_MSPOCtrafficmonitoring_mspocAKS_eastus_mspocaksBatchdemo_eastus/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mspocaksBatchdemo-agentpool",
-            "type": "String"
         }
     },
     "variables": {},
@@ -118,7 +110,7 @@
                         "enabled": false
                     }
                 },
-                "nodeResourceGroup": "[concat('MC_MC_MSPOCtrafficmonitoring_mspocAKS_eastus_', parameters('managedClusters_mspocaksBatchdemo_name'), '_eastus')]",
+                "nodeResourceGroup": "[concat('noderesources_', parameters('managedClusters_mspocaksBatchdemo_name'), '_eastus')]",
                 "enableRBAC": true,
                 "networkProfile": {
                     "networkPlugin": "kubenet",
@@ -126,12 +118,7 @@
                     "loadBalancerProfile": {
                         "managedOutboundIPs": {
                             "count": 1
-                        },
-                        "effectiveOutboundIPs": [
-                            {
-                                "id": "[parameters('publicIPAddresses_280521bd_bbbc_40df_b61d_385883f07e96_externalid')]"
-                            }
-                        ]
+                        }
                     },
                     "podCidr": "10.244.0.0/16",
                     "serviceCidr": "10.0.0.0/16",
