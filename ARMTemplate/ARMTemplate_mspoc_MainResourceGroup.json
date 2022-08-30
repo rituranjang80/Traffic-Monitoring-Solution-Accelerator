@@ -689,25 +689,7 @@
                 "azureStorageAccounts": {}
             }
         },
-        {
-            "type": "Microsoft.Web/sites/deployments",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('sites_HighwayMonitoringdemo_name'), '/47f8635108f84b4db080d9c17270dd0f')]",
-            "location": "East US",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringdemo_name'))]"
-            ],
-            "properties": {
-                "status": 4,
-                "author_email": "N/A",
-                "author": "VS Code",
-                "deployer": "ZipDeploy",
-                "message": "Created via a push deployment",
-                "start_time": "2022-06-23T05:37:32.7312492Z",
-                "end_time": "2022-06-23T05:37:37.4151987Z",
-                "active": true
-            }
-        },
+        
         {
             "type": "Microsoft.Web/sites/hostNameBindings",
             "apiVersion": "2022-03-01",
