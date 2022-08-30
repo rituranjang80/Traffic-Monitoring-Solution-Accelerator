@@ -1,1138 +1,1749 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "sites_HighwayMonitoringdemo_name": {
-            "defaultValue": "HighwayMonitoringdemo",
-            "type": "String"
-        },
-        "sites_HighwayMonitoringWebAPIdemo_name": {
-            "defaultValue": "HighwayMonitoringWebAPIdemo",
-            "type": "String"
-        },
-        "databaseAccounts_mspocdbdemo_name": {
-            "defaultValue": "mspocdbdemo",
-            "type": "String"
-        },
-        "registries_mspoccrdemo_name": {
-            "defaultValue": "mspoccrdemo",
-            "type": "String"
-        },
-        "storageAccounts_msstorageblobdemo_name": {
-            "defaultValue": "msstorageblobdemo",
-            "type": "String"
-        }
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"sites_HighwayMonitoring_name": {
+			"defaultValue": "HighwayMonitoring",
+			"type": "String"
 		},
-    "variables": {},
-    "resources": [
-        {
-            "type": "Microsoft.ContainerRegistry/registries",
-            "apiVersion": "2022-02-01-preview",
-            "name": "[parameters('registries_mspoccrdemo_name')]",
-            "location": "eastus",
-            "sku": {
-                "name": "Standard",
-                "tier": "Standard"
-            },
-            "properties": {
-                "adminUserEnabled": true,
-                "policies": {
-                    "quarantinePolicy": {
-                        "status": "disabled"
-                    },
-                    "trustPolicy": {
-                        "type": "Notary",
-                        "status": "disabled"
-                    },
-                    "retentionPolicy": {
-                        "days": 7,
-                        "status": "disabled"
-                    },
-                    "exportPolicy": {
-                        "status": "enabled"
-                    },
-                    "azureADAuthenticationAsArmPolicy": {
-                        "status": "enabled"
-                    },
-                    "softDeletePolicy": {
-                        "retentionDays": 7,
-                        "status": "disabled"
-                    }
-                },
-                "encryption": {
-                    "status": "disabled"
-                },
-                "dataEndpointEnabled": false,
-                "publicNetworkAccess": "Enabled",
-                "networkRuleBypassOptions": "AzureServices",
-                "zoneRedundancy": "Disabled",
-                "anonymousPullEnabled": false
-            }
-        },
-        {
-            "type": "Microsoft.DocumentDB/databaseAccounts",
-            "apiVersion": "2022-02-15-preview",
-            "name": "[parameters('databaseAccounts_mspocdbdemo_name')]",
-            "location": "West US",
-            "tags": {
-                "defaultExperience": "Core (SQL)",
-                "hidden-cosmos-mmspecial": ""
-            },
-            "kind": "GlobalDocumentDB",
-            "identity": {
-                "type": "None"
-            },
-            "properties": {
-                "publicNetworkAccess": "Enabled",
-                "enableAutomaticFailover": false,
-                "enableMultipleWriteLocations": false,
-                "isVirtualNetworkFilterEnabled": false,
-                "virtualNetworkRules": [],
-                "disableKeyBasedMetadataWriteAccess": false,
-                "enableFreeTier": false,
-                "enableAnalyticalStorage": true,
-                "analyticalStorageConfiguration": {
-                    "schemaType": "WellDefined"
-                },
-                "databaseAccountOfferType": "Standard",
-                "defaultIdentity": "FirstPartyIdentity",
-                "networkAclBypass": "None",
-                "disableLocalAuth": false,
-                "consistencyPolicy": {
-                    "defaultConsistencyLevel": "Session",
-                    "maxIntervalInSeconds": 5,
-                    "maxStalenessPrefix": 100
-                },
-                "locations": [
-                    {
-                        "locationName": "West US",
-                        "provisioningState": "Succeeded",
-                        "failoverPriority": 0,
-                        "isZoneRedundant": false
-                    }
-                ],
-                "cors": [],
-                "capabilities": [],
-                "ipRules": [],
-                "backupPolicy": {
-                    "type": "Periodic",
-                    "periodicModeProperties": {
-                        "backupIntervalInMinutes": 240,
-                        "backupRetentionIntervalInHours": 8,
-                        "backupStorageRedundancy": "Local"
-                    }
-                },
-                "networkAclBypassResourceIds": [],
-                "diagnosticLogSettings": {
-                    "enableFullTextQuery": "None"
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2021-09-01",
-            "name": "[parameters('storageAccounts_msstorageblobdemo_name')]",
-            "location": "eastus",
-            "sku": {
-                "name": "Standard_LRS",
-                "tier": "Standard"
-            },
-            "kind": "StorageV2",
-            "properties": {
-                "defaultToOAuthAuthentication": false,
-                "publicNetworkAccess": "Enabled",
-                "allowCrossTenantReplication": true,
-                "minimumTlsVersion": "TLS1_2",
-                "allowBlobPublicAccess": true,
-                "allowSharedKeyAccess": true,
-                "largeFileSharesState": "Enabled",
-                "networkAcls": {
-                    "bypass": "AzureServices",
-                    "virtualNetworkRules": [],
-                    "ipRules": [],
-                    "defaultAction": "Allow"
-                },
-                "supportsHttpsTrafficOnly": true,
-                "encryption": {
-                    "requireInfrastructureEncryption": false,
-                    "services": {
-                        "file": {
-                            "keyType": "Account",
-                            "enabled": true
-                        },
-                        "table": {
-                            "keyType": "Account",
-                            "enabled": true
-                        },
-                        "queue": {
-                            "keyType": "Account",
-                            "enabled": true
-                        },
-                        "blob": {
-                            "keyType": "Account",
-                            "enabled": true
-                        }
-                    },
-                    "keySource": "Microsoft.Storage"
-                },
-                "accessTier": "Cool"
-            }
-        },
-       
-        {
-            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases",
-            "apiVersion": "2022-02-15-preview",
-            "name": "[concat(parameters('databaseAccounts_mspocdbdemo_name'), '/HighwayMonitoringSystem2')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdbdemo_name'))]"
-            ],
-            "properties": {
-                "resource": {
-                    "id": "HighwayMonitoringSystem2"
-                }
-            }
-        },
-        {
-            "type": "Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions",
-            "apiVersion": "2022-02-15-preview",
-            "name": "[concat(parameters('databaseAccounts_mspocdbdemo_name'), '/00000000-0000-0000-0000-000000000001')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdbdemo_name'))]"
-            ],
-            "properties": {
-                "roleName": "Cosmos DB Built-in Data Reader",
-                "type": "BuiltInRole",
-                "assignableScopes": [
-                    "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdbdemo_name'))]"
-                ],
-                "permissions": [
-                    {
-                        "dataActions": [
-                            "Microsoft.DocumentDB/databaseAccounts/readMetadata",
-                            "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/executeQuery",
-                            "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/readChangeFeed",
-                            "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/items/read"
-                        ],
-                        "notDataActions": []
-                    }
-                ]
-            }
-        },
-        {
-            "type": "Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions",
-            "apiVersion": "2022-02-15-preview",
-            "name": "[concat(parameters('databaseAccounts_mspocdbdemo_name'), '/00000000-0000-0000-0000-000000000002')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdbdemo_name'))]"
-            ],
-            "properties": {
-                "roleName": "Cosmos DB Built-in Data Contributor",
-                "type": "BuiltInRole",
-                "assignableScopes": [
-                    "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdbdemo_name'))]"
-                ],
-                "permissions": [
-                    {
-                        "dataActions": [
-                            "Microsoft.DocumentDB/databaseAccounts/readMetadata",
-                            "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/*",
-                            "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/items/*"
-                        ],
-                        "notDataActions": []
-                    }
-                ]
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "sku": {
-                "name": "Standard_LRS",
-                "tier": "Standard"
-            },
-            "properties": {
-                "changeFeed": {
-                    "enabled": false
-                },
-                "restorePolicy": {
-                    "enabled": false
-                },
-                "containerDeleteRetentionPolicy": {
-                    "enabled": true,
-                    "days": 7
-                },
-                "cors": {
-                    "corsRules": []
-                },
-                "deleteRetentionPolicy": {
-                    "allowPermanentDelete": false,
-                    "enabled": true,
-                    "days": 7
-                },
-                "isVersioningEnabled": false
-            }
-        },
-       
-        {
-            "type": "Microsoft.Storage/storageAccounts/queueServices",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "cors": {
-                    "corsRules": []
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/tableServices",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "cors": {
-                    "corsRules": []
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites",
-            "apiVersion": "2022-03-01",
-            "name": "[parameters('sites_HighwayMonitoringdemo_name')]",
-            "location": "East US",
-           
-            "kind": "app",
-            "properties": {
-                "enabled": true,
-                "hostNameSslStates": [
-                    {
-                        "name": "highwaymonitoringdemo.azurewebsites.net",
-                        "sslState": "Disabled",
-                        "hostType": "Standard"
-                    },
-                    {
-                        "name": "highwaymonitoringdemo.scm.azurewebsites.net",
-                        "sslState": "Disabled",
-                        "hostType": "Repository"
-                    }
-                ],
-               
-                "reserved": false,
-                "isXenon": false,
-                "hyperV": false,
-                "vnetRouteAllEnabled": false,
-                "siteConfig": {
-                    "numberOfWorkers": 1,
-                    "acrUseManagedIdentityCreds": false,
-                    "alwaysOn": true,
-                    "http20Enabled": false,
-                    "functionAppScaleLimit": 0,
-                    "minimumElasticInstanceCount": 0
-                },
-                "scmSiteAlsoStopped": false,
-                "clientAffinityEnabled": true,
-                "clientCertEnabled": false,
-                "clientCertMode": "Required",
-                "hostNamesDisabled": false,
-                "customDomainVerificationId": "D97956FD117CDDFD87652EC36FE630135A89811A56FE8D92BCA703C6B0D2865C",
-                "containerSize": 0,
-                "dailyMemoryTimeQuota": 0,
-                "httpsOnly": false,
-                "redundancyMode": "None",
-                "storageAccountRequired": false,
-                "keyVaultReferenceIdentity": "SystemAssigned"
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites",
-            "apiVersion": "2022-03-01",
-            "name": "[parameters('sites_HighwayMonitoringWebAPIdemo_name')]",
-            "location": "South Central US",        
-           
-            "kind": "app",
-            "identity": {
-                "type": "SystemAssigned"
-            },
-            "properties": {
-                "enabled": true,
-                "hostNameSslStates": [
-                    {
-                        "name": "highwaymonitoringwebapidemo.azurewebsites.net",
-                        "sslState": "Disabled",
-                        "hostType": "Standard"
-                    },
-                    {
-                        "name": "highwaymonitoringwebapidemo.scm.azurewebsites.net",
-                        "sslState": "Disabled",
-                        "hostType": "Repository"
-                    }
-                ],
-               
-                "reserved": false,
-                "isXenon": false,
-                "hyperV": false,
-                "vnetRouteAllEnabled": false,
-                "siteConfig": {
-                    "numberOfWorkers": 1,
-                    "acrUseManagedIdentityCreds": false,
-                    "alwaysOn": false,
-                    "http20Enabled": false,
-                    "functionAppScaleLimit": 0,
-                    "minimumElasticInstanceCount": 0
-                },
-                "scmSiteAlsoStopped": false,
-                "clientAffinityEnabled": true,
-                "clientCertEnabled": false,
-                "clientCertMode": "Required",
-                "hostNamesDisabled": false,
-                "customDomainVerificationId": "D97956FD117CDDFD87652EC36FE630135A89811A56FE8D92BCA703C6B0D2865C",
-                "containerSize": 0,
-                "dailyMemoryTimeQuota": 0,
-                "httpsOnly": true,
-                "redundancyMode": "None",
-                "storageAccountRequired": false,
-                "keyVaultReferenceIdentity": "SystemAssigned"
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('sites_HighwayMonitoringdemo_name'), '/ftp')]",
-            "location": "East US",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringdemo_name'))]"
-            ],
-            "properties": {
-                "allow": true
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('sites_HighwayMonitoringWebAPIdemo_name'), '/ftp')]",
-            "location": "South Central US",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPIdemo_name'))]"
-            ],
-           
-            "properties": {
-                "allow": true
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('sites_HighwayMonitoringdemo_name'), '/scm')]",
-            "location": "East US",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringdemo_name'))]"
-            ],
-            "properties": {
-                "allow": true
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('sites_HighwayMonitoringWebAPIdemo_name'), '/scm')]",
-            "location": "South Central US",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPIdemo_name'))]"
-            ],
-          
-            "properties": {
-                "allow": true
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/config",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('sites_HighwayMonitoringdemo_name'), '/web')]",
-            "location": "East US",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringdemo_name'))]"
-            ],
-            "properties": {
-                "numberOfWorkers": 1,
-                "defaultDocuments": [
-                    "Default.htm",
-                    "Default.html",
-                    "Default.asp",
-                    "index.htm",
-                    "index.html",
-                    "iisstart.htm",
-                    "default.aspx",
-                    "index.php",
-                    "hostingstart.html"
-                ],
-                "netFrameworkVersion": "v4.0",
-                "phpVersion": "5.6",
-                "nodeVersion": "~16",
-                "requestTracingEnabled": false,
-                "remoteDebuggingEnabled": false,
-                "remoteDebuggingVersion": "VS2019",
-                "httpLoggingEnabled": false,
-                "acrUseManagedIdentityCreds": false,
-                "logsDirectorySizeLimit": 35,
-                "detailedErrorLoggingEnabled": false,
-                "publishingUsername": "$HighwayMonitoringdemo",
-                "scmType": "None",
-                "use32BitWorkerProcess": true,
-                "webSocketsEnabled": false,
-                "alwaysOn": true,
-                "managedPipelineMode": "Integrated",
-                "virtualApplications": [
-                    {
-                        "virtualPath": "/",
-                        "physicalPath": "site\\wwwroot",
-                        "preloadEnabled": true
-                    }
-                ],
-                "loadBalancing": "LeastRequests",
-                "experiments": {
-                    "rampUpRules": []
-                },
-                "autoHealEnabled": false,
-                "vnetRouteAllEnabled": false,
-                "vnetPrivatePortsCount": 0,
-                "localMySqlEnabled": false,
-                "ipSecurityRestrictions": [
-                    {
-                        "ipAddress": "Any",
-                        "action": "Allow",
-                        "priority": 1,
-                        "name": "Allow all",
-                        "description": "Allow all access"
-                    }
-                ],
-                "scmIpSecurityRestrictions": [
-                    {
-                        "ipAddress": "Any",
-                        "action": "Allow",
-                        "priority": 1,
-                        "name": "Allow all",
-                        "description": "Allow all access"
-                    }
-                ],
-                "scmIpSecurityRestrictionsUseMain": false,
-                "http20Enabled": false,
-                "minTlsVersion": "1.2",
-                "scmMinTlsVersion": "1.2",
-                "ftpsState": "AllAllowed",
-                "preWarmedInstanceCount": 0,
-                "functionAppScaleLimit": 0,
-                "functionsRuntimeScaleMonitoringEnabled": false,
-                "minimumElasticInstanceCount": 0,
-                "azureStorageAccounts": {}
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/config",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('sites_HighwayMonitoringWebAPIdemo_name'), '/web')]",
-            "location": "South Central US",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPIdemo_name'))]"
-            ],
-           
-            "properties": {
-                "numberOfWorkers": 1,
-                "defaultDocuments": [
-                    "Default.htm",
-                    "Default.html",
-                    "Default.asp",
-                    "index.htm",
-                    "index.html",
-                    "iisstart.htm",
-                    "default.aspx",
-                    "index.php",
-                    "hostingstart.html"
-                ],
-                "netFrameworkVersion": "v5.0",
-                "phpVersion": "5.6",
-                "requestTracingEnabled": false,
-                "remoteDebuggingEnabled": false,
-                "remoteDebuggingVersion": "VS2019",
-                "httpLoggingEnabled": false,
-                "acrUseManagedIdentityCreds": false,
-                "logsDirectorySizeLimit": 35,
-                "detailedErrorLoggingEnabled": false,
-                "publishingUsername": "$HighwayMonitoringWebAPIdemo",
-                "scmType": "None",
-                "use32BitWorkerProcess": true,
-                "webSocketsEnabled": false,
-                "alwaysOn": false,
-                "managedPipelineMode": "Integrated",
-                "virtualApplications": [
-                    {
-                        "virtualPath": "/",
-                        "physicalPath": "site\\wwwroot",
-                        "preloadEnabled": false
-                    }
-                ],
-                "loadBalancing": "LeastRequests",
-                "experiments": {
-                    "rampUpRules": []
-                },
-                "autoHealEnabled": false,
-                "vnetRouteAllEnabled": false,
-                "vnetPrivatePortsCount": 0,
-                "localMySqlEnabled": false,
-                "managedServiceIdentityId": 22775,
-                "ipSecurityRestrictions": [
-                    {
-                        "ipAddress": "Any",
-                        "action": "Allow",
-                        "priority": 1,
-                        "name": "Allow all",
-                        "description": "Allow all access"
-                    }
-                ],
-                "scmIpSecurityRestrictions": [
-                    {
-                        "ipAddress": "Any",
-                        "action": "Allow",
-                        "priority": 1,
-                        "name": "Allow all",
-                        "description": "Allow all access"
-                    }
-                ],
-                "scmIpSecurityRestrictionsUseMain": false,
-                "http20Enabled": false,
-                "minTlsVersion": "1.2",
-                "scmMinTlsVersion": "1.2",
-                "ftpsState": "AllAllowed",
-                "preWarmedInstanceCount": 0,
-                "functionAppScaleLimit": 0,
-                "functionsRuntimeScaleMonitoringEnabled": false,
-                "minimumElasticInstanceCount": 0,
-                "azureStorageAccounts": {}
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/deployments",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('sites_HighwayMonitoringdemo_name'), '/47f8635108f84b4db080d9c17270dd0f')]",
-            "location": "East US",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringdemo_name'))]"
-            ],
-            "properties": {
-                "status": 4,
-                "author_email": "N/A",
-                "author": "VS Code",
-                "deployer": "ZipDeploy",
-                "message": "Created via a push deployment",
-                "start_time": "2022-06-23T05:37:32.7312492Z",
-                "end_time": "2022-06-23T05:37:37.4151987Z",
-                "active": true
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/hostNameBindings",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('sites_HighwayMonitoringdemo_name'), '/', parameters('sites_HighwayMonitoringdemo_name'), '.azurewebsites.net')]",
-            "location": "East US",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringdemo_name'))]"
-            ],
-            "properties": {
-                "siteName": "HighwayMonitoringdemo",
-                "hostNameType": "Verified"
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/hostNameBindings",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('sites_HighwayMonitoringWebAPIdemo_name'), '/', parameters('sites_HighwayMonitoringWebAPIdemo_name'), '.azurewebsites.net')]",
-            "location": "South Central US",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPIdemo_name'))]"
-            ],
-            "properties": {
-                "siteName": "HighwayMonitoringWebAPIdemo",
-                "hostNameType": "Verified"
-            }
-        },
-        {
-            "type": "Microsoft.Web/sites/siteextensions",
-            "apiVersion": "2022-03-01",
-            "name": "[concat(parameters('sites_HighwayMonitoringWebAPIdemo_name'), '/Microsoft.AspNetCore.AzureAppServices.SiteExtension')]",
-            "location": "South Central US",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPIdemo_name'))]"
-            ]
-        },
-       
-        {
-            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
-            "apiVersion": "2022-02-15-preview",
-            "name": "[concat(parameters('databaseAccounts_mspocdbdemo_name'), '/HighwayMonitoringSystem2/VehicleAccidentLive')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdbdemo_name'), 'HighwayMonitoringSystem2')]",
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdbdemo_name'))]"
-            ],
-            "properties": {
-                "resource": {
-                    "id": "VehicleAccidentLive",
-                    "indexingPolicy": {
-                        "indexingMode": "consistent",
-                        "automatic": true,
-                        "includedPaths": [
-                            {
-                                "path": "/*"
-                            }
-                        ],
-                        "excludedPaths": [
-                            {
-                                "path": "/\"_etag\"/?"
-                            }
-                        ]
-                    },
-                    "partitionKey": {
-                        "paths": [
-                            "/id"
-                        ],
-                        "kind": "Hash"
-                    },
-                    "uniqueKeyPolicy": {
-                        "uniqueKeys": []
-                    },
-                    "conflictResolutionPolicy": {
-                        "mode": "LastWriterWins",
-                        "conflictResolutionPath": "/_ts"
-                    }
-                }
-            }
-        },
-        {
-            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
-            "apiVersion": "2022-02-15-preview",
-            "name": "[concat(parameters('databaseAccounts_mspocdbdemo_name'), '/HighwayMonitoringSystem2/VehicleMonitering')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdbdemo_name'), 'HighwayMonitoringSystem2')]",
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdbdemo_name'))]"
-            ],
-            "properties": {
-                "resource": {
-                    "id": "VehicleMonitering",
-                    "indexingPolicy": {
-                        "indexingMode": "consistent",
-                        "automatic": true,
-                        "includedPaths": [
-                            {
-                                "path": "/*"
-                            }
-                        ],
-                        "excludedPaths": [
-                            {
-                                "path": "/\"_etag\"/?"
-                            }
-                        ]
-                    },
-                    "partitionKey": {
-                        "paths": [
-                            "/id"
-                        ],
-                        "kind": "Hash"
-                    },
-                    "uniqueKeyPolicy": {
-                        "uniqueKeys": []
-                    },
-                    "conflictResolutionPolicy": {
-                        "mode": "LastWriterWins",
-                        "conflictResolutionPath": "/_ts"
-                    }
-                }
-            }
-        },
-        {
-            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
-            "apiVersion": "2022-02-15-preview",
-            "name": "[concat(parameters('databaseAccounts_mspocdbdemo_name'), '/HighwayMonitoringSystem2/VehicleTrending')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdbdemo_name'), 'HighwayMonitoringSystem2')]",
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdbdemo_name'))]"
-            ],
-            "properties": {
-                "resource": {
-                    "id": "VehicleTrending",
-                    "indexingPolicy": {
-                        "indexingMode": "consistent",
-                        "automatic": true,
-                        "includedPaths": [
-                            {
-                                "path": "/*"
-                            }
-                        ],
-                        "excludedPaths": [
-                            {
-                                "path": "/\"_etag\"/?"
-                            }
-                        ]
-                    },
-                    "partitionKey": {
-                        "paths": [
-                            "/id"
-                        ],
-                        "kind": "Hash"
-                    },
-                    "uniqueKeyPolicy": {
-                        "uniqueKeys": []
-                    },
-                    "conflictResolutionPolicy": {
-                        "mode": "LastWriterWins",
-                        "conflictResolutionPath": "/_ts"
-                    }
-                }
-            }
-        },
-        {
-            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
-            "apiVersion": "2022-02-15-preview",
-            "name": "[concat(parameters('databaseAccounts_mspocdbdemo_name'), '/HighwayMonitoringSystem2/VehicleTrendingLive')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdbdemo_name'), 'HighwayMonitoringSystem2')]",
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdbdemo_name'))]"
-            ],
-            "properties": {
-                "resource": {
-                    "id": "VehicleTrendingLive",
-                    "indexingPolicy": {
-                        "indexingMode": "consistent",
-                        "automatic": true,
-                        "includedPaths": [
-                            {
-                                "path": "/*"
-                            }
-                        ],
-                        "excludedPaths": [
-                            {
-                                "path": "/\"_etag\"/?"
-                            }
-                        ]
-                    },
-                    "partitionKey": {
-                        "paths": [
-                            "/id"
-                        ],
-                        "kind": "Hash"
-                    },
-                    "uniqueKeyPolicy": {
-                        "uniqueKeys": []
-                    },
-                    "conflictResolutionPolicy": {
-                        "mode": "LastWriterWins",
-                        "conflictResolutionPath": "/_ts"
-                    }
-                }
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default/asset-02144256-1ac7-4f72-a2ce-d476a09d30be')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblobdemo_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "immutableStorageWithVersioning": {
-                    "enabled": false
-                },
-                "defaultEncryptionScope": "$account-encryption-key",
-                "denyEncryptionScopeOverride": false,
-                "publicAccess": "None"
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default/asset-123b7d3c-c453-4186-9b4b-47f0f2b8f209')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblobdemo_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "immutableStorageWithVersioning": {
-                    "enabled": false
-                },
-                "defaultEncryptionScope": "$account-encryption-key",
-                "denyEncryptionScopeOverride": false,
-                "publicAccess": "None"
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default/asset-355e9385-b1ae-4e63-bd0b-42220aed949a')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblobdemo_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "immutableStorageWithVersioning": {
-                    "enabled": false
-                },
-                "defaultEncryptionScope": "$account-encryption-key",
-                "denyEncryptionScopeOverride": false,
-                "publicAccess": "None"
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default/asset-390e3dd3-8a67-471d-8acf-d9ffb658c76e')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblobdemo_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "immutableStorageWithVersioning": {
-                    "enabled": false
-                },
-                "defaultEncryptionScope": "$account-encryption-key",
-                "denyEncryptionScopeOverride": false,
-                "publicAccess": "None"
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default/asset-582fc3ff-9aaa-4542-baac-3998c6231981')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblobdemo_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "immutableStorageWithVersioning": {
-                    "enabled": false
-                },
-                "defaultEncryptionScope": "$account-encryption-key",
-                "denyEncryptionScopeOverride": false,
-                "publicAccess": "None"
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default/asset-6b30b135-bc7f-4b47-aadf-193436ea42ca')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblobdemo_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "immutableStorageWithVersioning": {
-                    "enabled": false
-                },
-                "defaultEncryptionScope": "$account-encryption-key",
-                "denyEncryptionScopeOverride": false,
-                "publicAccess": "None"
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default/asset-81634bd7-94a9-4e97-a28e-bf63295d4477')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblobdemo_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "immutableStorageWithVersioning": {
-                    "enabled": false
-                },
-                "defaultEncryptionScope": "$account-encryption-key",
-                "denyEncryptionScopeOverride": false,
-                "publicAccess": "None"
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default/asset-9cafee03-d39c-434f-a970-2956f3dd29b2')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblobdemo_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "immutableStorageWithVersioning": {
-                    "enabled": false
-                },
-                "defaultEncryptionScope": "$account-encryption-key",
-                "denyEncryptionScopeOverride": false,
-                "publicAccess": "None"
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default/asset-d781e176-bd34-4a03-9a7b-04620e428590')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblobdemo_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "immutableStorageWithVersioning": {
-                    "enabled": false
-                },
-                "defaultEncryptionScope": "$account-encryption-key",
-                "denyEncryptionScopeOverride": false,
-                "publicAccess": "None"
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default/asset-ee302d49-3707-48dd-81d6-8f7d4eee5bde')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblobdemo_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "immutableStorageWithVersioning": {
-                    "enabled": false
-                },
-                "defaultEncryptionScope": "$account-encryption-key",
-                "denyEncryptionScopeOverride": false,
-                "publicAccess": "None"
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default/asset-fb84ae74-e0d0-4814-b409-173414869bcd')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblobdemo_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "immutableStorageWithVersioning": {
-                    "enabled": false
-                },
-                "defaultEncryptionScope": "$account-encryption-key",
-                "denyEncryptionScopeOverride": false,
-                "publicAccess": "None"
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default/microsofttraficmgmt')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblobdemo_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "immutableStorageWithVersioning": {
-                    "enabled": false
-                },
-                "defaultEncryptionScope": "$account-encryption-key",
-                "denyEncryptionScopeOverride": false,
-                "publicAccess": "None"
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default/processvideo')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblobdemo_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "immutableStorageWithVersioning": {
-                    "enabled": false
-                },
-                "defaultEncryptionScope": "$account-encryption-key",
-                "denyEncryptionScopeOverride": false,
-                "publicAccess": "None"
-            }
-        },
-        {
-            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
-            "apiVersion": "2021-09-01",
-            "name": "[concat(parameters('storageAccounts_msstorageblobdemo_name'), '/default/unprocessvideo')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblobdemo_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblobdemo_name'))]"
-            ],
-            "properties": {
-                "immutableStorageWithVersioning": {
-                    "enabled": false
-                },
-                "defaultEncryptionScope": "$account-encryption-key",
-                "denyEncryptionScopeOverride": false,
-                "publicAccess": "None"
-            }
-        },
-        {
-            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/throughputSettings",
-            "apiVersion": "2022-02-15-preview",
-            "name": "[concat(parameters('databaseAccounts_mspocdbdemo_name'), '/HighwayMonitoringSystem2/VehicleAccidentLive/default')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers', parameters('databaseAccounts_mspocdbdemo_name'), 'HighwayMonitoringSystem2', 'VehicleAccidentLive')]",
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdbdemo_name'), 'HighwayMonitoringSystem2')]",
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdbdemo_name'))]"
-            ],
-            "properties": {
-                "resource": {
-                    "throughput": 400
-                }
-            }
-        },
-        {
-            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/throughputSettings",
-            "apiVersion": "2022-02-15-preview",
-            "name": "[concat(parameters('databaseAccounts_mspocdbdemo_name'), '/HighwayMonitoringSystem2/VehicleMonitering/default')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers', parameters('databaseAccounts_mspocdbdemo_name'), 'HighwayMonitoringSystem2', 'VehicleMonitering')]",
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdbdemo_name'), 'HighwayMonitoringSystem2')]",
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdbdemo_name'))]"
-            ],
-            "properties": {
-                "resource": {
-                    "throughput": 400
-                }
-            }
-        },
-        {
-            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/throughputSettings",
-            "apiVersion": "2022-02-15-preview",
-            "name": "[concat(parameters('databaseAccounts_mspocdbdemo_name'), '/HighwayMonitoringSystem2/VehicleTrending/default')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers', parameters('databaseAccounts_mspocdbdemo_name'), 'HighwayMonitoringSystem2', 'VehicleTrending')]",
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdbdemo_name'), 'HighwayMonitoringSystem2')]",
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdbdemo_name'))]"
-            ],
-            "properties": {
-                "resource": {
-                    "throughput": 400
-                }
-            }
-        },
-        {
-            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/throughputSettings",
-            "apiVersion": "2022-02-15-preview",
-            "name": "[concat(parameters('databaseAccounts_mspocdbdemo_name'), '/HighwayMonitoringSystem2/VehicleTrendingLive/default')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers', parameters('databaseAccounts_mspocdbdemo_name'), 'HighwayMonitoringSystem2', 'VehicleTrendingLive')]",
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdbdemo_name'), 'HighwayMonitoringSystem2')]",
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdbdemo_name'))]"
-            ],
-            "properties": {
-                "resource": {
-                    "throughput": 400
-                }
-            }
-        }
-    ]
+		"sites_HighwayMonitoringWebAPI_name": {
+			"defaultValue": "HighwayMonitoringWebAPI",
+			"type": "String"
+		},
+		"databaseAccounts_mspocdb_name": {
+			"defaultValue": "mspocdb",
+			"type": "String"
+		},
+		"registries_mspoccr_name": {
+			"defaultValue": "mspoccr",
+			"type": "String"
+		},		
+		"storageAccounts_msstorageblob_name": {
+			"defaultValue": "msstorageblob",
+			"type": "String"
+		},
+		"serverfarms_ASP_MSPOCtrafficmonitoring_945b_name": {
+			"defaultValue": "ASP-MSPOCtrafficmonitoring-945b",
+			"type": "String"
+		},
+		"serverfarms_HighwayMonitoringWebAPI20220620103439Pla_name": {
+			"defaultValue": "HighwayMonitoringWebAPI20220620103439Pla",
+			"type": "String"
+		},
+		
+		"actiongroups_application_insights_smart_detection_externalid": {
+			"defaultValue": "/subscriptions/422cf0b3-8d06-4fc7-8903-2cb72dd00d8f/resourceGroups/audaxlabs/providers/microsoft.insights/actiongroups/application insights smart detection",
+			"type": "String"
+		},
+		"userAssignedIdentities_mspocuseridentityms_externalid": {
+			"defaultValue": "/subscriptions/422cf0b3-8d06-4fc7-8903-2cb72dd00d8f/resourceGroups/MSPOCtrafficmonitoring/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mspocuseridentityms",
+			"type": "String"
+		}
+	},
+	"variables": {},
+	"resources": [
+		{
+			"type": "Microsoft.ContainerRegistry/registries",
+			"apiVersion": "2022-02-01-preview",
+			"name": "[parameters('registries_mspoccr_name')]",
+			"location": "eastus",
+			"sku": {
+				"name": "Standard",
+				"tier": "Standard"
+			},
+			"properties": {
+				"adminUserEnabled": true,
+				"policies": {
+					"quarantinePolicy": {
+						"status": "disabled"
+					},
+					"trustPolicy": {
+						"type": "Notary",
+						"status": "disabled"
+					},
+					"retentionPolicy": {
+						"days": 7,
+						"status": "disabled"
+					},
+					"exportPolicy": {
+						"status": "enabled"
+					},
+					"azureADAuthenticationAsArmPolicy": {
+						"status": "enabled"
+					},
+					"softDeletePolicy": {
+						"retentionDays": 7,
+						"status": "disabled"
+					}
+				},
+				"encryption": {
+					"status": "disabled"
+				},
+				"dataEndpointEnabled": false,
+				"publicNetworkAccess": "Enabled",
+				"networkRuleBypassOptions": "AzureServices",
+				"zoneRedundancy": "Disabled",
+				"anonymousPullEnabled": false
+			}
+		},
+		{
+			"type": "Microsoft.DocumentDB/databaseAccounts",
+			"apiVersion": "2022-02-15-preview",
+			"name": "[parameters('databaseAccounts_mspocdb_name')]",
+			"location": "West US",
+			"tags": {
+				"defaultExperience": "Core (SQL)",
+				"hidden-cosmos-mmspecial": ""
+			},
+			"kind": "GlobalDocumentDB",
+			"identity": {
+				"type": "None"
+			},
+			"properties": {
+				"publicNetworkAccess": "Enabled",
+				"enableAutomaticFailover": false,
+				"enableMultipleWriteLocations": false,
+				"isVirtualNetworkFilterEnabled": false,
+				"virtualNetworkRules": [],
+				"disableKeyBasedMetadataWriteAccess": false,
+				"enableFreeTier": false,
+				"enableAnalyticalStorage": true,
+				"analyticalStorageConfiguration": {
+					"schemaType": "WellDefined"
+				},
+				"databaseAccountOfferType": "Standard",
+				"defaultIdentity": "FirstPartyIdentity",
+				"networkAclBypass": "None",
+				"disableLocalAuth": false,
+				"consistencyPolicy": {
+					"defaultConsistencyLevel": "Session",
+					"maxIntervalInSeconds": 5,
+					"maxStalenessPrefix": 100
+				},
+				"locations": [{
+					"locationName": "West US",
+					"provisioningState": "Succeeded",
+					"failoverPriority": 0,
+					"isZoneRedundant": false
+				}],
+				"cors": [],
+				"capabilities": [],
+				"ipRules": [],
+				"backupPolicy": {
+					"type": "Periodic",
+					"periodicModeProperties": {
+						"backupIntervalInMinutes": 240,
+						"backupRetentionIntervalInHours": 8,
+						"backupStorageRedundancy": "Local"
+					}
+				},
+				"networkAclBypassResourceIds": [],
+				"diagnosticLogSettings": {
+					"enableFullTextQuery": "None"
+				}
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts",
+			"apiVersion": "2021-09-01",
+			"name": "[parameters('storageAccounts_msstorageblob_name')]",
+			"location": "eastus",
+			"sku": {
+				"name": "Standard_LRS",
+				"tier": "Standard"
+			},
+			"kind": "StorageV2",
+			"properties": {
+				"defaultToOAuthAuthentication": false,
+				"publicNetworkAccess": "Enabled",
+				"allowCrossTenantReplication": true,
+				"minimumTlsVersion": "TLS1_2",
+				"allowBlobPublicAccess": true,
+				"allowSharedKeyAccess": true,
+				"largeFileSharesState": "Enabled",
+				"networkAcls": {
+					"bypass": "AzureServices",
+					"virtualNetworkRules": [],
+					"ipRules": [],
+					"defaultAction": "Allow"
+				},
+				"supportsHttpsTrafficOnly": true,
+				"encryption": {
+					"requireInfrastructureEncryption": false,
+					"services": {
+						"file": {
+							"keyType": "Account",
+							"enabled": true
+						},
+						"table": {
+							"keyType": "Account",
+							"enabled": true
+						},
+						"queue": {
+							"keyType": "Account",
+							"enabled": true
+						},
+						"blob": {
+							"keyType": "Account",
+							"enabled": true
+						}
+					},
+					"keySource": "Microsoft.Storage"
+				},
+				"accessTier": "Cool"
+			}
+		},
+		{
+			"type": "Microsoft.Web/serverfarms",
+			"apiVersion": "2022-03-01",
+			"name": "[parameters('serverfarms_ASP_MSPOCtrafficmonitoring_945b_name')]",
+			"location": "East US",
+			"sku": {
+				"name": "S1",
+				"tier": "Standard",
+				"size": "S1",
+				"family": "S",
+				"capacity": 1
+			},
+			"kind": "app",
+			"properties": {
+				"perSiteScaling": false,
+				"elasticScaleEnabled": false,
+				"maximumElasticWorkerCount": 1,
+				"isSpot": false,
+				"reserved": false,
+				"isXenon": false,
+				"hyperV": false,
+				"targetWorkerCount": 0,
+				"targetWorkerSizeId": 0,
+				"zoneRedundant": false
+			}
+		},
+		{
+			"type": "Microsoft.Web/serverfarms",
+			"apiVersion": "2022-03-01",
+			"name": "[parameters('serverfarms_HighwayMonitoringWebAPI20220620103439Pla_name')]",
+			"location": "South Central US",
+			"sku": {
+				"name": "S1",
+				"tier": "Standard",
+				"size": "S1",
+				"family": "S",
+				"capacity": 1
+			},
+			"kind": "app",
+			"properties": {
+				"perSiteScaling": false,
+				"elasticScaleEnabled": false,
+				"maximumElasticWorkerCount": 1,
+				"isSpot": false,
+				"reserved": false,
+				"isXenon": false,
+				"hyperV": false,
+				"targetWorkerCount": 0,
+				"targetWorkerSizeId": 0,
+				"zoneRedundant": false
+			}
+		},
+		{
+			"type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases",
+			"apiVersion": "2022-02-15-preview",
+			"name": "[concat(parameters('databaseAccounts_mspocdb_name'), '/HighwayMonitoringSystem2')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdb_name'))]"
+			],
+			"properties": {
+				"resource": {
+					"id": "HighwayMonitoringSystem2"
+				}
+			}
+		},
+		{
+			"type": "Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions",
+			"apiVersion": "2022-02-15-preview",
+			"name": "[concat(parameters('databaseAccounts_mspocdb_name'), '/00000000-0000-0000-0000-000000000001')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdb_name'))]"
+			],
+			"properties": {
+				"roleName": "Cosmos DB Built-in Data Reader",
+				"type": "BuiltInRole",
+				"assignableScopes": [
+					"[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdb_name'))]"
+				],
+				"permissions": [{
+					"dataActions": [
+						"Microsoft.DocumentDB/databaseAccounts/readMetadata",
+						"Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/executeQuery",
+						"Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/readChangeFeed",
+						"Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/items/read"
+					],
+					"notDataActions": []
+				}]
+			}
+		},
+		{
+			"type": "Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions",
+			"apiVersion": "2022-02-15-preview",
+			"name": "[concat(parameters('databaseAccounts_mspocdb_name'), '/00000000-0000-0000-0000-000000000002')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdb_name'))]"
+			],
+			"properties": {
+				"roleName": "Cosmos DB Built-in Data Contributor",
+				"type": "BuiltInRole",
+				"assignableScopes": [
+					"[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdb_name'))]"
+				],
+				"permissions": [{
+					"dataActions": [
+						"Microsoft.DocumentDB/databaseAccounts/readMetadata",
+						"Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/*",
+						"Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/items/*"
+					],
+					"notDataActions": []
+				}]
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices",
+			"apiVersion": "2021-11-01",
+			"name": "[parameters('mediaservices_mspocmediaservice_name')]",
+			"location": "East US",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"identity": {
+				"type": "None"
+			},
+			"properties": {
+				"storageAccounts": [{
+					"id": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]",
+					"type": "Primary",
+					"identity": {
+						"userAssignedIdentity": "[parameters('userAssignedIdentities_mspocuseridentityms_externalid')]",
+						"useSystemAssignedIdentity": false
+					}
+				}],
+				"storageAuthentication": "ManagedIdentity",
+				"encryption": {
+					"type": "SystemKey"
+				},
+				"keyDelivery": {
+					"accessControl": {
+						"defaultAction": "Allow",
+						"ipAllowList": []
+					}
+				},
+				"publicNetworkAccess": "Enabled"
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingendpoints",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/default')]",
+			"location": "East US",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"sku": {
+				"name": "Standard",
+				"capacity": 0
+			},
+			"properties": {
+				"scaleUnits": 0,
+				"cdnEnabled": false,
+				"customHostNames": []
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingLocators",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/locator-20220704-141733')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"assetName": "32745-mp4-20220704-132103_Output_20220704-140813",
+				"endTime": "2122-07-04T08:47:33.843Z",
+				"streamingLocatorId": "3b1f6b2e-a36f-452f-9fb3-d7c4336a2d1a",
+				"streamingPolicyName": "Predefined_ClearStreamingOnly",
+				"contentKeys": [],
+				"filters": []
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingLocators",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/locator-20220719-112657')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"assetName": "5-mp4-20220719-111816_Output_20220719-112601",
+				"endTime": "2122-12-24T05:56:57.407Z",
+				"streamingLocatorId": "6ac8b695-d796-4710-8b64-bab179213ed2",
+				"streamingPolicyName": "Predefined_ClearStreamingOnly",
+				"contentKeys": [],
+				"filters": []
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingLocators",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/locator-20220721-110517')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"assetName": "3042-mp4-20220721-105733_Output_20220721-105829",
+				"endTime": "2122-07-21T05:35:17.34Z",
+				"streamingLocatorId": "b0111185-2ab5-49d1-8b3e-f84a36a8756a",
+				"streamingPolicyName": "Predefined_ClearStreamingOnly",
+				"contentKeys": [],
+				"filters": []
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingLocators",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/locator-20220727-142314')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"assetName": "23456-mp4-20220727-142117_Output_20220727-142207",
+				"endTime": "2123-07-02T08:53:14.663Z",
+				"streamingLocatorId": "4db757c3-e1c9-4ea2-853f-ea39168eef7c",
+				"streamingPolicyName": "Predefined_ClearStreamingOnly",
+				"contentKeys": [],
+				"filters": []
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingLocators",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/locator-20220801-124210')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"assetName": "Accident-mp4-20220801-124054",
+				"endTime": "2123-02-05T07:12:10.297Z",
+				"streamingLocatorId": "b8be6e21-f977-4c88-b97d-2dc4bfcadb8d",
+				"streamingPolicyName": "Predefined_ClearStreamingOnly",
+				"contentKeys": [],
+				"filters": []
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingLocators",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/locator-20220801-124619')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"assetName": "Accident-mp4-20220801-124054_Output_20220801-124254",
+				"endTime": "2123-01-28T07:16:19.59Z",
+				"streamingLocatorId": "9f83e5a5-eda8-4493-b1dc-bddc788b0393",
+				"streamingPolicyName": "Predefined_ClearStreamingOnly",
+				"contentKeys": [],
+				"filters": []
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingLocators",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/locator-20220802-181614')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"assetName": "Accident2-mp4-20220802-181425",
+				"endTime": "2123-06-18T12:46:14.73Z",
+				"streamingLocatorId": "08a9cee2-04de-40f4-8be4-2178c8b6c211",
+				"streamingPolicyName": "Predefined_ClearStreamingOnly",
+				"contentKeys": [],
+				"filters": []
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingLocators",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/locator-20220802-181814')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"assetName": "Accident2-mp4-20220802-181425_Output_20220802-181536",
+				"endTime": "2122-12-18T12:48:14.33Z",
+				"streamingLocatorId": "1e9ccde2-433d-4195-8e5f-8a1f78d4e7a7",
+				"streamingPolicyName": "Predefined_ClearStreamingOnly",
+				"contentKeys": [],
+				"filters": []
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingPolicies",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Predefined_ClearKey')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"envelopeEncryption": {
+					"enabledProtocols": {
+						"download": false,
+						"dash": true,
+						"hls": true,
+						"smoothStreaming": true
+					},
+					"clearTracks": [],
+					"contentKeys": {
+						"defaultKey": {
+							"label": "clearKeyDefault"
+						},
+						"keyToTrackMappings": []
+					}
+				}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingPolicies",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Predefined_ClearStreamingOnly')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"noEncryption": {
+					"enabledProtocols": {
+						"download": false,
+						"dash": true,
+						"hls": true,
+						"smoothStreaming": true
+					}
+				}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingPolicies",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Predefined_DownloadAndClearStreaming')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"noEncryption": {
+					"enabledProtocols": {
+						"download": true,
+						"dash": true,
+						"hls": true,
+						"smoothStreaming": true
+					}
+				}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingPolicies",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Predefined_DownloadOnly')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"noEncryption": {
+					"enabledProtocols": {
+						"download": true,
+						"dash": false,
+						"hls": false,
+						"smoothStreaming": false
+					}
+				}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingPolicies",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Predefined_MultiDrmCencStreaming')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"commonEncryptionCenc": {
+					"enabledProtocols": {
+						"download": false,
+						"dash": true,
+						"hls": false,
+						"smoothStreaming": true
+					},
+					"clearTracks": [],
+					"contentKeys": {
+						"defaultKey": {
+							"label": "cencKeyDefault"
+						},
+						"keyToTrackMappings": []
+					},
+					"drm": {
+						"playReady": {},
+						"widevine": {}
+					}
+				}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/streamingPolicies",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Predefined_MultiDrmStreaming')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"commonEncryptionCenc": {
+					"enabledProtocols": {
+						"download": false,
+						"dash": true,
+						"hls": false,
+						"smoothStreaming": true
+					},
+					"clearTracks": [],
+					"contentKeys": {
+						"defaultKey": {
+							"label": "cencKeyDefault"
+						},
+						"keyToTrackMappings": []
+					},
+					"drm": {
+						"playReady": {},
+						"widevine": {}
+					}
+				},
+				"commonEncryptionCbcs": {
+					"enabledProtocols": {
+						"download": false,
+						"dash": false,
+						"hls": true,
+						"smoothStreaming": false
+					},
+					"clearTracks": [],
+					"contentKeys": {
+						"defaultKey": {
+							"label": "cbcsKeyDefault"
+						},
+						"keyToTrackMappings": []
+					},
+					"drm": {
+						"fairPlay": {
+							"allowPersistentLicense": false
+						}
+					}
+				}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/transforms",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Transformname')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"outputs": [{
+					"onError": "StopProcessingJob",
+					"relativePriority": "Normal",
+					"preset": {
+						"@odata.type": "#Microsoft.Media.BuiltInStandardEncoderPreset",
+						"presetName": "H264SingleBitrate720p"
+					}
+				}]
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"sku": {
+				"name": "Standard_LRS",
+				"tier": "Standard"
+			},
+			"properties": {
+				"changeFeed": {
+					"enabled": false
+				},
+				"restorePolicy": {
+					"enabled": false
+				},
+				"containerDeleteRetentionPolicy": {
+					"enabled": true,
+					"days": 7
+				},
+				"cors": {
+					"corsRules": []
+				},
+				"deleteRetentionPolicy": {
+					"allowPermanentDelete": false,
+					"enabled": true,
+					"days": 7
+				},
+				"isVersioningEnabled": false
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/fileServices",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"sku": {
+				"name": "Standard_LRS",
+				"tier": "Standard"
+			},
+			"properties": {
+				"protocolSettings": {
+					"smb": {}
+				},
+				"cors": {
+					"corsRules": []
+				},
+				"shareDeleteRetentionPolicy": {
+					"enabled": true,
+					"days": 7
+				}
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/queueServices",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"cors": {
+					"corsRules": []
+				}
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/tableServices",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"cors": {
+					"corsRules": []
+				}
+			}
+		},
+		{
+			"type": "Microsoft.Web/sites",
+			"apiVersion": "2022-03-01",
+			"name": "[parameters('sites_HighwayMonitoring_name')]",
+			"location": "East US",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_MSPOCtrafficmonitoring_945b_name'))]"
+			],
+			"kind": "app",
+			"properties": {
+				"enabled": true,
+				"hostNameSslStates": [{
+						"name": "highwaymonitoring.azurewebsites.net",
+						"sslState": "Disabled",
+						"hostType": "Standard"
+					},
+					{
+						"name": "highwaymonitoring.scm.azurewebsites.net",
+						"sslState": "Disabled",
+						"hostType": "Repository"
+					}
+				],
+				"serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_MSPOCtrafficmonitoring_945b_name'))]",
+				"reserved": false,
+				"isXenon": false,
+				"hyperV": false,
+				"vnetRouteAllEnabled": false,
+				"siteConfig": {
+					"numberOfWorkers": 1,
+					"acrUseManagedIdentityCreds": false,
+					"alwaysOn": true,
+					"http20Enabled": false,
+					"functionAppScaleLimit": 0,
+					"minimumElasticInstanceCount": 0
+				},
+				"scmSiteAlsoStopped": false,
+				"clientAffinityEnabled": true,
+				"clientCertEnabled": false,
+				"clientCertMode": "Required",
+				"hostNamesDisabled": false,
+				"customDomainVerificationId": "D97956FD117CDDFD87652EC36FE630135A89811A56FE8D92BCA703C6B0D2865C",
+				"containerSize": 0,
+				"dailyMemoryTimeQuota": 0,
+				"httpsOnly": false,
+				"redundancyMode": "None",
+				"storageAccountRequired": false,
+				"keyVaultReferenceIdentity": "SystemAssigned"
+			}
+		},
+		{
+			"type": "Microsoft.Web/sites",
+			"apiVersion": "2022-03-01",
+			"name": "[parameters('sites_HighwayMonitoringWebAPI_name')]",
+			"location": "South Central US",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_HighwayMonitoringWebAPI20220620103439Pla_name'))]"
+			],
+			"tags": {
+				"hidden-related:/subscriptions/422cf0b3-8d06-4fc7-8903-2cb72dd00d8f/resourceGroups/MSPOCtrafficmonitoring/providers/Microsoft.Web/serverFarms/HighwayMonitoringWebAPI20220620103439Pla": "empty"
+			},
+			"kind": "app",
+			"identity": {
+				"type": "SystemAssigned"
+			},
+			"properties": {
+				"enabled": true,
+				"hostNameSslStates": [{
+						"name": "highwaymonitoringwebapi.azurewebsites.net",
+						"sslState": "Disabled",
+						"hostType": "Standard"
+					},
+					{
+						"name": "highwaymonitoringwebapi.scm.azurewebsites.net",
+						"sslState": "Disabled",
+						"hostType": "Repository"
+					}
+				],
+				"serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_HighwayMonitoringWebAPI20220620103439Pla_name'))]",
+				"reserved": false,
+				"isXenon": false,
+				"hyperV": false,
+				"vnetRouteAllEnabled": false,
+				"siteConfig": {
+					"numberOfWorkers": 1,
+					"acrUseManagedIdentityCreds": false,
+					"alwaysOn": false,
+					"http20Enabled": false,
+					"functionAppScaleLimit": 0,
+					"minimumElasticInstanceCount": 0
+				},
+				"scmSiteAlsoStopped": false,
+				"clientAffinityEnabled": true,
+				"clientCertEnabled": false,
+				"clientCertMode": "Required",
+				"hostNamesDisabled": false,
+				"customDomainVerificationId": "D97956FD117CDDFD87652EC36FE630135A89811A56FE8D92BCA703C6B0D2865C",
+				"containerSize": 0,
+				"dailyMemoryTimeQuota": 0,
+				"httpsOnly": true,
+				"redundancyMode": "None",
+				"storageAccountRequired": false,
+				"keyVaultReferenceIdentity": "SystemAssigned"
+			}
+		},
+		{
+			"type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
+			"apiVersion": "2022-03-01",
+			"name": "[concat(parameters('sites_HighwayMonitoring_name'), '/ftp')]",
+			"location": "East US",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoring_name'))]"
+			],
+			"properties": {
+				"allow": true
+			}
+		},
+		{
+			"type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
+			"apiVersion": "2022-03-01",
+			"name": "[concat(parameters('sites_HighwayMonitoringWebAPI_name'), '/ftp')]",
+			"location": "South Central US",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPI_name'))]"
+			],
+			"tags": {
+				"hidden-related:/subscriptions/422cf0b3-8d06-4fc7-8903-2cb72dd00d8f/resourceGroups/MSPOCtrafficmonitoring/providers/Microsoft.Web/serverFarms/HighwayMonitoringWebAPI20220620103439Pla": "empty"
+			},
+			"properties": {
+				"allow": true
+			}
+		},
+		{
+			"type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
+			"apiVersion": "2022-03-01",
+			"name": "[concat(parameters('sites_HighwayMonitoring_name'), '/scm')]",
+			"location": "East US",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoring_name'))]"
+			],
+			"properties": {
+				"allow": true
+			}
+		},
+		{
+			"type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
+			"apiVersion": "2022-03-01",
+			"name": "[concat(parameters('sites_HighwayMonitoringWebAPI_name'), '/scm')]",
+			"location": "South Central US",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPI_name'))]"
+			],
+			"tags": {
+				"hidden-related:/subscriptions/422cf0b3-8d06-4fc7-8903-2cb72dd00d8f/resourceGroups/MSPOCtrafficmonitoring/providers/Microsoft.Web/serverFarms/HighwayMonitoringWebAPI20220620103439Pla": "empty"
+			},
+			"properties": {
+				"allow": true
+			}
+		},
+		{
+			"type": "Microsoft.Web/sites/config",
+			"apiVersion": "2022-03-01",
+			"name": "[concat(parameters('sites_HighwayMonitoring_name'), '/web')]",
+			"location": "East US",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoring_name'))]"
+			],
+			"properties": {
+				"numberOfWorkers": 1,
+				"defaultDocuments": [
+					"Default.htm",
+					"Default.html",
+					"Default.asp",
+					"index.htm",
+					"index.html",
+					"iisstart.htm",
+					"default.aspx",
+					"index.php",
+					"hostingstart.html"
+				],
+				"netFrameworkVersion": "v4.0",
+				"nodeVersion": "~16",
+				"requestTracingEnabled": false,
+				"remoteDebuggingEnabled": false,
+				"httpLoggingEnabled": false,
+				"acrUseManagedIdentityCreds": false,
+				"logsDirectorySizeLimit": 35,
+				"detailedErrorLoggingEnabled": false,
+				"publishingUsername": "$HighwayMonitoring",
+				"scmType": "None",
+				"use32BitWorkerProcess": true,
+				"webSocketsEnabled": false,
+				"alwaysOn": true,
+				"managedPipelineMode": "Integrated",
+				"virtualApplications": [{
+					"virtualPath": "/",
+					"physicalPath": "site\\wwwroot",
+					"preloadEnabled": true
+				}],
+				"loadBalancing": "LeastRequests",
+				"experiments": {
+					"rampUpRules": []
+				},
+				"autoHealEnabled": false,
+				"vnetRouteAllEnabled": false,
+				"vnetPrivatePortsCount": 0,
+				"localMySqlEnabled": false,
+				"ipSecurityRestrictions": [{
+					"ipAddress": "Any",
+					"action": "Allow",
+					"priority": 1,
+					"name": "Allow all",
+					"description": "Allow all access"
+				}],
+				"scmIpSecurityRestrictions": [{
+					"ipAddress": "Any",
+					"action": "Allow",
+					"priority": 1,
+					"name": "Allow all",
+					"description": "Allow all access"
+				}],
+				"scmIpSecurityRestrictionsUseMain": false,
+				"http20Enabled": false,
+				"minTlsVersion": "1.2",
+				"scmMinTlsVersion": "1.2",
+				"ftpsState": "AllAllowed",
+				"preWarmedInstanceCount": 0,
+				"functionAppScaleLimit": 0,
+				"functionsRuntimeScaleMonitoringEnabled": false,
+				"minimumElasticInstanceCount": 0,
+				"azureStorageAccounts": {}
+			}
+		},
+		{
+			"type": "Microsoft.Web/sites/config",
+			"apiVersion": "2022-03-01",
+			"name": "[concat(parameters('sites_HighwayMonitoringWebAPI_name'), '/web')]",
+			"location": "South Central US",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPI_name'))]"
+			],
+			"tags": {
+				"hidden-related:/subscriptions/422cf0b3-8d06-4fc7-8903-2cb72dd00d8f/resourceGroups/MSPOCtrafficmonitoring/providers/Microsoft.Web/serverFarms/HighwayMonitoringWebAPI20220620103439Pla": "empty"
+			},
+			"properties": {
+				"numberOfWorkers": 1,
+				"defaultDocuments": [
+					"Default.htm",
+					"Default.html",
+					"Default.asp",
+					"index.htm",
+					"index.html",
+					"iisstart.htm",
+					"default.aspx",
+					"index.php",
+					"hostingstart.html"
+				],
+				"netFrameworkVersion": "v5.0",
+				"phpVersion": "5.6",
+				"requestTracingEnabled": false,
+				"remoteDebuggingEnabled": false,
+				"remoteDebuggingVersion": "VS2019",
+				"httpLoggingEnabled": false,
+				"acrUseManagedIdentityCreds": false,
+				"logsDirectorySizeLimit": 35,
+				"detailedErrorLoggingEnabled": false,
+				"publishingUsername": "$HighwayMonitoringWebAPI",
+				"scmType": "None",
+				"use32BitWorkerProcess": true,
+				"webSocketsEnabled": false,
+				"alwaysOn": false,
+				"managedPipelineMode": "Integrated",
+				"virtualApplications": [{
+					"virtualPath": "/",
+					"physicalPath": "site\\wwwroot",
+					"preloadEnabled": false
+				}],
+				"loadBalancing": "LeastRequests",
+				"experiments": {
+					"rampUpRules": []
+				},
+				"autoHealEnabled": false,
+				"vnetRouteAllEnabled": false,
+				"vnetPrivatePortsCount": 0,
+				"localMySqlEnabled": false,
+				"managedServiceIdentityId": 29772,
+				"ipSecurityRestrictions": [{
+					"ipAddress": "Any",
+					"action": "Allow",
+					"priority": 1,
+					"name": "Allow all",
+					"description": "Allow all access"
+				}],
+				"scmIpSecurityRestrictions": [{
+					"ipAddress": "Any",
+					"action": "Allow",
+					"priority": 1,
+					"name": "Allow all",
+					"description": "Allow all access"
+				}],
+				"scmIpSecurityRestrictionsUseMain": false,
+				"http20Enabled": false,
+				"minTlsVersion": "1.2",
+				"scmMinTlsVersion": "1.2",
+				"ftpsState": "AllAllowed",
+				"preWarmedInstanceCount": 0,
+				"functionAppScaleLimit": 0,
+				"functionsRuntimeScaleMonitoringEnabled": false,
+				"minimumElasticInstanceCount": 0,
+				"azureStorageAccounts": {}
+			}
+		},
+
+		{
+			"type": "Microsoft.Web/sites/deployments",
+			"apiVersion": "2022-03-01",
+			"name": "[concat(parameters('sites_HighwayMonitoring_name'), '/47f8635108f84b4db080d9c17270dd0f')]",
+			"location": "East US",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoring_name'))]"
+			],
+			"properties": {
+				"status": 4,
+				"author_email": "N/A",
+				"author": "VS Code",
+				"deployer": "ZipDeploy",
+				"message": "Created via a push deployment",
+				"start_time": "2022-06-23T05:37:32.7312492Z",
+				"end_time": "2022-06-23T05:37:37.4151987Z",
+				"active": true
+			}
+
+		},
+		{
+			"type": "Microsoft.Web/sites/hostNameBindings",
+			"apiVersion": "2022-03-01",
+			"name": "[concat(parameters('sites_HighwayMonitoring_name'), '/', parameters('sites_HighwayMonitoring_name'), '.azurewebsites.net')]",
+			"location": "East US",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoring_name'))]"
+			],
+			"properties": {
+				"siteName": "HighwayMonitoring",
+				"hostNameType": "Verified"
+			}
+		},
+		{
+			"type": "Microsoft.Web/sites/hostNameBindings",
+			"apiVersion": "2022-03-01",
+			"name": "[concat(parameters('sites_HighwayMonitoringWebAPI_name'), '/', parameters('sites_HighwayMonitoringWebAPI_name'), '.azurewebsites.net')]",
+			"location": "South Central US",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPI_name'))]"
+			],
+			"properties": {
+				"siteName": "HighwayMonitoringWebAPI",
+				"hostNameType": "Verified"
+			}
+		},
+		{
+			"type": "Microsoft.Web/sites/siteextensions",
+			"apiVersion": "2022-03-01",
+			"name": "[concat(parameters('sites_HighwayMonitoringWebAPI_name'), '/Microsoft.AspNetCore.AzureAppServices.SiteExtension')]",
+			"location": "South Central US",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPI_name'))]"
+			]
+		},
+		{
+			"type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+			"apiVersion": "2022-02-15-preview",
+			"name": "[concat(parameters('databaseAccounts_mspocdb_name'), '/HighwayMonitoringSystem2/VehicleAccidentLive')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdb_name'), 'HighwayMonitoringSystem2')]",
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdb_name'))]"
+			],
+			"properties": {
+				"resource": {
+					"id": "VehicleAccidentLive",
+					"indexingPolicy": {
+						"indexingMode": "consistent",
+						"automatic": true,
+						"includedPaths": [{
+							"path": "/*"
+						}],
+						"excludedPaths": [{
+							"path": "/\"_etag\"/?"
+						}]
+					},
+					"partitionKey": {
+						"paths": [
+							"/id"
+						],
+						"kind": "Hash"
+					},
+					"uniqueKeyPolicy": {
+						"uniqueKeys": []
+					},
+					"conflictResolutionPolicy": {
+						"mode": "LastWriterWins",
+						"conflictResolutionPath": "/_ts"
+					}
+				}
+			}
+		},
+		{
+			"type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+			"apiVersion": "2022-02-15-preview",
+			"name": "[concat(parameters('databaseAccounts_mspocdb_name'), '/HighwayMonitoringSystem2/VehicleMonitering')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdb_name'), 'HighwayMonitoringSystem2')]",
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdb_name'))]"
+			],
+			"properties": {
+				"resource": {
+					"id": "VehicleMonitering",
+					"indexingPolicy": {
+						"indexingMode": "consistent",
+						"automatic": true,
+						"includedPaths": [{
+							"path": "/*"
+						}],
+						"excludedPaths": [{
+							"path": "/\"_etag\"/?"
+						}]
+					},
+					"partitionKey": {
+						"paths": [
+							"/id"
+						],
+						"kind": "Hash"
+					},
+					"conflictResolutionPolicy": {
+						"mode": "LastWriterWins",
+						"conflictResolutionPath": "/_ts"
+					}
+				}
+			}
+		},
+		{
+			"type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+			"apiVersion": "2022-02-15-preview",
+			"name": "[concat(parameters('databaseAccounts_mspocdb_name'), '/HighwayMonitoringSystem2/VehicleTrending')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdb_name'), 'HighwayMonitoringSystem2')]",
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdb_name'))]"
+			],
+			"properties": {
+				"resource": {
+					"id": "VehicleTrending",
+					"indexingPolicy": {
+						"indexingMode": "consistent",
+						"automatic": true,
+						"includedPaths": [{
+							"path": "/*"
+						}],
+						"excludedPaths": [{
+							"path": "/\"_etag\"/?"
+						}]
+					},
+					"partitionKey": {
+						"paths": [
+							"/id"
+						],
+						"kind": "Hash"
+					},
+					"conflictResolutionPolicy": {
+						"mode": "LastWriterWins",
+						"conflictResolutionPath": "/_ts"
+					}
+				}
+			}
+		},
+		{
+			"type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+			"apiVersion": "2022-02-15-preview",
+			"name": "[concat(parameters('databaseAccounts_mspocdb_name'), '/HighwayMonitoringSystem2/VehicleTrendingLive')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdb_name'), 'HighwayMonitoringSystem2')]",
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdb_name'))]"
+			],
+			"properties": {
+				"resource": {
+					"id": "VehicleTrendingLive",
+					"indexingPolicy": {
+						"indexingMode": "consistent",
+						"automatic": true,
+						"includedPaths": [{
+							"path": "/*"
+						}],
+						"excludedPaths": [{
+							"path": "/\"_etag\"/?"
+						}]
+					},
+					"partitionKey": {
+						"paths": [
+							"/id"
+						],
+						"kind": "Hash"
+					},
+					"uniqueKeyPolicy": {
+						"uniqueKeys": []
+					},
+					"conflictResolutionPolicy": {
+						"mode": "LastWriterWins",
+						"conflictResolutionPath": "/_ts"
+					}
+				}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/transforms/jobs",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Transformname/mediajob')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices/transforms', parameters('mediaservices_mspocmediaservice_name'), 'Transformname')]",
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"input": {},
+				"outputs": [{
+					"@odata.type": "#Microsoft.Media.JobOutputAsset",
+					"label": "BuiltInStandardEncoderPreset_0",
+					"assetName": "32745-mp4-20220704-132103_Output_20220704-140813"
+				}],
+				"priority": "Normal",
+				"correlationData": {}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/transforms/jobs",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Transformname/Transformname_Job_20220719-112607')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices/transforms', parameters('mediaservices_mspocmediaservice_name'), 'Transformname')]",
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"input": {},
+				"outputs": [{
+					"@odata.type": "#Microsoft.Media.JobOutputAsset",
+					"label": "BuiltInStandardEncoderPreset_0",
+					"assetName": "5-mp4-20220719-111816_Output_20220719-112601"
+				}],
+				"priority": "Normal",
+				"correlationData": {}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/transforms/jobs",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Transformname/Transformname_Job_20220721-105834')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices/transforms', parameters('mediaservices_mspocmediaservice_name'), 'Transformname')]",
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"input": {},
+				"outputs": [{
+					"@odata.type": "#Microsoft.Media.JobOutputAsset",
+					"label": "BuiltInStandardEncoderPreset_0",
+					"assetName": "3042-mp4-20220721-105733_Output_20220721-105829"
+				}],
+				"priority": "Normal",
+				"correlationData": {}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/transforms/jobs",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Transformname/Transformname_Job_20220727-142213')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices/transforms', parameters('mediaservices_mspocmediaservice_name'), 'Transformname')]",
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"input": {},
+				"outputs": [{
+					"@odata.type": "#Microsoft.Media.JobOutputAsset",
+					"label": "BuiltInStandardEncoderPreset_0",
+					"assetName": "23456-mp4-20220727-142117_Output_20220727-142207"
+				}],
+				"priority": "Normal",
+				"correlationData": {}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/transforms/jobs",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Transformname/Transformname_Job_20220729-182644')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices/transforms', parameters('mediaservices_mspocmediaservice_name'), 'Transformname')]",
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"input": {},
+				"outputs": [{
+					"@odata.type": "#Microsoft.Media.JobOutputAsset",
+					"label": "BuiltInStandardEncoderPreset_0",
+					"assetName": "Accident-mp4-20220729-182545_Output_20220729-182640"
+				}],
+				"priority": "Normal",
+				"correlationData": {}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/transforms/jobs",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Transformname/Transformname_Job_20220729-182823')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices/transforms', parameters('mediaservices_mspocmediaservice_name'), 'Transformname')]",
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"input": {},
+				"outputs": [{
+					"@odata.type": "#Microsoft.Media.JobOutputAsset",
+					"label": "BuiltInStandardEncoderPreset_0",
+					"assetName": "Accident-mp4-20220729-182545_Output_20220729-182819"
+				}],
+				"priority": "Normal",
+				"correlationData": {}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/transforms/jobs",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Transformname/Transformname_Job_20220729-183040')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices/transforms', parameters('mediaservices_mspocmediaservice_name'), 'Transformname')]",
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"input": {},
+				"outputs": [{
+					"@odata.type": "#Microsoft.Media.JobOutputAsset",
+					"label": "BuiltInStandardEncoderPreset_0",
+					"assetName": "Accident-mp4-20220729-183001_Output_20220729-183037"
+				}],
+				"priority": "Normal",
+				"correlationData": {}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/transforms/jobs",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Transformname/Transformname_Job_20220801-123655')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices/transforms', parameters('mediaservices_mspocmediaservice_name'), 'Transformname')]",
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"input": {},
+				"outputs": [{
+					"@odata.type": "#Microsoft.Media.JobOutputAsset",
+					"label": "BuiltInStandardEncoderPreset_0",
+					"assetName": "29-mp4-20220801-123620_Output_20220801-123649"
+				}],
+				"priority": "Normal",
+				"correlationData": {}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/transforms/jobs",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Transformname/Transformname_Job_20220801-124259')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices/transforms', parameters('mediaservices_mspocmediaservice_name'), 'Transformname')]",
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"input": {},
+				"outputs": [{
+					"@odata.type": "#Microsoft.Media.JobOutputAsset",
+					"label": "BuiltInStandardEncoderPreset_0",
+					"assetName": "Accident-mp4-20220801-124054_Output_20220801-124254"
+				}],
+				"priority": "Normal",
+				"correlationData": {}
+			}
+		},
+		{
+			"type": "Microsoft.Media/mediaservices/transforms/jobs",
+			"apiVersion": "2021-11-01",
+			"name": "[concat(parameters('mediaservices_mspocmediaservice_name'), '/Transformname/Transformname_Job_20220802-181540')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Media/mediaservices/transforms', parameters('mediaservices_mspocmediaservice_name'), 'Transformname')]",
+				"[resourceId('Microsoft.Media/mediaservices', parameters('mediaservices_mspocmediaservice_name'))]"
+			],
+			"properties": {
+				"input": {},
+				"outputs": [{
+					"@odata.type": "#Microsoft.Media.JobOutputAsset",
+					"label": "BuiltInStandardEncoderPreset_0",
+					"assetName": "Accident2-mp4-20220802-181425_Output_20220802-181536"
+				}],
+				"priority": "Normal",
+				"correlationData": {}
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default/asset-02144256-1ac7-4f72-a2ce-d476a09d30be')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblob_name'), 'default')]",
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"immutableStorageWithVersioning": {
+					"enabled": false
+				},
+				"defaultEncryptionScope": "$account-encryption-key",
+				"denyEncryptionScopeOverride": false,
+				"publicAccess": "None"
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default/asset-123b7d3c-c453-4186-9b4b-47f0f2b8f209')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblob_name'), 'default')]",
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"immutableStorageWithVersioning": {
+					"enabled": false
+				},
+				"defaultEncryptionScope": "$account-encryption-key",
+				"denyEncryptionScopeOverride": false,
+				"publicAccess": "None"
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default/asset-355e9385-b1ae-4e63-bd0b-42220aed949a')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblob_name'), 'default')]",
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"immutableStorageWithVersioning": {
+					"enabled": false
+				},
+				"defaultEncryptionScope": "$account-encryption-key",
+				"denyEncryptionScopeOverride": false,
+				"publicAccess": "None"
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default/asset-390e3dd3-8a67-471d-8acf-d9ffb658c76e')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblob_name'), 'default')]",
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"immutableStorageWithVersioning": {
+					"enabled": false
+				},
+				"defaultEncryptionScope": "$account-encryption-key",
+				"denyEncryptionScopeOverride": false,
+				"publicAccess": "None"
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default/asset-582fc3ff-9aaa-4542-baac-3998c6231981')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblob_name'), 'default')]",
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"immutableStorageWithVersioning": {
+					"enabled": false
+				},
+				"defaultEncryptionScope": "$account-encryption-key",
+				"denyEncryptionScopeOverride": false,
+				"publicAccess": "None"
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default/asset-6b30b135-bc7f-4b47-aadf-193436ea42ca')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblob_name'), 'default')]",
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"immutableStorageWithVersioning": {
+					"enabled": false
+				},
+				"defaultEncryptionScope": "$account-encryption-key",
+				"denyEncryptionScopeOverride": false,
+				"publicAccess": "None"
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default/asset-81634bd7-94a9-4e97-a28e-bf63295d4477')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblob_name'), 'default')]",
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"immutableStorageWithVersioning": {
+					"enabled": false
+				},
+				"defaultEncryptionScope": "$account-encryption-key",
+				"denyEncryptionScopeOverride": false,
+				"publicAccess": "None"
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default/asset-9cafee03-d39c-434f-a970-2956f3dd29b2')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblob_name'), 'default')]",
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"immutableStorageWithVersioning": {
+					"enabled": false
+				},
+				"defaultEncryptionScope": "$account-encryption-key",
+				"denyEncryptionScopeOverride": false,
+				"publicAccess": "None"
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default/asset-d781e176-bd34-4a03-9a7b-04620e428590')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblob_name'), 'default')]",
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"immutableStorageWithVersioning": {
+					"enabled": false
+				},
+				"defaultEncryptionScope": "$account-encryption-key",
+				"denyEncryptionScopeOverride": false,
+				"publicAccess": "None"
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default/asset-ee302d49-3707-48dd-81d6-8f7d4eee5bde')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblob_name'), 'default')]",
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"immutableStorageWithVersioning": {
+					"enabled": false
+				},
+				"defaultEncryptionScope": "$account-encryption-key",
+				"denyEncryptionScopeOverride": false,
+				"publicAccess": "None"
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default/asset-fb84ae74-e0d0-4814-b409-173414869bcd')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblob_name'), 'default')]",
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"immutableStorageWithVersioning": {
+					"enabled": false
+				},
+				"defaultEncryptionScope": "$account-encryption-key",
+				"denyEncryptionScopeOverride": false,
+				"publicAccess": "None"
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default/microsofttraficmgmt')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblob_name'), 'default')]",
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"immutableStorageWithVersioning": {
+					"enabled": false
+				},
+				"defaultEncryptionScope": "$account-encryption-key",
+				"denyEncryptionScopeOverride": false,
+				"publicAccess": "None"
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default/processvideo')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblob_name'), 'default')]",
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"immutableStorageWithVersioning": {
+					"enabled": false
+				},
+				"defaultEncryptionScope": "$account-encryption-key",
+				"denyEncryptionScopeOverride": false,
+				"publicAccess": "None"
+			}
+		},
+		{
+			"type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+			"apiVersion": "2021-09-01",
+			"name": "[concat(parameters('storageAccounts_msstorageblob_name'), '/default/unprocessvideo')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_msstorageblob_name'), 'default')]",
+				"[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_msstorageblob_name'))]"
+			],
+			"properties": {
+				"immutableStorageWithVersioning": {
+					"enabled": false
+				},
+				"defaultEncryptionScope": "$account-encryption-key",
+				"denyEncryptionScopeOverride": false,
+				"publicAccess": "None"
+			}
+		},
+		{
+			"type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/throughputSettings",
+			"apiVersion": "2022-02-15-preview",
+			"name": "[concat(parameters('databaseAccounts_mspocdb_name'), '/HighwayMonitoringSystem2/VehicleAccidentLive/default')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers', parameters('databaseAccounts_mspocdb_name'), 'HighwayMonitoringSystem2', 'VehicleAccidentLive')]",
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdb_name'), 'HighwayMonitoringSystem2')]",
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdb_name'))]"
+			],
+			"properties": {
+				"resource": {
+					"throughput": 400,
+					"autoscaleSettings": {
+						"maxThroughput": 4000
+					}
+				}
+			}
+		},
+		{
+			"type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/throughputSettings",
+			"apiVersion": "2022-02-15-preview",
+			"name": "[concat(parameters('databaseAccounts_mspocdb_name'), '/HighwayMonitoringSystem2/VehicleMonitering/default')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers', parameters('databaseAccounts_mspocdb_name'), 'HighwayMonitoringSystem2', 'VehicleMonitering')]",
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdb_name'), 'HighwayMonitoringSystem2')]",
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdb_name'))]"
+			],
+			"properties": {
+				"resource": {
+					"throughput": 400
+				}
+			}
+		},
+		{
+			"type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/throughputSettings",
+			"apiVersion": "2022-02-15-preview",
+			"name": "[concat(parameters('databaseAccounts_mspocdb_name'), '/HighwayMonitoringSystem2/VehicleTrending/default')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers', parameters('databaseAccounts_mspocdb_name'), 'HighwayMonitoringSystem2', 'VehicleTrending')]",
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdb_name'), 'HighwayMonitoringSystem2')]",
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdb_name'))]"
+			],
+			"properties": {
+				"resource": {
+					"throughput": 400
+				}
+			}
+		},
+		{
+			"type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers/throughputSettings",
+			"apiVersion": "2022-02-15-preview",
+			"name": "[concat(parameters('databaseAccounts_mspocdb_name'), '/HighwayMonitoringSystem2/VehicleTrendingLive/default')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers', parameters('databaseAccounts_mspocdb_name'), 'HighwayMonitoringSystem2', 'VehicleTrendingLive')]",
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccounts_mspocdb_name'), 'HighwayMonitoringSystem2')]",
+				"[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_mspocdb_name'))]"
+			],
+			"properties": {
+				"resource": {
+					"throughput": 400,
+					"autoscaleSettings": {
+						"maxThroughput": 4000
+					}
+				}
+			}
+		}
+	]
 }
