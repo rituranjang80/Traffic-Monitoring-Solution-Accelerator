@@ -12,8 +12,8 @@ If your environment meets the prerequisites and you're familiar with using ARM t
 
 select below buttbon to create  Azure resources for Azure Kubernetes services (AKS)
 
-[![Deploy AKS to Azure 1](/Media/deploy-to-azure.png)]([![Deploy AKS to Azure 1](/Media/deploy-to-azure.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Frituranjang80%2FTraffic-Monitoring-Solution-Accelerator%2Fmain%2FARMTemplate%2FARMTemplate_mspoc_AKSResourceGroup.json))
-
+[![Deploy AKS to Azure 1](/Media/deploy-to-azure.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Frituranjang80%2FTraffic-Monitoring-Solution-Accelerator%2Fmain%2FARMTemplate%2FARMTemplate_mspoc_AKSResourceGroup.json
+)
 ## Step 3. Setup site and  Databases
 	
 	* Create a SQL Server instance or use exciting SQL server instance 
