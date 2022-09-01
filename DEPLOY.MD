@@ -18,10 +18,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 	
 	* Create a SQL Server instance or use exciting SQL server instance 
         * Run the SQL script (1-SQL/MPOCSchemascript.sql 2- MPOCInsertScript.sql) SQL instance   
-    * Publish site on  App service
-        * HighwayMonitoringWebAPI-WebAPI(Backend)
-        * HighwayMonitoring-React.js(Frontend)
-
+    
 
 ## Step 4A. Set up  configuration appsetting.json in HighwayMonitoringWebAPI
         
@@ -40,7 +37,8 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 
         * Enter the SAS URL expiry year  
              * "SASURLValidYear": "2",
-
+		* Enter the web API URL
+			* "BaseURL":"***************"
         * Enter the CosmosDb details
         "CosmosDb": {
                 "Account": "**********//",
