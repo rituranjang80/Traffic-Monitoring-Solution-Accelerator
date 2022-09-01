@@ -81,7 +81,7 @@
             "type": "Microsoft.DocumentDB/databaseAccounts",
             "apiVersion": "2022-02-15-preview",
             "name": "[parameters('databaseAccounts_mspocdbdemo_name')]",
-            "location": "West US",
+            "location": "East US",
             "tags": {
                 "defaultExperience": "Core (SQL)",
                 "hidden-cosmos-mmspecial": ""
@@ -113,7 +113,7 @@
                 },
                 "locations": [
                     {
-                        "locationName": "West US",
+                        "locationName": "East US",
                         "provisioningState": "Succeeded",
                         "failoverPriority": 0,
                         "isZoneRedundant": false
@@ -216,7 +216,7 @@
             "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2022-03-01",
             "name": "[parameters('serverfarms_HighwayMonitoringWebAPI20220620103439Pla_name')]",
-            "location": "South Central US",
+            "location": "East US",
             "sku": {
                 "name": "S1",
                 "tier": "Standard",
@@ -416,7 +416,7 @@
             "type": "Microsoft.Web/sites",
             "apiVersion": "2022-03-01",
             "name": "[parameters('sites_HighwayMonitoringWebAPIdemo_name')]",
-            "location": "South Central US",
+            "location": "East US",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_HighwayMonitoringWebAPI20220620103439Pla_name'))]"
             ],
@@ -484,7 +484,7 @@
             "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
             "apiVersion": "2022-03-01",
             "name": "[concat(parameters('sites_HighwayMonitoringWebAPIdemo_name'), '/ftp')]",
-            "location": "South Central US",
+            "location": "East US",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPIdemo_name'))]"
             ],
@@ -511,7 +511,7 @@
             "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
             "apiVersion": "2022-03-01",
             "name": "[concat(parameters('sites_HighwayMonitoringWebAPIdemo_name'), '/scm')]",
-            "location": "South Central US",
+            "location": "East US",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPIdemo_name'))]"
             ],
@@ -608,7 +608,7 @@
             "type": "Microsoft.Web/sites/config",
             "apiVersion": "2022-03-01",
             "name": "[concat(parameters('sites_HighwayMonitoringWebAPIdemo_name'), '/web')]",
-            "location": "South Central US",
+            "location": "East US",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPIdemo_name'))]"
             ],
@@ -707,7 +707,7 @@
             "type": "Microsoft.Web/sites/hostNameBindings",
             "apiVersion": "2022-03-01",
             "name": "[concat(parameters('sites_HighwayMonitoringWebAPIdemo_name'), '/', parameters('sites_HighwayMonitoringWebAPIdemo_name'), '.azurewebsites.net')]",
-            "location": "South Central US",
+            "location": "East US",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPIdemo_name'))]"
             ],
@@ -720,7 +720,7 @@
             "type": "Microsoft.Web/sites/siteextensions",
             "apiVersion": "2022-03-01",
             "name": "[concat(parameters('sites_HighwayMonitoringWebAPIdemo_name'), '/Microsoft.AspNetCore.AzureAppServices.SiteExtension')]",
-            "location": "South Central US",
+            "location": "East US",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/sites', parameters('sites_HighwayMonitoringWebAPIdemo_name'))]"
             ]
