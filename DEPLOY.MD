@@ -17,11 +17,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 ## Step 3. Setup site and  Databases
 	
 	* Create a SQL Server instance or use exciting SQL server instance 
-        * Run the SQL script (1-SQL/MPOCSchemascript.sql 2- MPOCInsertScript.sql) SQL instance
-    * Create below Container in storage blob        
-			* process video
-			* Unprocessed video 
-    * Create a Cosmos DB account
+        * Run the SQL script (1-SQL/MPOCSchemascript.sql 2- MPOCInsertScript.sql) SQL instance   
     * Publish site on  App service
         * HighwayMonitoringWebAPI-WebAPI(Backend)
         * HighwayMonitoring-React.js(Frontend)
