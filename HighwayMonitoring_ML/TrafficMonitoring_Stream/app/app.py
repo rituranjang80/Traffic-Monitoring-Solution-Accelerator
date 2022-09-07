@@ -73,7 +73,7 @@ def upload_data(dict_1):
     container1.upsert_item(dict_1)
     
 def load_endpoint(camera_id):
-    conn = pyodbc.connect('DRIVER={FreeTDS};' 
+    conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};' 
                           'SERVER=predictivesql.database.windows.net;'
                           'DATABASE=MicrosoftTrafficMgmt;'
                           'UID=predictiveadmin;'
