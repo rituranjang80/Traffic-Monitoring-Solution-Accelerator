@@ -86,9 +86,9 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		1.	Open terminal/ command prompt 
 		2.	Select folder containing docker file (e.g. TrafficMonitoring_Video)
 		3.	Build Docker image by using Dockerfile. 
-		o	Command: docker build -t [<Image Name>: <Tag>] .
+		o	Command: docker build -t [<resource_gropu_name>.azurecr.io/<Image Name>: <Tag>] (e.g. mspoccr.azurecr.io/traffic_monitoring:0.1)
 		4.	Push image in azure container registry. 
-		o	Command: docker push [<Image Name>:<Tag>]
+		o	Command: docker push [<resource_gropu_name>.azurecr.io/<Image Name>: <Tag>]
 		5.	Deploy traffic monitoring model on Kubernetes cluster using yml file.
 		o	 Command: Kubectl apply -f [<yml file Name>]
 
@@ -96,10 +96,19 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 
 		#	Edit config file for TrafficMonitoring_Stream model
 		
-		1.	Account: <Enter the account name for sql server>
-		2.	Key: <Enter Key of sql server>
+		1.	Account: <Enter the account name for cosmo db>
+		2.	Key: <Enter Key of cosmodb>
 		3.	DatabaseName: <Enter Database Name>
 		4.	containerName: <Enter container Name>
+		Please do some changes more for this model:
+		(a)     Go to app.py file
+		(b)     Change sql server connection credential in 'load_enpoint' function.
+		        Changes:
+			        'DRIVER={ODBC Driver 17 for SQL Server}};' 
+                                'SERVER=<Sql-server-name>;'
+                                'DATABASE=<Database Name>;'
+                                'UID=<user_name>;'
+                                'PWD=paasword;'
 
 		#	Edit Config file for TrafficMonitoring_Video model
 		
@@ -111,8 +120,8 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 
 		#	Edit Config file for AccidentDetection_Live Model
 		
-		1.	Account: <Enter the account name for sql server>
-		2.	Key: <Enter the key of sql server>
+		1.	Account: <Enter the account name for cosmo db>
+		2.	Key: <Enter the key of cosmo db>
 		3.	DatabaseName: "Enter Database Name"
 		4.	containerName: "Enter container Name"
 
@@ -122,11 +131,6 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 
 
 
-## Step 4. Security Access
-
-## Step 5. text here
-
-## Step 6. text here
 
 # Congratulations
 You have completed this solution accelerator and should now have a report to explore the personalized recommendations:
