@@ -5,3 +5,4 @@ DatabaseName: "HighwayMonitoringSystem2"
 containerName: "VehicleTrendingLive"
 # sql server connection string
 sql_connection_string: 'DRIVER={ODBC Driver 17 for SQL Server};SERVER=predictivesql.database.windows.net;DATABASE=MicrosoftTrafficMgmt;UID=predictiveadmin;PWD=root@123'
+database: "MicrosoftTrafficMgmt"
