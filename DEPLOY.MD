@@ -86,30 +86,26 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		1.	Open terminal/ command prompt 
 		2.	Select folder containing docker file (e.g. TrafficMonitoring_Video)
 		3.	Build Docker image by using Dockerfile. 
-		o	Command: docker build -t [<resource_gropu_name>.azurecr.io/<Image Name>: <Tag>] (e.g. mspoccr.azurecr.io/traffic_monitoring:0.1)
+		o	Command: docker build -t [<container_registry_name>.azurecr.io/<Image Name>: <Tag>] (e.g. mspoccr.azurecr.io/traffic_monitoring:0.1)
 		4.	Push image in azure container registry. 
-		o	Command: docker push [<resource_gropu_name>.azurecr.io/<Image Name>: <Tag>]
+		o	Command: docker push [<container_registry_name>.azurecr.io/<Image Name>: <Tag>]
 		5.	Deploy traffic monitoring model on Kubernetes cluster using yml file.
 		o	 Command: Kubectl apply -f [<yml file Name>]
 
 		## Step  7 Setup configuration for Ml models
 
 		#	Edit config file for TrafficMonitoring_Stream model
+		#       cosmo db connetion
 		
 		1.	Account: <Enter the account name for cosmo db>
 		2.	Key: <Enter Key of cosmodb>
 		3.	DatabaseName: <Enter Database Name>
 		4.	containerName: <Enter container Name>
-		Please do some changes more for this model:
-		(a)     Go to app.py file
-		(b)     Change sql server connection credential in 'load_enpoint' function.
-		        Changes:
-			        'DRIVER={ODBC Driver 17 for SQL Server}};' 
-                                'SERVER=<Sql-server-name>;'
-                                'DATABASE=<Database Name>;'
-                                'UID=<user_name>;'
-                                'PWD=paasword;'
+		#       sql Connection string
+		1.      'DRIVER={ODBC Driver 17 for SQLServer};SERVER=<Server Name>;
+		                 DATABASE=<Data Name>;UID=<user ID>;PWD=<Password>'
 
+		
 		#	Edit Config file for TrafficMonitoring_Video model
 		
 		1.	azure_storage_connectionstring: <Enter azure storage connection string for blob storage>;
