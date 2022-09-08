@@ -1,4 +1,7 @@
+#Cosmo Db connection Credential
 Account: "https://mspocdb.documents.azure.com:443/"
 Key: "R79EBwOGMIbYFnwFXbN33p1eLX30uLVAT1XnIckuxpaZ7y9ZXa1LGaRTeHHD3jIJYuzzTo21cq9NLxHPqPf9uw=="
 DatabaseName: "HighwayMonitoringSystem2"
 containerName: "VehicleTrendingLive"
+# sql server connection string
+sql_connection_string: 'DRIVER={ODBC Driver 17 for SQL Server};SERVER=predictivesql.database.windows.net;DATABASE=MicrosoftTrafficMgmt;UID=predictiveadmin;PWD=root@123'
