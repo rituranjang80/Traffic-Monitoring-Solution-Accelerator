@@ -95,7 +95,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		## Step  7 Setup configuration for Ml models
 
 		#	Edit config file for TrafficMonitoring_Stream model
-		#       cosmo db connetion
+		#       Cosmos db connetion
 		
 		1.	Account: <Enter the account name for cosmo db>
 		2.	Key: <Enter Key of cosmodb>
@@ -107,6 +107,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 
 		
 		#	Edit Config file for TrafficMonitoring_Video model
+		#       Blob Storage Connection
 		
 		1.	azure_storage_connectionstring: <Enter azure storage connection string for blob storage>;
 		2.	AccountName = <Enter blob storage Account name> 
@@ -115,13 +116,14 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		5.	Traffic_mon_url: <Enter the traffic monitoring frontend api url for video>
 
 		#	Edit Config file for AccidentDetection_Live Model
-		
+		#       Cosmos db Connection
 		1.	Account: <Enter the account name for cosmo db>
 		2.	Key: <Enter the key of cosmo db>
 		3.	DatabaseName: "Enter Database Name"
 		4.	containerName: "Enter container Name"
 
 		#	Edit Config file for AccidentDetection_Video Model
+		#       Front end api url 
 		
 		1.	Traffic_accident_url: < Enter the accident detection frontend api url for video>
 
