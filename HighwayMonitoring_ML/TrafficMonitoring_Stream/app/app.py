@@ -73,11 +73,7 @@ def upload_data(dict_1):
     container1.upsert_item(dict_1)
     
 def load_endpoint(camera_id):
-    conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};' 
-                          'SERVER=predictivesql.database.windows.net;'
-                          'DATABASE=MicrosoftTrafficMgmt;'
-                          'UID=predictiveadmin;'
-                          'PWD=root@123;')
+    conn = pyodbc.connect(config['sql_connection_string'])
     cursor = conn.cursor()
     cursor.execute("SELECT [IP_Address] FROM [MicrosoftTrafficMgmt].[dbo].[CameraDetails] c where c.cameraID={0}".format(camera_id))
     streaming_point = cursor.fetchall()
@@ -179,13 +175,7 @@ def realTime(id_stream):
             json_dict.update(dict_vehicle)
             json_dict['frame_timestamp'] = frame_stamp
             json_dict['current_time'] = ts
-            #json_final_list.append(json_dict)
-            # print(json_final_list)
-            #
-            print(json_dict)
-            #data_dict = {k:str(v) for k,v in json_dict.items()}
-            #print('data_dict', data_dict)
-            #data_dict = json.dumps(json_dict, indent = 4)
+ 
             if count==1 or count%int(fps)==0:
                upload_data(json_dict)
                json_dict_1 = json_dict
@@ -194,9 +184,7 @@ def realTime(id_stream):
                cv2.imwrite('temp.jpg', img)
                headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
                payload = Paylod_acc('temp.jpg', camera_id_1, Id_1)
-               #payload = {}
                r = requests.post('http://20.81.114.67:8083/files/', data=payload, headers=headers)
-               print(r)
 
             cv2.putText(img, "Car:" + " " + str(dict_vehicle['car']), (20, 40), cv2.FONT_HERSHEY_SIMPLEX, font_size,
                         font_color, font_thickness)
@@ -206,7 +194,7 @@ def realTime(id_stream):
                         font_color, font_thickness)
             cv2.putText(img, "Motorbike:" + " " + str(dict_vehicle['motorbike']), (20, 100), cv2.FONT_HERSHEY_SIMPLEX,
                         font_size, font_color, font_thickness)
-            print(dict_vehicle)
+            #print(dict_vehicle)
             dict_vehicle.clear()
             #cv2.imshow('output', img)
             count+=1
@@ -216,7 +204,6 @@ def realTime(id_stream):
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result'''
             c = cv2.waitKey(1)
-            # time.sleep(0.01)
             if c & 0xFF == ord('q'):
                 break
             
