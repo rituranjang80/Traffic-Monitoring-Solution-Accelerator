@@ -75,7 +75,7 @@ def upload_data(dict_1):
 def load_endpoint(camera_id):
     conn = pyodbc.connect(config['sql_connection_string'])
     cursor = conn.cursor()
-    cursor.execute("SELECT [IP_Address] FROM [MicrosoftTrafficMgmt].[dbo].[CameraDetails] c where c.cameraID={0}".format(camera_id))
+    cursor.execute("SELECT [IP_Address] FROM [{0}].[dbo].[CameraDetails] c where c.cameraID={1}".format(config['database'],camera_id))
     streaming_point = cursor.fetchall()
     streaming_point = streaming_point[0][0]
     return streaming_point
