@@ -25,9 +25,10 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
         * Enter the SQL sever connection strings        
            * "ConnectionStrings": {  "XXXXXXXXXXXX" },
         
-        * Enter the Blob connection strings  
-           * "BlobConnectionString": "XXXXXXXXXXXXXXXXXX",
-        
+       * Enter the Blob connection strings & Access key (Storage account  Access Keys)  
+			* "BlobConnectionString": "<connection string>",
+			* "blobstoraccountKey": "<key>",
+ 
         * Enter the Blob BlobContainer Name  
             * "BlobContainerNameProcessvideo": "processvideo",
             * "BlobContainerNameUnProcessvideo": "unprocessvideo",
@@ -38,13 +39,16 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
         * Enter the SAS URL expiry year  
              * "SASURLValidYear": "2",
 		* Enter the web API URL
-			* "BaseURL":"***************"
+			* "BaseURL":"<web API URL>" + “/api/”
+
         * Enter the CosmosDb details
-        "CosmosDb": {
-                "Account": "**********//",
-                "Key": "************************",
-                "DatabaseName": "********"                
-                }
+    "CosmosDb": {
+            "Account": "<Keys  URI>",
+            "Key": "<Keys  Primary Key > ",
+            "DatabaseName": "<Database Name>"                
+            }
+	
+
 ## Step 4B. Deploy the WebAPI
 
 		* open the solution(/Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring/HighwayMonitoringWebAPI) in visual studio
@@ -54,22 +58,25 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 ## Step 5A. Set up  configuration Reactjs public/Config.js in HighwayMonitoring      
 
 
-        * Enter the Web API URL        
-           * window.baseURL='*********************
-		   
-		* Enter the bing Map Key        
-           * window.bingMapKey='***************************
-		   
-		* Enter the   Live Stream API      
-           * window.MLAPI='*****************
+     * Enter the Web API URL        
+       * window.baseURL=”<HighwayMonitoringWebAPIdemo URL>” + “/api/”
+	   
+	* Enter the bing Map Key (Need to create account at Bing Map to get key)       
+       * window.bingMapKey='***************************
+	   
+	* Enter the Live Stream ML API URL      
+       * window.MLAPI='*****************
+
+
 		   
 ## Step 5B. Deploy the ReactJS	
 		
 		* Open the React JS folder/appliction(/Traffic-Monitoring-Solution-Acceleraton/ReactJS) in Visual studio code	
 		* Install the project library run the (npm install) in terminal
 		* Create the build  run the command  (npm run build)
-		* Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build) to websever using FTP
-			
+		* Select appservice (HighwayMonitoringdemo) Deployment Centre  FTPS credentials Use username & password and FTP endpoint
+			Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build) to FTP end point(host) using username & password
+
 ## Step 6 Deploy ML Models.
 		
 		# Deployment of 4 Traffic Monitoring ML Models under folder “HighwayMonitoring_ML”
