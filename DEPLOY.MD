@@ -73,7 +73,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 ## Step 5B. Deploy the ReactJS	
 		
 		* Open the React JS folder/appliction(/Traffic-Monitoring-Solution-Acceleraton/ReactJS) in Visual studio code	
-		* Install the project library run the (npm install) in terminal
+		* Install the project library run the (npm install --legacy-peer-deps) in terminal
 		* Create the build  run the command  (npm run build)
 		* Select appservice (HighwayMonitoringdemo) Deployment Centre  FTPS credentials Use username & password and FTP endpoint
 			Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build) to FTP end point(host) using username & password
