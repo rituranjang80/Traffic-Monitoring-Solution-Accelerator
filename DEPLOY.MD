@@ -63,7 +63,8 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 	   
 	* Enter the bing Map Key (Need to create account at Bing Map to get key)       
        * window.bingMapKey='***************************
-	   
+	    Follow these steps for creating Bing map account key
+			https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key
 	* Enter the Live Stream ML API URL      
        * window.MLAPI='*****************
 
