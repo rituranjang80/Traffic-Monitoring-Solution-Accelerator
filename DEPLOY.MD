@@ -84,70 +84,85 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		Pre-Requisite: 
 		
 		1. Docker should be installed on machine used to create Docker image
-		2. Azure  Container Registry (ACR) is created on Azure (Created by ARMS Template)
-		3. Azure Kubernetes Service (AKS) is created on Azure (Created by ARMS Template)
-		4. Az client must be installed and mapped with container registry
-		5. Kubectl Utility must be installed 
+		2. Azure  Container Registry (ACR) is created on Azure (Created by ARMS Template above)
+		3. Azure Kubernetes Service (AKS) is created on Azure (Created by ARMS Template above)
+		4. Az client (Azure CLI) must be installed.
+		   Download from following path: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli
+		5. Kubectl Utility must be installed
+		   Download from following path: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
+		        OR 
+		   if curl is installed, use this command: curl -LO "https://dl.k8s.io/release/v1.25.0/bin/windows/amd64/kubectl.exe"
 		
 		# Setup kuberentes with gpu nodes
-		1. Creating an azure Kubernetes cluster with gpu nodes and check all the nodes whether they are up with below command.
+		1. Open command prompt and connect with Kubernetes service ( Created above in ARM Template)
+		    Kubernetes Service --> Connect 
+		    Run below commands (copy from connect page)
+		    az account set --subscription <....>
+		    az aks get-credentials --resource-group <resource group name> --name <AKS service name> 
+		
+		2. When need to check all gpu nodes are up and running,run below command.
 		   Command: Kubectl get nodes
-		2. Create an namespace for NVIDIA GPU RESOURCES by using below command.
+		3. Create a namespace for NVIDIA GPU RESOURCES by using below command.
 		   Command:  kubectl create namespace gpu-resources
-		3. Install the NVIDIA device plugin by using yamlfile.
+		4. Install the NVIDIA device plugin by using yamlfile.
 		   Command: kubectl apply -f nvidia-device-plugin-ds.yaml (the file is present in main repository) 
-		4. Now create the docker-registry secrets in the cluster by using below command.
-		   Commands:     kubectl create secret docker-registry “any name for secrets” \
+		5. Now create the docker-registry secrets in the cluster by using below command.
+		   Command:     kubectl create secret docker-registry <any name for secrets> \
                                  --namespace default \
-                                 --docker-server=found in azure container registry \
-                                 --docker-username= found in azure container registry \
-                                 --docker-password= found in azure container registry
+                                 --docker-server= <docker server name in ACR access keys> \
+                                 --docker-username= <docker username in ACR access keys>\
+                                 --docker-password= <docker paasword  in ACR access Keys>
 		 
-		#Perform below steps for each model 
+		# Perform below steps for each of 4 models in folder highwaymonitoring_ML. 
 		
 		1.	Open terminal/ command prompt 
 		2.	Select folder containing docker file (e.g. TrafficMonitoring_Video)
 		3.	Build Docker image by using Dockerfile. 
-		o	Command: docker build -t [<container_registry_name>.azurecr.io/<Image Name>: <Tag>] (e.g.                                mspoccr.azurecr.io/traffic_monitoring:0.1)
-		4.	Push image in azure container registry. 
-		o	Command: docker push [<container_registry_name>.azurecr.io/<Image Name>: <Tag>]
-		5.	Deploy traffic monitoring model on Kubernetes cluster using yml file.
-		o	 Command: Kubectl apply -f [<yml file Name>]
-
+			Command: docker build -t [<container_registry_name>.azurecr.io/<Image Name>: <Tag>] (e.g.                                mspoccrdemo.azurecr.io/traffic_monitoring:0.1)
+		4.	login to azure container registry
+		        command: az acr login -n <container registry name>
+		
+		5. Push image in azure container registry. 
+			Command: docker push [<container_registry_name>.azurecr.io/<Image Name>: <Tag>]
+		6.	Deploy traffic monitoring model on Kubernetes cluster using yml file.
+			Command: Kubectl apply -f [<yml file Name>] 
+			Note: (Yaml file name as in folder)
+			
+			
 		## Step  7 Setup configuration for Ml models
 
-		#	Edit config file for TrafficMonitoring_Stream model
+		#	Edit config file for TrafficMonitoring_Live model
 		#       Cosmos db connetion
 		
-		1.	Account: <Enter the account name for cosmo db>
-		2.	Key: <Enter Key of cosmodb>
-		3.	DatabaseName: <Enter Database Name>
-		4.	containerName: <Enter container Name>
+			Account: <Enter the account name for cosmo db>
+			Key: <Enter Key of cosmodb>
+			DatabaseName: <Enter Database Name>
+			containerName: <Enter container Name> (container name for process video)
+		
 		#       sql Connection string
-		1.      'DRIVER={ODBC Driver 17 for SQLServer};SERVER=<Server Name>;
+		        'DRIVER={ODBC Driver 17 for SQLServer};SERVER=<Server Name>;
 		                 DATABASE=<Data Name>;UID=<user ID>;PWD=<Password>'
 
 		
 		#	Edit Config file for TrafficMonitoring_Video model
 		#       Blob Storage Connection
-		
-		1.	azure_storage_connectionstring: <Enter azure storage connection string for blob storage>;
-		2.	AccountName = <Enter blob storage Account name> 
-		3.	AccountKey = <Enter Account key of blob storage"
-		4.	process_container_name: "Enter process video container name"
-		5.	Traffic_mon_url: <Enter the traffic monitoring frontend api url for video>
+			azure_storage_connectionstring: <Enter azure storage connection string for blob storage>;
+			AccountName = <Enter blob storage Account name> 
+			AccountKey = <Enter Account key of blob storage"
+			process_container_name: "Enter process video container name"
+			Traffic_mon_url: <Enter the traffic monitoring frontend api url for video>
 
 		#	Edit Config file for AccidentDetection_Live Model
 		#       Cosmos db Connection
-		1.	Account: <Enter the account name for cosmo db>
-		2.	Key: <Enter the key of cosmo db>
-		3.	DatabaseName: "Enter Database Name"
-		4.	containerName: "Enter container Name"
+			Account: <Enter the account name for cosmo db>
+			Key: <Enter the key of cosmo db>
+			DatabaseName: <Enter Database Name>
+			containerName: <Enter container Name> 
 
 		#	Edit Config file for AccidentDetection_Video Model
 		#       Front end api url 
 		
-		1.	Traffic_accident_url: < Enter the accident detection frontend api url for video>
+			Traffic_accident_url: < Enter the accident detection frontend api url for video>
 
 
 
