@@ -88,13 +88,27 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		3. Azure Kubernetes Service (AKS) is created on Azure (Created by ARMS Template)
 		4. Az client must be installed and mapped with container registry
 		5. Kubectl Utility must be installed 
+		
+		# Setup kuberentes with gpu nodes
+		1. Creating an azure Kubernetes cluster with gpu nodes and check all the nodes whether they are up with below command.
+		   Command: Kubectl get nodes
+		2. Create an namespace for NVIDIA GPU RESOURCES by using below command.
+		   Command:  kubectl create namespace gpu-resources
+		3. Install the NVIDIA device plugin by using yamlfile.
+		   Command: kubectl apply -f nvidia-device-plugin-ds.yaml (the file is present in main repository) 
+		4. Now create the docker-registry secrets in the cluster by using below command.
+		   Commands:     kubectl create secret docker-registry “any name for secrets” \
+                                 --namespace default \
+                                 --docker-server=found in azure container registry \
+                                 --docker-username= found in azure container registry \
+                                 --docker-password= found in azure container registry
 		 
-		#Perform below steps for each 4 model 
+		#Perform below steps for each model 
 		
 		1.	Open terminal/ command prompt 
 		2.	Select folder containing docker file (e.g. TrafficMonitoring_Video)
 		3.	Build Docker image by using Dockerfile. 
-		o	Command: docker build -t [<container_registry_name>.azurecr.io/<Image Name>: <Tag>] (e.g. mspoccr.azurecr.io/traffic_monitoring:0.1)
+		o	Command: docker build -t [<container_registry_name>.azurecr.io/<Image Name>: <Tag>] (e.g.                                mspoccr.azurecr.io/traffic_monitoring:0.1)
 		4.	Push image in azure container registry. 
 		o	Command: docker push [<container_registry_name>.azurecr.io/<Image Name>: <Tag>]
 		5.	Deploy traffic monitoring model on Kubernetes cluster using yml file.
