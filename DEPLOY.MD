@@ -150,7 +150,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			AccountName = <Enter blob storage Account name> 
 			AccountKey = <Enter Account key of blob storage"
 			process_container_name: "Enter process video container name"
-			Traffic_mon_url: <Enter the traffic monitoring frontend api url for video>
+			Traffic_mon_url: <web api url> + "/Vehicletrend" 
 
 		#	Edit Config file for AccidentDetection_Live Model
 		#       Cosmos db Connection
@@ -162,7 +162,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		#	Edit Config file for AccidentDetection_Video Model
 		#       Front end api url 
 		
-			Traffic_accident_url: < Enter the accident detection frontend api url for video>
+			Traffic_accident_url: <web api url> + "/TrafficAnalysis" 
 
 
 
