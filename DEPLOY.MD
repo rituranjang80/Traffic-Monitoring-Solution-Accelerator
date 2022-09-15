@@ -158,6 +158,19 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			Key: <Enter the key of cosmo db>
 			DatabaseName: <Enter Database Name>
 			containerName: <Enter container Name> 
+			
+		#  Add a vido file to Azure Media storage account.
+			
+		1) Create a media service in azure portal( see the video https://www.youtube.com/watch?v=8SndwAymPes)
+			1) Media Services  
+			2) Open the Media Service->Overview->Enconding->uploading a video
+			3) After video upload click on job fill the form and 
+				a) check the option encoding
+				b) Bulit in present name-> H265SingleBitrate720p
+			4) Create a stream locator 
+			5) Run the stream endpoint from media service page
+				6) open the enconding video from browse assets then go to stream URL
+			7) Copy the stram hls URL path -> Add the hls URL path to web application  camera configuration page.
 
 		#	Edit Config file for AccidentDetection_Video Model
 		#       Front end api url 
