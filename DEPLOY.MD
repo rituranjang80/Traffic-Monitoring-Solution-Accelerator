@@ -172,7 +172,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		
 ## Appendix - Use of media service for Live stream .
 			
-		 Create a media service in azure portal( see the video https://www.youtube.com/watch?v=8SndwAymPes)
+		 Create a media service in azure portal( see the video https://www.youtube.com/watch?v=o2uiYLT6KU8)
 			1) Media Services  
 			2) Open the Media Service->Overview->Enconding->uploading a video
 			3) After video upload click on job fill the form and 
