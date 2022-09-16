@@ -157,9 +157,15 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			Account: <Enter the account name for cosmo db>
 			Key: <Enter the key of cosmo db>
 			DatabaseName: <Enter Database Name>
-			containerName: <Enter container Name> 
+			containerName: <Enter container Name> 		
+		
+		#	Edit Config file for AccidentDetection_Video Model
+		#       Front end api url 
+		
+			Traffic_accident_url: <web api url> + "/TrafficAnalysis" 
 			
-		#  Add a vido file to Azure Media storage account.
+		
+		##  Add a vido file to Azure Media storage account.
 			
 		1) Create a media service in azure portal( see the video https://www.youtube.com/watch?v=8SndwAymPes)
 			1) Media Services  
@@ -172,10 +178,6 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 				6) open the enconding video from browse assets then go to stream URL
 			7) Copy the stram hls URL path -> Add the hls URL path to web application  camera configuration page.
 
-		#	Edit Config file for AccidentDetection_Video Model
-		#       Front end api url 
-		
-			Traffic_accident_url: <web api url> + "/TrafficAnalysis" 
 
 
 
