@@ -1,5 +1,19 @@
 # Deployment Guide
 
+
+## 	Pre-Requisite: 
+		
+	1. Docker should be installed on machine used to create Docker image
+	2. Azure  Container Registry (ACR) is created on Azure (Created by ARMS Template above)
+	3. Azure Kubernetes Service (AKS) is created on Azure (Created by ARMS Template above)
+	4. Az client (Azure CLI) must be installed.
+	     Download from following path: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli
+	5. Kubectl Utility must be installed
+		 Download from following path: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
+		        OR 
+		 if curl is installed, use this command: curl -LO "https://dl.k8s.io/release/v1.25.0/bin/windows/amd64/kubectl.exe"
+		
+
 ## Step 1. Download Files
 To start, clone or download this repository and navigate to the project's root directory.
 
@@ -19,79 +33,43 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 	* Create a SQL Server instance or use exciting SQL server instance 
         * Run the SQL script (1-SQL/MPOCSchemascript.sql 2- MPOCInsertScript.sql) SQL instance   
     
+## Step  4 Setup configuration for Ml models
 
-## Step 4A. Set up  configuration appsetting.json in HighwayMonitoringWebAPI
-        
-        * Enter the SQL sever connection strings        
-           * "ConnectionStrings": {  "XXXXXXXXXXXX" },
-        
-       * Enter the Blob connection strings & Access key (Storage account  Access Keys)  
-			* "BlobConnectionString": "<connection string>",
-			* "blobstoraccountKey": "<key>",
- 
-        * Enter the Blob BlobContainer Name  
-            * "BlobContainerNameProcessvideo": "processvideo",
-            * "BlobContainerNameUnProcessvideo": "unprocessvideo",
-        * Enter the AI ML API path  
-             * "ML_VechileDetection_API": "****",
-             * "ML_Accident_API": "******",
-
-        * Enter the SAS URL expiry year  
-             * "SASURLValidYear": "2",
-		* Enter the web API URL
-			* "BaseURL":"<web API URL>" + “/api/”
-
-        * Enter the CosmosDb details
-    "CosmosDb": {
-            "Account": "<Keys  URI>",
-            "Key": "<Keys  Primary Key > ",
-            "DatabaseName": "<Database Name>"                
-            }
-	
-
-## Step 4B. Deploy the WebAPI
-
-		* open the solution(/Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring/HighwayMonitoringWebAPI) in visual studio
-		* Get the publish settings file from azure portal app service (Website)
-		* In the visual studio solution right click the project (HighwayMonitoringWebAPI)->publish->new->Import profile->browse the publish settings file->click ok ->click publish
-
-## Step 5A. Set up  configuration Reactjs public/Config.js in HighwayMonitoring      
-
-
-     * Enter the Web API URL        
-       * window.baseURL=”<HighwayMonitoringWebAPIdemo URL>” + “/api/”
-	   
-	* Enter the bing Map Key (Need to create account at Bing Map to get key)       
-       * window.bingMapKey='***************************
-	    Follow these steps for creating Bing map account key
-			https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key
-	* Enter the Live Stream ML API URL      
-       * window.MLAPI='*****************
-
-
-		   
-## Step 5B. Deploy the ReactJS	
+		#	Edit config file for TrafficMonitoring_Live model
+		#       Cosmos db connetion
 		
-		* Open the React JS folder/appliction(/Traffic-Monitoring-Solution-Acceleraton/ReactJS) in Visual studio code	
-		* Install the project library run the (npm install --legacy-peer-deps) in terminal
-		* Create the build  run the command  (npm run build)
-		* Select appservice (HighwayMonitoringdemo) Deployment Centre  FTPS credentials Use username & password and FTP endpoint
-			Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build) to FTP end point(host) using username & password
+			Account: <Enter the account name for cosmo db>
+			Key: <Enter Key of cosmodb>
+			DatabaseName: <Enter Database Name>
+			containerName: <Enter container Name> (container name for process video)
+		
+		#       sql Connection string
+		        'DRIVER={ODBC Driver 17 for SQLServer};SERVER=<Server Name>;
+		                 DATABASE=<Data Name>;UID=<user ID>;PWD=<Password>'
 
-## Step 6 Deploy ML Models.
 		
-		# Deployment of 4 Traffic Monitoring ML Models under folder “HighwayMonitoring_ML”
-		Pre-Requisite: 
+		#	Edit Config file for TrafficMonitoring_Video model
+		#       Blob Storage Connection
+			azure_storage_connectionstring: <Enter azure storage connection string for blob storage>;
+			AccountName = <Enter blob storage Account name> 
+			AccountKey = <Enter Account key of blob storage"
+			process_container_name: "Enter process video container name"
+			Traffic_mon_url: <web api url> + "/Vehicletrend" 
+
+		#	Edit Config file for AccidentDetection_Live Model
+		#       Cosmos db Connection
+			Account: <Enter the account name for cosmo db>
+			Key: <Enter the key of cosmo db>
+			DatabaseName: <Enter Database Name>
+			containerName: <Enter container Name> 		
 		
-		1. Docker should be installed on machine used to create Docker image
-		2. Azure  Container Registry (ACR) is created on Azure (Created by ARMS Template above)
-		3. Azure Kubernetes Service (AKS) is created on Azure (Created by ARMS Template above)
-		4. Az client (Azure CLI) must be installed.
-		   Download from following path: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli
-		5. Kubectl Utility must be installed
-		   Download from following path: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
-		        OR 
-		   if curl is installed, use this command: curl -LO "https://dl.k8s.io/release/v1.25.0/bin/windows/amd64/kubectl.exe"
+		#	Edit Config file for AccidentDetection_Video Model
+		#       Front end api url 
+		
+			Traffic_accident_url: <web api url> + "/TrafficAnalysis" 
+			
+## Step 5 Deploy ML Models.
+		
 		
 		# Setup kuberentes with gpu nodes
 		1. Open command prompt and connect with Kubernetes service ( Created above in ARM Template)
@@ -129,45 +107,70 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			Note: (Yaml file name as in folder)
 			
 			
-		## Step  7 Setup configuration for Ml models
 
-		#	Edit config file for TrafficMonitoring_Live model
-		#       Cosmos db connetion
+
+## Step 6A. Set up  configuration appsetting.json in HighwayMonitoringWebAPI
+        
+        * Enter the SQL sever connection strings        
+           * "ConnectionStrings": {  "XXXXXXXXXXXX" },
+        
+       * Enter the Blob connection strings & Access key (Storage account  Access Keys)  
+			* "BlobConnectionString": "<connection string>",
+			* "blobstoraccountKey": "<key>",
+ 
+        * Enter the Blob BlobContainer Name  
+            * "BlobContainerNameProcessvideo": "processvideo",
+            * "BlobContainerNameUnProcessvideo": "unprocessvideo",
+        * Enter the AI ML API path  
+             * "ML_VechileDetection_API": "****",
+             * "ML_Accident_API": "******",
+
+        * Enter the SAS URL expiry year  
+             * "SASURLValidYear": "2",
+		* Enter the web API URL
+			* "BaseURL":"<web API URL>" + “/api/”
+
+        * Enter the CosmosDb details
+    "CosmosDb": {
+            "Account": "<Keys  URI>",
+            "Key": "<Keys  Primary Key > ",
+            "DatabaseName": "<Database Name>"                
+            }
+	
+
+## Step 6B. Deploy the WebAPI
+
+		* open the solution(/Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring/HighwayMonitoringWebAPI) in visual studio
+		* Get the publish settings file from azure portal app service (Website)
+		* In the visual studio solution right click the project (HighwayMonitoringWebAPI)->publish->new->Import profile->browse the publish settings file->click ok ->click publish
+
+## Step 7A. Set up  configuration Reactjs public/Config.js in HighwayMonitoring      
+
+
+     * Enter the Web API URL        
+       * window.baseURL=”<HighwayMonitoringWebAPIdemo URL>” + “/api/”
+	   
+	* Enter the bing Map Key (Need to create account at Bing Map to get key)       
+       * window.bingMapKey='***************************
+	    Follow these steps for creating Bing map account key
+			https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key
+	* Enter the Live Stream ML API URL      
+       * window.MLAPI='*****************
+
+
+		   
+## Step 7B. Deploy the ReactJS	
 		
-			Account: <Enter the account name for cosmo db>
-			Key: <Enter Key of cosmodb>
-			DatabaseName: <Enter Database Name>
-			containerName: <Enter container Name> (container name for process video)
-		
-		#       sql Connection string
-		        'DRIVER={ODBC Driver 17 for SQLServer};SERVER=<Server Name>;
-		                 DATABASE=<Data Name>;UID=<user ID>;PWD=<Password>'
+		* Open the React JS folder/appliction(/Traffic-Monitoring-Solution-Acceleraton/ReactJS) in Visual studio code	
+		* Install the project library run the (npm install --legacy-peer-deps) in terminal
+		* Create the build  run the command  (npm run build)
+		* Select appservice (HighwayMonitoringdemo) Deployment Centre  FTPS credentials Use username & password and FTP endpoint
+			Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build) to FTP end point(host) using username & password
 
 		
-		#	Edit Config file for TrafficMonitoring_Video model
-		#       Blob Storage Connection
-			azure_storage_connectionstring: <Enter azure storage connection string for blob storage>;
-			AccountName = <Enter blob storage Account name> 
-			AccountKey = <Enter Account key of blob storage"
-			process_container_name: "Enter process video container name"
-			Traffic_mon_url: <web api url> + "/Vehicletrend" 
-
-		#	Edit Config file for AccidentDetection_Live Model
-		#       Cosmos db Connection
-			Account: <Enter the account name for cosmo db>
-			Key: <Enter the key of cosmo db>
-			DatabaseName: <Enter Database Name>
-			containerName: <Enter container Name> 		
-		
-		#	Edit Config file for AccidentDetection_Video Model
-		#       Front end api url 
-		
-			Traffic_accident_url: <web api url> + "/TrafficAnalysis" 
+## Appendix - Use of media service for Live stream .
 			
-		
-		##  Add a vido file to Azure Media storage account.
-			
-		1) Create a media service in azure portal( see the video https://www.youtube.com/watch?v=8SndwAymPes)
+		 Create a media service in azure portal( see the video https://www.youtube.com/watch?v=8SndwAymPes)
 			1) Media Services  
 			2) Open the Media Service->Overview->Enconding->uploading a video
 			3) After video upload click on job fill the form and 
