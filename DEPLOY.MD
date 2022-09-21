@@ -5,11 +5,9 @@
 		
 	1. Docker should be installed on machine used to create Docker image
 	   Download from following path: https://docs.docker.com/engine/install/
-	2. Azure  Container Registry (ACR) is created on Azure (It would be create by ARMS Template in step-2)
-	3. Azure Kubernetes Service (AKS) is created on Azure (It would be create by ARMS Template in step-2)
-	4. Az client (Azure CLI) must be installed.
+	2. Az client (Azure CLI) must be installed.
 	     Download from following path: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli
-	5. Kubectl Utility must be installed
+	3. Kubectl Utility must be installed
 		 Download from following path: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
 		        OR 
 		 If curl is installed, use this command: curl -LO "https://dl.k8s.io/release/v1.25.0/bin/windows/amd64/kubectl.exe"
