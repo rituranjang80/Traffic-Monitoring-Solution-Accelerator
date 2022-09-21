@@ -69,11 +69,10 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		
 			Traffic_accident_url: <web api url> + "/TrafficAnalysis" 
 			
-## Step 5 Deploy ML Models.
-                # 
+## Step 5 Deploy ML Models.                
 		
 		
-		# Setup kuberentes with gpu nodes
+	# Setup kuberentes with gpu nodes
 		1. Open command prompt and connect with Kubernetes service ( Created above in ARM Template)
 		    Kubernetes Service --> Connect 
 		    Run below commands (copy from connect page)
@@ -172,8 +171,8 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		
 ## Appendix - Use of media service for Live stream .
 			
-		 Create a media service in azure portal( see the video https://www.youtube.com/watch?v=o2uiYLT6KU8)
-			1) Media Services  
+		 
+			1) Create a media service in azure portal( see the video https://www.youtube.com/watch?v=o2uiYLT6KU8)
 			2) Open the Media Service->Overview->Enconding->uploading a video
 			3) After video upload click on job fill the form and 
 				a) check the option encoding
