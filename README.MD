@@ -6,7 +6,7 @@ This solution will enable state DOT/City to deliver geospatial visualizations of
 
 
     Ability to upload a video.  
-    Classify vehicles based on vehicle type (car, pickup truck, and trailer) 
+    Classify vehicles based on vehicle type (Car, Pickup Truck, Bus and Motorbike ) 
     Count vehicles for each vehicle type 
     Identify if there is any incident/ accident and notify the user (configurable email address) 
     User interface will allow users to visualize the camera locations on the map (if the video has geo information) 
