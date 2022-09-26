@@ -120,10 +120,10 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
         * Enter the Blob BlobContainer Name  
             * "BlobContainerNameProcessvideo": "processvideo",
             * "BlobContainerNameUnProcessvideo": "unprocessvideo",
-        * Enter the AI ML API path  
-             * "ML_VechileDetection_API": "****",
-             * "ML_Accident_API": "******",
-
+        * Enter the Model APIs path  
+             * "ML_VechileDetection_API": "http://<API IP: Port>/",
+             * "ML_Accident_API": "http://<API IP: Port>/",
+		(run command "kubectl get svc" to get Model APIs IP & Port
         * Enter the SAS URL expiry year  
              * "SASURLValidYear": "2",
 		* Enter the web API URL
