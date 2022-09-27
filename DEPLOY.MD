@@ -95,7 +95,8 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		1.	Open terminal/ command prompt 
 		2.	Select folder containing docker file (e.g. TrafficMonitoring_Video)
 		3.	Build Docker image by using Dockerfile. 
-			Command: docker build -t [<container_registry_name>.azurecr.io/<Image Name>: <Tag>] (e.g.                                mspoccrdemo.azurecr.io/traffic_monitoring:0.1)
+			Command: docker build -t [<container_registry_name>.azurecr.io/<Image Name>: <Tag>] . 
+			(e.g. mspoccrdemo.azurecr.io/traffic_monitoring:0.1)
 		4.	login to azure container registry
 		        command: az acr login -n <container registry name>
 		
