@@ -5,11 +5,9 @@
 		
 	1. Docker should be installed on machine used to create Docker image
 	   Download from following path: https://docs.docker.com/engine/install/
-	2. Azure  Container Registry (ACR) is created on Azure (It would be create by ARMS Template in step-2)
-	3. Azure Kubernetes Service (AKS) is created on Azure (It would be create by ARMS Template in step-2)
-	4. Az client (Azure CLI) must be installed.
+	2. Az client (Azure CLI) must be installed.
 	     Download from following path: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli
-	5. Kubectl Utility must be installed
+	3. Kubectl Utility must be installed
 		 Download from following path: https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
 		        OR 
 		 If curl is installed, use this command: curl -LO "https://dl.k8s.io/release/v1.25.0/bin/windows/amd64/kubectl.exe"
@@ -97,7 +95,8 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		1.	Open terminal/ command prompt 
 		2.	Select folder containing docker file (e.g. TrafficMonitoring_Video)
 		3.	Build Docker image by using Dockerfile. 
-			Command: docker build -t [<container_registry_name>.azurecr.io/<Image Name>: <Tag>] (e.g.                                mspoccrdemo.azurecr.io/traffic_monitoring:0.1)
+			Command: docker build -t [<container_registry_name>.azurecr.io/<Image Name>: <Tag>] . 
+			(e.g. mspoccrdemo.azurecr.io/traffic_monitoring:0.1)
 		4.	login to azure container registry
 		        command: az acr login -n <container registry name>
 		
@@ -122,10 +121,10 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
         * Enter the Blob BlobContainer Name  
             * "BlobContainerNameProcessvideo": "processvideo",
             * "BlobContainerNameUnProcessvideo": "unprocessvideo",
-        * Enter the AI ML API path  
-             * "ML_VechileDetection_API": "****",
-             * "ML_Accident_API": "******",
-
+        * Enter the Model APIs path  
+             * "ML_VechileDetection_API": "http://<API IP: Port>/",
+             * "ML_Accident_API": "http://<API IP: Port>/",
+		(run command "kubectl get svc" to get Model APIs IP & Port
         * Enter the SAS URL expiry year  
              * "SASURLValidYear": "2",
 		* Enter the web API URL
