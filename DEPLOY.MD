@@ -100,11 +100,16 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		4.	login to azure container registry
 		        command: az acr login -n <container registry name>
 		
-		5. Push image in azure container registry. 
+		5.      Push image in azure container registry. 
 			Command: docker push [<container_registry_name>.azurecr.io/<Image Name>: <Tag>]
 		6.	Deploy traffic monitoring model on Kubernetes cluster using yml file.
 			Command: Kubectl apply -f [<yml file Name>] 
 			Note: (Yaml file name as in folder)
+		7.      kubectl expose create service.
+		        command: kubectl expose deploy <deploymentname> --type LoadBalancer --name <servicename> --port <portnumber>
+			Note: Deploymentname and portnumber should be same as in yaml file. 
+		8.      Edit secrets name in yaml file.
+		        Note: please edit the last line of yaml file with name of secrets that we created above.
 			
 			
 
