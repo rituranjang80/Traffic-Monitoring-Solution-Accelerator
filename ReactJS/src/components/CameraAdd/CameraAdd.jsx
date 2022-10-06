@@ -100,6 +100,7 @@ class CameraAdd extends CreateParent {
     let APIPost = '/camera/create';
     if (this.props.match !== undefined && this.props.match !== '') {
       APIPost = '/camera/update';
+      CameraValue.cameraId=this.props.match.params.id
     }
     CameraValue['place'] = CameraValue['Search'];
 
@@ -107,6 +108,7 @@ class CameraAdd extends CreateParent {
     CameraValue['Longitude'] = document.getElementById('Longitude').value;
 
     CameraValue['place'] = document.getElementById('Search').value;
+    CameraValue['CameraIp'] = document.getElementById('CameraIp').value;
 
     if (!CameraValue.Latitude) {
       //this.handelMessage('Requried name');
@@ -414,6 +416,7 @@ class CameraAdd extends CreateParent {
                   <InputGroup>
                     <FormControl
                       name="CameraIp"
+                      id="CameraIp"
                       value={CameraValue.CameraIp}
                       onChange={this.handleChangeGen}
                       placeholder="Camera Name"
