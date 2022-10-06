@@ -107,7 +107,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			Note: (Yaml file name as in folder)
 		7.      kubectl expose create service.
 		        command: kubectl expose deploy <deploymentname> --type LoadBalancer --name <servicename> --port <portnumber>
-			Note: Deploymentname and portnumber should be same as in yaml file. 
+			Note: Deploymentname and portnumber should be same as in yaml file. Servicename can be anything of our choice. 
 		8.      Edit secrets name in yaml file.
 		        Note: please edit the last line of yaml file with name of secrets that we created above.
 			
