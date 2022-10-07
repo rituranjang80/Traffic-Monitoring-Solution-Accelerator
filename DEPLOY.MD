@@ -162,9 +162,19 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 	* Enter the Live Stream ML API URL      
        * window.MLAPI='*****************
 
-
+## Step 7B. Set up  configuration Reactjs public/Index.js in HighwayMonitoring 
+	
+		*Change the bing map key & credentials to new bing map key
+			 <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&cp=47.621065~-122.352534&style=o&lvl=14&trfc=1' async defer></script>
+		 var mapOptions = {
+          credentials:'XXXXXXXXXXXXXXXXXXXXXXXX'
+          center: curPos,
+          mapTypeId: Microsoft.Maps.MapTypeId.road,
+          zoom: 9
+      };
+     
 		   
-## Step 7B. Deploy the ReactJS	
+## Step 7C. Deploy the ReactJS	
 		
 		* Open the React JS folder/appliction(/Traffic-Monitoring-Solution-Acceleraton/ReactJS) in Visual studio code	
 		* Install the project library run the (npm install --legacy-peer-deps) in terminal
