@@ -100,7 +100,7 @@ class CameraAdd extends CreateParent {
     let APIPost = '/camera/create';
     if (this.props.match !== undefined && this.props.match !== '') {
       APIPost = '/camera/update';
-      CameraValue.cameraId=this.props.match.params.id
+      CameraValue.cameraId = this.props.match.params.id;
     }
     CameraValue['place'] = CameraValue['Search'];
 
