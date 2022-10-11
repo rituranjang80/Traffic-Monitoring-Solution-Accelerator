@@ -162,8 +162,13 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 ## Step 6B. Deploy the WebAPI
 
 		* open the solution(/Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring/HighwayMonitoringWebAPI/HighwayMonitoringWebAPI.sln) in visual studio
-		* Get the publish settings file from azure portal app service (Website)
-		* In the visual studio solution right click the project (HighwayMonitoringWebAPI)->publish->new->Import profile->browse the publish settings file->click ok ->click publish
+		* Get the publish settings file from azure portal app service (WebAPI)
+			 * To fetch web API URL
+				(a. Go to azure app service (web API)
+				 b, Select "Overview" option on left
+				 c click on Get publish profile file on top right side 
+		* In the visual studio solution right click the project 
+		(WebAPI)->publish->new->Import profile->browse the publish settings file->click ok ->click publish
 
 ## Step 7A. Set up  configuration Reactjs public/Config.js in HighwayMonitoring      
 
@@ -178,7 +183,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 
 	   
 	* Enter the bing Map Key (Need to create account at Bing Map to get key)       
-       * window.bingMapKey="< bingMapKey >"
+       * window.bingMapKey="<bingMapKey>"
 	    Follow these steps for creating Bing map account key
 			https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key
 	* Enter the Live Stream ML API URL      
