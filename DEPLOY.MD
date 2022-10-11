@@ -117,11 +117,12 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 ## Step 6A. Set up  configuration appsetting.json in web API
         
         * Enter the SQL sever connection strings        
-            DefaultConnection": "Server=*************;Initial Catalog=MicrosoftTrafficMgmt;Persist Security Info=False;User ID=****************;Password=***********;MultipleActiveResultSets=False;TrustServerCertificate=False;"
+            "DefaultConnection": "Server=*************;Initial Catalog=MicrosoftTrafficMgmt;Persist Security Info=False;
+								 User ID=****************;Password=***********;MultipleActiveResultSets=False;TrustServerCertificate=False;"
         
        * Enter the Blob connection strings & Access key (Storage account  Access Keys) 
-			 BlobConnectionString": "<connection string>",       
-			 blobstoraccountKey": "<key>",
+			 "BlobConnectionString": "<connection string>",       
+			 "blobstoraccountKey": "<key>",
 		To fetch connection string and key
 			(a. Go to access Blob storage account
 			b. Select "Access Keys" option on left
@@ -143,7 +144,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			 "BaseURL":"<web API URL>" + “/api/”
 		To fetch web API URL
 			(a. Go to azure app service (web API)
-			 b, Select "Overview" option on left
+			 b. Select "Overview" option on left
 			 c. Copy Key and URL string on left side "key1")
 
          Enter the CosmosDb details
@@ -154,8 +155,8 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
             }
 		To fetch web CosmosDb details
 			(a. Go to azure CosmosDb service.
-			 b, Copy the database name
-			 c, Select "Key" option on left
+			 b. Copy the database name
+			 c. Select "Key" option on left
 			 d. Copy account Url,Key and URL string on left side "key1")
 
 
@@ -163,7 +164,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 
 		* open the solution(/Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring/HighwayMonitoringWebAPI/HighwayMonitoringWebAPI.sln) in visual studio
 		* Get the publish settings file from azure portal app service (WebAPI)
-			 * To fetch web API URL
+			 * To Get publish profile file
 				(a. Go to azure app service (web API)
 				 b, Select "Overview" option on left
 				 c click on Get publish profile file on top right top side 
@@ -179,7 +180,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 	 * To fetch web API URL
 			(a. Go to azure app service (web API)
 			 b, Select "Overview" option on left
-			 c. Copy Key and URL string on left side "key1")
+			 c. Copy URL from page)
 
 	   
 	* Enter the bing Map Key (Need to create account at Bing Map to get key)       
@@ -206,11 +207,10 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		* Open the React JS folder/appliction(/Traffic-Monitoring-Solution-Acceleraton/ReactJS) in Visual studio code	
 		* Install the project library run the (npm install --legacy-peer-deps) in terminal
 		* Create the build  run the command  (npm run build)
-		* Select app service  Web UI
-			 b, Select "Deployment Center" option on left than click ftp credentials on top
-			 c. Copy Key and URL string on left side "key1")
-		     d) copy the FTPS endpoint,User name, Password
-			 e) Open the FTP server enter the ftp endpoint, user name, Password Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build)
+		* Select app service  Web UI on azure
+			 b, Select "Deployment Center" option on left than click ftp credentials on top			 
+		     c) copy the FTPS endpoint,User name, Password
+			 d) Open the FTP server enter the ftp endpoint, user name, Password Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build)
 			
 		
 ## Appendix - Use of media service for Live stream .
