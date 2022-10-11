@@ -29,8 +29,8 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 )
 ## Step 3. Setup site and  Databases
 	
-	* Create a SQL Server instance or use exciting SQL server instance 
-        * Run the SQL script (1-SQL/MPOCSchemascript.sql 2- MPOCInsertScript.sql) SQL instance   
+	* Create a SQL Server instance or use existing SQL server instance 
+        * Run the SQL script (1-SQL/MPOCSchemascript.sql 2- MPOCInsertScript.sql) on SQL instance   
     
 ## Step  4 Setup configuration for Ml models
 
@@ -114,38 +114,54 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			
 
 
-## Step 6A. Set up  configuration appsetting.json in HighwayMonitoringWebAPI
+## Step 6A. Set up  configuration appsetting.json in web API
         
         * Enter the SQL sever connection strings        
-           * "ConnectionStrings": {  "XXXXXXXXXXXX" },
+            DefaultConnection": "Server=*************;Initial Catalog=MicrosoftTrafficMgmt;Persist Security Info=False;User ID=****************;Password=***********;MultipleActiveResultSets=False;TrustServerCertificate=False;"
         
-       * Enter the Blob connection strings & Access key (Storage account  Access Keys)  
-			* "BlobConnectionString": "<connection string>",
-			* "blobstoraccountKey": "<key>",
- 
+       * Enter the Blob connection strings & Access key (Storage account  Access Keys) 
+			 BlobConnectionString": "<connection string>",       
+			 blobstoraccountKey": "<key>",
+		To fetch connection string and key
+			(a. Go to access Blob storage account
+			b. Select "Access Keys" option on left
+			c. Copy Key and Connection string and section "key1")
+			
         * Enter the Blob BlobContainer Name  
-            * "BlobContainerNameProcessvideo": "processvideo",
-            * "BlobContainerNameUnProcessvideo": "unprocessvideo",
+             BlobContainerNameProcessvideo": "processvideo",
+             BlobContainerNameUnProcessvideo": "unprocessvideo",
+			
         * Enter the Model APIs path  
-             * "ML_VechileDetection_API": "http://<API IP: Port>/",
-             * "ML_Accident_API": "http://<API IP: Port>/",
-		(run command "kubectl get svc" to get Model APIs IP & Port
-        * Enter the SAS URL expiry year  
-             * "SASURLValidYear": "2",
+              "ML_VechileDetection_API": "http://<API IP: Port>/",
+              "ML_Accident_API": "http://<API IP: Port>/",
+		(run command "kubectl get svc" to get Model APIs IP & Port        
+		
+		* Enter the SAS URL expiry year  
+              "SASURLValidYear": "2",
+			 
 		* Enter the web API URL
-			* "BaseURL":"<web API URL>" + “/api/”
+			 "BaseURL":"<web API URL>" + “/api/”
+		To fetch web API URL
+			(a. Go to azure app service (web API)
+			 b, Select "Overview" option on left
+			 c. Copy Key and URL string on left side "key1")
 
-        * Enter the CosmosDb details
+         Enter the CosmosDb details
     "CosmosDb": {
             "Account": "<Keys  URI>",
             "Key": "<Keys  Primary Key > ",
             "DatabaseName": "<Database Name>"                
             }
-	
+		To fetch web CosmosDb details
+			(a. Go to azure CosmosDb service.
+			 b, Copy the database name
+			 c, Select "Key" option on left
+			 d. Copy account Url,Key and URL string on left side "key1")
+
 
 ## Step 6B. Deploy the WebAPI
 
-		* open the solution(/Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring/HighwayMonitoringWebAPI) in visual studio
+		* open the solution(/Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring/HighwayMonitoringWebAPI/HighwayMonitoringWebAPI.sln) in visual studio
 		* Get the publish settings file from azure portal app service (Website)
 		* In the visual studio solution right click the project (HighwayMonitoringWebAPI)->publish->new->Import profile->browse the publish settings file->click ok ->click publish
 
@@ -153,21 +169,27 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 
 
      * Enter the Web API URL        
-       * window.baseURL=”<HighwayMonitoringWebAPIdemo URL>” + “/api/”
+        window.baseURL=”<app service (web API) URL>” + “/api/”
+		
+	 * To fetch web API URL
+			(a. Go to azure app service (web API)
+			 b, Select "Overview" option on left
+			 c. Copy Key and URL string on left side "key1")
+
 	   
 	* Enter the bing Map Key (Need to create account at Bing Map to get key)       
-       * window.bingMapKey='***************************
+       * window.bingMapKey="< bingMapKey >"
 	    Follow these steps for creating Bing map account key
 			https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key
 	* Enter the Live Stream ML API URL      
-       * window.MLAPI='*****************
+       * window.MLAPI=<bingMapKey>
 
 ## Step 7B. Set up  configuration Reactjs public/Index.js in HighwayMonitoring 
 	
 		*Change the bing map key & credentials to new bing map key
-			 <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&cp=47.621065~-122.352534&style=o&lvl=14&trfc=1' async defer></script>
+			 <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key="<bingMapKey>"&cp=47.621065~-122.352534&style=o&lvl=14&trfc=1' async defer></script>
 		 var mapOptions = {
-          credentials:'XXXXXXXXXXXXXXXXXXXXXXXX'
+          credentials:"<bingMapKey>"
           center: curPos,
           mapTypeId: Microsoft.Maps.MapTypeId.road,
           zoom: 9
@@ -179,9 +201,12 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		* Open the React JS folder/appliction(/Traffic-Monitoring-Solution-Acceleraton/ReactJS) in Visual studio code	
 		* Install the project library run the (npm install --legacy-peer-deps) in terminal
 		* Create the build  run the command  (npm run build)
-		* Select appservice (HighwayMonitoringdemo) Deployment Centre  FTPS credentials Use username & password and FTP endpoint
-			Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build) to FTP end point(host) using username & password
-
+		* Select app service  Web UI
+			 b, Select "Deployment Center" option on left than click ftp credentials on top
+			 c. Copy Key and URL string on left side "key1")
+		     d) copy the FTPS endpoint,User name, Password
+			 e) Open the FTP server enter the ftp endpoint, user name, Password Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build)
+			
 		
 ## Appendix - Use of media service for Live stream .
 			
