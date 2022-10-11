@@ -166,7 +166,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			 * To fetch web API URL
 				(a. Go to azure app service (web API)
 				 b, Select "Overview" option on left
-				 c click on Get publish profile file on top right side 
+				 c click on Get publish profile file on top right top side 
 		* In the visual studio solution right click the project 
 		(WebAPI)->publish->new->Import profile->browse the publish settings file->click ok ->click publish
 
