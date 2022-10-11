@@ -128,8 +128,8 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			c. Copy Key and Connection string from key1 section)
 			
         * Enter the Blob BlobContainer Name  
-             BlobContainerNameProcessvideo": "processvideo",
-             BlobContainerNameUnProcessvideo": "unprocessvideo",
+             "BlobContainerNameProcessvideo": "processvideo",
+             "BlobContainerNameUnProcessvideo": "unprocessvideo",
 			
         * Enter the Model APIs path  
               "ML_VechileDetection_API": "http://<API IP: Port>/",
