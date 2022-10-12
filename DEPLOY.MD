@@ -144,7 +144,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		To fetch web API URL
 			(a. Go to azure app service (web API)
 			 b. Select "Overview" option on left
-			 c. Copy Key and URL string on left side "key1")
+			 c. Copy URL value from page )
 
          Enter the CosmosDb details
     "CosmosDb": {
