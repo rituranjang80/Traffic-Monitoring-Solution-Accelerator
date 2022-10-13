@@ -38,16 +38,16 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		
 		*      Cosmos db connetion
 		
-			Account: <Enter the account name for cosmo db>
-			Key: <Enter Key of cosmodb>
-			DatabaseName: <Enter Database Name>
-			containerName: <Enter container Name> (container name for process video)
+			Account: <Enter the URI cosmodb>
+			Key: <Enter PRIMARY KEY of cosmodb>
+			DatabaseName: "HighwayMonitoringSystem2"
+			containerName: "VehicleTrendingLive" 
 			
 			Note: To fetch the comsoDb Details go through below points.
-			    (a). Go to azure CosmosDb service.
-			    (b). Copy the database name
-			    (c). Select "Key" option on left
-			    (d). Copy account Url,Key and URL string on left side "key1")
+			    (a). Go to azure CosmosDb account.
+			    (c). Select "Key" option on left.
+			    (c). Go to Read-write Keys.
+			    (d). Copy account URI and PRIMARY KEY and fill into above Cosmo db connection.
 		
 		##      sql Connection string
 		        'DRIVER={ODBC Driver 17 for SQLServer};SERVER=<Server Name>;
@@ -58,23 +58,27 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		
 		*       Blob Storage Connection
 			azure_storage_connectionstring: <Enter azure storage connection string for blob storage>;
-			AccountName = <Enter blob storage Account name> 
-			AccountKey = <Enter Account key of blob storage"
-			process_container_name: "Enter process video container name"
+			process_container_name: "processvideo"
 			Traffic_mon_url: <web api url> + "/Vehicletrend" 
 			
-			Note: To fetch Blob storage connection string go through below points
-			     (a). Go to access Blob storage account
-			     (b). Select "Access Keys" option on left
-			     (c). Copy Key and Connection string from key1 section
+			Note: To fetch Blob storage connection string go through below points.
+			     (a) Go to Blob storage account
+			     (b) Select "Access Keys" option on left
+			     (c) Copy Connection string from key1 section
 
 		##	Edit Config file for AccidentDetection_Live Model
 		
 		*       Cosmos db Connection
 			Account: <Enter the account name for cosmo db>
 			Key: <Enter the key of cosmo db>
-			DatabaseName: <Enter Database Name>
-			containerName: <Enter container Name> 		
+			DatabaseName: "HighwayMonitoringSystem2"
+			containerName: "VehicleAccidentLive"	
+			
+			Note: To fetch the comsoDb Details go through below points.
+			    (a) Go to azure CosmosDb account.
+			    (c) Select "Key" option on left.
+			    (c) Go to Read-write Keys.
+			    (d) Copy account URI and PRIMARY KEY and fill into above Cosmo db connection.
 		
 		##	Edit Config file for AccidentDetection_Video Model
 		*       Front end api url 
@@ -99,7 +103,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		   Command:  kubectl create namespace gpu-resources
 		3. Install the NVIDIA device plugin by using yamlfile.
 		   Command: kubectl apply -f nvidia-device-plugin-ds.yaml (the file is present in main repository) 
-		4.  When need to check all gpu nodes are up and running,run below command.
+		4. To check kubernetes node are up and running,run below command.
 		   Command: Kubectl get nodes
 		   Note: Check kubernetes pod is up or not.
 		5. Now create the docker-registry secrets in the cluster by using below command.
@@ -109,7 +113,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
                                  --docker-username= <docker username in ACR access keys>\
                                  --docker-password= <docker paasword  in ACR access Keys>
 
-		   Note: Plz note down secret name as should be same as one yaml files. No need to change in yaml file if secret name 
+		   Note: Plz note down secret name as should be same as one in yaml files. No need to change in yaml file if secret name 
 		         is  "vechicle"
 
 		# Perform below steps for each of 4 models in folder highwaymonitoring_ML. 
