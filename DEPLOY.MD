@@ -34,36 +34,50 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
     
 ## Step  4 Setup configuration for Ml models
 
-		#	Edit config file for TrafficMonitoring_Live model
-		#       Cosmos db connetion
+		##	Edit config file for TrafficMonitoring_Live model
+		
+		*      Cosmos db connetion
 		
 			Account: <Enter the account name for cosmo db>
 			Key: <Enter Key of cosmodb>
 			DatabaseName: <Enter Database Name>
 			containerName: <Enter container Name> (container name for process video)
+			
+			Note: To fetch the comsoDb Details go through below points.
+			    a. Go to azure CosmosDb service.
+			    b. Copy the database name
+			    c. Select "Key" option on left
+			    d. Copy account Url,Key and URL string on left side "key1")
 		
-		#       sql Connection string
+		##      sql Connection string
 		        'DRIVER={ODBC Driver 17 for SQLServer};SERVER=<Server Name>;
 		                 DATABASE=<Data Name>;UID=<user ID>;PWD=<Password>'
 
 		
-		#	Edit Config file for TrafficMonitoring_Video model
-		#       Blob Storage Connection
+		##	Edit Config file for TrafficMonitoring_Video model
+		
+		*       Blob Storage Connection
 			azure_storage_connectionstring: <Enter azure storage connection string for blob storage>;
 			AccountName = <Enter blob storage Account name> 
 			AccountKey = <Enter Account key of blob storage"
 			process_container_name: "Enter process video container name"
 			Traffic_mon_url: <web api url> + "/Vehicletrend" 
+			
+			Note: To fetch Blob storage connection string go through below points
+			     a. Go to access Blob storage account
+			     b. Select "Access Keys" option on left
+			     c. Copy Key and Connection string from key1 section
 
-		#	Edit Config file for AccidentDetection_Live Model
-		#       Cosmos db Connection
+		##	Edit Config file for AccidentDetection_Live Model
+		
+		*       Cosmos db Connection
 			Account: <Enter the account name for cosmo db>
 			Key: <Enter the key of cosmo db>
 			DatabaseName: <Enter Database Name>
 			containerName: <Enter container Name> 		
 		
-		#	Edit Config file for AccidentDetection_Video Model
-		#       Front end api url 
+		##	Edit Config file for AccidentDetection_Video Model
+		*     Front end api url 
 		
 			Traffic_accident_url: <web api url> + "/TrafficAnalysis" 
 			
@@ -71,49 +85,57 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		
 		
 	# Setup kuberentes with gpu nodes
-		1. Open command prompt and connect with Kubernetes service ( Created above in ARM Template)
-		    Kubernetes Service --> Connect 
-		    Run below commands (copy from connect page)
-		    az account set --subscription <....>
-		    az aks get-credentials --resource-group <resource group name> --name <AKS service name> 
+		1. Open command prompt and navigate to root directory (Where repo code is downloaded/cloned).
+                    
+                    steps to connect with Kubernetes service ( Created above in ARM Template)
+		      (a) Access Kubernetes Service on azure portal
+		      (b) Select kubernetes service (created above in ARM Template)
+		      (c) Select "Connect" option at top.
+		      (d) Run below commands (copy from connect page)
+		          az account set --subscription <....>
+		          az aks get-credentials --resource-group <resource group name> --name <AKS service name> 
 		
-		2. When need to check all gpu nodes are up and running,run below command.
-		   Command: Kubectl get nodes
-		3. Create a namespace for NVIDIA GPU RESOURCES by using below command.
+		2. Create a namespace for NVIDIA GPU RESOURCES by using below command.
 		   Command:  kubectl create namespace gpu-resources
-		4. Install the NVIDIA device plugin by using yamlfile.
+		3. Install the NVIDIA device plugin by using yamlfile.
 		   Command: kubectl apply -f nvidia-device-plugin-ds.yaml (the file is present in main repository) 
+		4.  When need to check all gpu nodes are up and running,run below command.
+		   Command: Kubectl get nodes
+		   Note: Check kubernetes pod is up or not.
 		5. Now create the docker-registry secrets in the cluster by using below command.
 		   Command:     kubectl create secret docker-registry <any name for secrets> \
                                  --namespace default \
                                  --docker-server= <docker server name in ACR access keys> \
                                  --docker-username= <docker username in ACR access keys>\
                                  --docker-password= <docker paasword  in ACR access Keys>
-		 
+
+		   Note: Plz note down secret name as should be same as one yaml files. No need to change in yaml file if secret name 
+		         is  "vechicle"
+
 		# Perform below steps for each of 4 models in folder highwaymonitoring_ML. 
 		
 		1.	Open terminal/ command prompt 
 		2.	Select folder containing docker file (e.g. TrafficMonitoring_Video)
 		3.	Build Docker image by using Dockerfile. 
-			Command: docker build -t [<container_registry_name>.azurecr.io/<Image Name>: <Tag>] . 
-			(e.g. mspoccrdemo.azurecr.io/traffic_monitoring:0.1)
+		        Command: docker build -t [<container_registry_name>.azurecr.io/<Image Name>: <Tag>] . 
+		        (e.g. mspoccrdemo.azurecr.io/traffic_monitoring:0.1)
+			
 		4.	login to azure container registry
 		        command: az acr login -n <container registry name>
-		
 		5.      Push image in azure container registry. 
 			Command: docker push [<container_registry_name>.azurecr.io/<Image Name>: <Tag>]
-		6.	Deploy traffic monitoring model on Kubernetes cluster using yml file.
-			Command: Kubectl apply -f [<yml file Name>] 
-			Note: (Yaml file name as in folder)
-		7.      kubectl expose create service.
+		        Note: If we gets unauthorized error please perform previous step(login to azure container registory.)
+		6.      Edit secrets name in yaml file.
+		        Note: please edit the last line of yaml file with name of secrets that we created above.     
+		7.      Edit image name in yaml file that you build in above step.
+		        Example: <mspoccr.azurecr.io/vehicle_monitoring:2.1>
+		8.	Deploy traffic monitoring model on Kubernetes cluster using yml file.
+		        Command: Kubectl apply -f [<yml file Name>] 
+		        Note: (Yaml file name as in folder)
+		9.      kubectl expose create service.
 		        command: kubectl expose deploy <deploymentname> --type LoadBalancer --name <servicename> --port <portnumber>
-			Note: Deploymentname and portnumber should be same as in yaml file. Servicename can be anything of our choice. 
-		8.      Edit secrets name in yaml file.
-		        Note: please edit the last line of yaml file with name of secrets that we created above.
+		        Note: Deploymentname and portnumber should be same as in yaml file. Servicename can be anything of our choice. 
 			
-			
-
-
 ## Step 6A. Set up  configuration appsetting.json in web API
         
         * Enter the SQL sever connection strings        
