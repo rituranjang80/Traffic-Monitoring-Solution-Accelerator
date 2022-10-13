@@ -44,10 +44,10 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			containerName: <Enter container Name> (container name for process video)
 			
 			Note: To fetch the comsoDb Details go through below points.
-			    a. Go to azure CosmosDb service.
-			    b. Copy the database name
-			    c. Select "Key" option on left
-			    d. Copy account Url,Key and URL string on left side "key1")
+			    (a). Go to azure CosmosDb service.
+			    (b). Copy the database name
+			    (c). Select "Key" option on left
+			    (d). Copy account Url,Key and URL string on left side "key1")
 		
 		##      sql Connection string
 		        'DRIVER={ODBC Driver 17 for SQLServer};SERVER=<Server Name>;
@@ -64,9 +64,9 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			Traffic_mon_url: <web api url> + "/Vehicletrend" 
 			
 			Note: To fetch Blob storage connection string go through below points
-			     a. Go to access Blob storage account
-			     b. Select "Access Keys" option on left
-			     c. Copy Key and Connection string from key1 section
+			     (a). Go to access Blob storage account
+			     (b). Select "Access Keys" option on left
+			     (c). Copy Key and Connection string from key1 section
 
 		##	Edit Config file for AccidentDetection_Live Model
 		
@@ -77,7 +77,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			containerName: <Enter container Name> 		
 		
 		##	Edit Config file for AccidentDetection_Video Model
-		*     Front end api url 
+		*       Front end api url 
 		
 			Traffic_accident_url: <web api url> + "/TrafficAnalysis" 
 			
@@ -88,10 +88,10 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		1. Open command prompt and navigate to root directory (Where repo code is downloaded/cloned).
                     
                    steps to connect with Kubernetes service ( Created above in ARM Template)
-		      (a) Access Kubernetes Service on azure portal
-		      (b) Select kubernetes service (created above in ARM Template)
-		      (c) Select "Connect" option at top.
-		      (d) Run below commands (copy from connect page)
+		       (a). Access Kubernetes Service on azure portal
+		       (b). Select kubernetes service (created above in ARM Template)
+		       (c). Select "Connect" option at top.
+		       (d). Run below commands (copy from connect page)
 		          az account set --subscription <....>
 		          az aks get-credentials --resource-group <resource group name> --name <AKS service name> 
 		
