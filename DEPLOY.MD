@@ -87,7 +87,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 	# Setup kuberentes with gpu nodes
 		1. Open command prompt and navigate to root directory (Where repo code is downloaded/cloned).
                     
-                    steps to connect with Kubernetes service ( Created above in ARM Template)
+                   steps to connect with Kubernetes service ( Created above in ARM Template)
 		      (a) Access Kubernetes Service on azure portal
 		      (b) Select kubernetes service (created above in ARM Template)
 		      (c) Select "Connect" option at top.
