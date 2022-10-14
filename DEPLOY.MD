@@ -249,18 +249,21 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		
 ## Appendix - Use of media service for Live stream .
 			
-			 see the video https://www.youtube.com/watch?v=o2uiYLT6KU8 
+			 please refer this video https://www.youtube.com/watch?v=o2uiYLT6KU8 
 			1) Create a media service in azure portal
 			2) Open the Media Service->Overview->Encoding->uploading a video
-			3) After video upload click on job fill the form and 
+			3) After video upload select the file than click on job 
+				a) Job page open enter the details
 				a) check the option encoding
-				b) Built in present name
-			4) Create a stream locator 
-			5) Run the stream endpoint from media service page
-			6) open the encoding video from browse assets then go to stream URL
-			7) Copy the stream HLS URL path -> Add the HLS URL path to web application  camera configuration page.
-
-
+				b) Built in present name (select the option-> H254MultipleBitrate1080P)
+			4) Open the new created encoding video file 
+			5) Click on new streaming locator
+			6) A new streaming locator window open enter the expiry date (current date+2 years (or which you want))			
+			7) open the encoding video from browse assets then go to stream URL			
+			8) Now encoding video show on portal
+			9) click on streaming URL under section Streaming locators (1
+			10)A new pop Streaming URLs window open copy the HLS URL 
+			11)Open the HighwayMonitoring project on and camera configuration page add paste HLS URL in endpoint
 
 
 
