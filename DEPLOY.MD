@@ -251,7 +251,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			
 			 see the video https://www.youtube.com/watch?v=o2uiYLT6KU8 
 			1) Create a media service in azure portal
-			2) Open the Media Service->Overview->Enconding->uploading a video
+			2) Open the Media Service->Overview->Encoding->uploading a video
 			3) After video upload click on job fill the form and 
 				a) check the option encoding
 				b) Bulit in present name
