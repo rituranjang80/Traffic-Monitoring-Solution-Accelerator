@@ -52,12 +52,11 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		##      sql Connection string
 		        'DRIVER={ODBC Driver 17 for SQLServer};SERVER=<Server Name>;
 		                 DATABASE=<Catalog>;UID=<user ID>;PWD=<Password>'
-						 
+			'database' = 'MicrosoftTrafficMgmt'		 
 				To fetch SQL sever Server details 
-				  (a). Go to SQL database in azure portal
-				  (b). Click on your databasename in my case MicrosoftTrafficMgmt
-				  (c). Click on overview then click on connection strings 
-				  (d). Copy the server name,DATABASE/Catalog name, user and fill into above SQL Connection string
+				  (a). Select your SQL database(MicrosoftTrafficMgmt) in azure portal.
+				  (c). Click on overview and click on connection strings 
+				  (d). Copy the server name,DATABASE/Catalog name, User ID and fill into above SQL Connection string
 				  (e). Enter the password of sql server
 
 
@@ -156,11 +155,10 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
         * Enter the SQL sever connection strings details       
             "DefaultConnection": "Server=*************;Initial Catalog=<Catalog>;Persist Security Info=False;User ID=****************;Password=***********;MultipleActiveResultSets=False;TrustServerCertificate=False;"				
 			To fetch SQL sever Server details 
-			  (a). Go to SQL database in azure portal
-			  (b). Click on your databasename in my case MicrosoftTrafficMgmt
-			  (c). Click on overview then click on connection strings 
-			  (d). Copy the server name,catalog name, user and fill into above SQL Connection string 
-			  (e). Enter the password of sql server
+			  (a). Select your SQL database(MicrosoftTrafficMgmt) in azure portal.
+		          (b). Click on overview and click on connection strings 
+			  (c). Copy the server name,DATABASE/Catalog name, User ID and fill into above SQL Connection string
+			  (d). Enter the password of sql server
 
         
        * Enter the Blob connection strings & Access key (Storage account & Access Keys) 
