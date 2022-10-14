@@ -150,9 +150,9 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			 "BlobConnectionString": "<connection string>",       
 			 "BlobstoraccountKey": "<key>",
 		To fetch connection string and key
-			(a. Go to azure access Blob storage account
-			b. Select "Access Keys" option on left
-			c. Copy Key and Connection string from key1 section)
+			(a). Go to azure access Blob storage account
+			(b). Select "Access Keys" option on left
+			(c). Copy Key and Connection string from key1 section
 			
         * Enter the Blob BlobContainer Name  
              "BlobContainerNameProcessvideo": "processvideo",
@@ -169,9 +169,9 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		* Enter the web API URL
 			 "BaseURL":"<web API URL>" + “/api/”
 		To fetch web API URL
-			(a. Go to azure app service (web API)
-			 b. Select "Overview" option on left
-			 c. Copy URL value from page )
+			(a). Go to azure app service (web API)
+			(b). Select "Overview" option on left
+			(c). Copy URL value from page 
 
          Enter the CosmosDb details
     "CosmosDb": {
@@ -180,10 +180,10 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
             "DatabaseName": "<Database Name>"                
             }
 		To fetch web CosmosDb details
-			(a. Go to azure CosmosDb service.
-			 b. Copy the database  under cntainers section
-			 c. Select "Key" option on left
-			 d. Copy URI,PRIMARY KEY, and PRIMARY CONNECTION STRING )
+			(a). Go to azure CosmosDb service.
+			(b). Copy the database  under cntainers section
+			(c). Select "Key" option on left
+			(d). Copy URI,PRIMARY KEY, and PRIMARY CONNECTION STRING 
 
 
 ## Step 6B. Deploy the WebAPI
@@ -191,9 +191,9 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		* open the solution(/Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring/HighwayMonitoringWebAPI/HighwayMonitoringWebAPI.sln) in visual studio
 		* Get the publish settings file from azure portal app service (WebAPI)
 			 * To Get publish profile file
-				(a. Go to azure app service (web API)
-				 b, Select "Overview" option on left
-				 c click on Get publish profile file on top right top side 
+				(a). Go to azure app service (web API)
+				(b). Select "Overview" option on left
+				(c). click on Get publish profile file on top right top side 
 		* In the visual studio solution right click the project 
 		(WebAPI)->publish->new->Import profile->browse the publish settings file->click ok ->click publish
 
@@ -204,9 +204,9 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
         window.baseURL="<app service (web API) URL>" + "/api/"
 		
 	 * To fetch web API URL
-			(a. Go to azure app service (web API)
-			 b, Select "Overview" option on left
-			 c. Copy URL from page)
+			(a). Go to azure app service (web API)
+			(b). Select "Overview" option on left
+			(c). Copy URL from page
 
 	   
 	* Enter the bing Map Key (Need to create account at Bing Map to get key)       
@@ -235,10 +235,11 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		* Open the React JS folder/appliction(/Traffic-Monitoring-Solution-Acceleraton/ReactJS) in Visual studio code	
 		* Install the project library run the (npm install --legacy-peer-deps) in terminal
 		* Create the build  run the command  (npm run build)
-		* Select app service  Web UI on azure
-			 b, Select "Deployment Center" option on left than click ftp credentials on top			 
-		     c) copy the FTPS endpoint,User name, Password
-			 d) Open the FTP server enter the ftp endpoint, user name, Password Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build)
+		
+			(a). Select app service  Web UI on azure
+			(b). Select "Deployment Center" option on left than click ftp credentials on top			 
+		    (c). copy the FTPS endpoint,User name, Password
+			(d). Open the FTP server enter the ftp endpoint, user name, Password Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build)
 			
 		
 ## Appendix - Use of media service for Live stream .
