@@ -34,7 +34,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
     
 ## Step  4 Setup configuration for Ml models
 
-		##	Edit config file for HighwayMonitoring_ML/TrafficMonitoring_Stream/app model
+		##	Edit config file at Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/TrafficMonitoring_Stream/app 
 		
 		*      Cosmos db connetion
 		
@@ -61,7 +61,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 
 
 		
-		##	Edit Config file for  HighwayMonitoring_ML/TrafficMonitoring_Video/app model
+		##	Edit Config file at Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/TrafficMonitoring_Video/app 
 		
 		*       Blob Storage Connection
 			azure_storage_connectionstring: <Enter azure storage connection string for blob storage>;
@@ -73,7 +73,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			     (b). Select "Access Keys" option on left
 			     (c). Copy Connection string from key1 section
 
-		##	Edit Config file for  HighwayMonitoring_ML/AccidentDetection_Live/app Model
+		##	Edit Config file at  Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/AccidentDetection_Live/app 
 		
 		*       Cosmos db Connection
 			Account: <Enter the URI for cosmo db>
@@ -87,7 +87,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			    (c). Go to Read-write Keys.
 			    (d). Copy account URI and PRIMARY KEY and fill into above Cosmo db connection.
 		
-		##	Edit Config file for  HighwayMonitoring_ML/AccidentDetection_Video/app Model
+		##	Edit Config file at  Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/AccidentDetection_Video/app 
 		*       Front end api url 
 		
 			Traffic_accident_url: <web api url> + "/TrafficAnalysis" 
