@@ -164,11 +164,11 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		        command: kubectl expose deploy <deploymentname> --type LoadBalancer --name <servicename> --port <portnumber>
 		        Note: Deploymentname and portnumber should be same as in yaml file. Servicename can be anything of our choice. 
 			
-## Step 6A. Set up  configuration appsetting.json in web API
+## Step 6A. Set up  configuration (/Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring/HighwayMonitoringWebAPI/appsetting.json) in web API
         
         * Enter the SQL sever connection strings details       
             "DefaultConnection": "Server=*************;Initial Catalog=<Catalog>;Persist Security Info=False;User ID=****************;Password=***********;MultipleActiveResultSets=False;TrustServerCertificate=False;"				
-			To fetch SQL sever Server details 
+			Note: To fetch SQL sever Server details 
 			  (a). Select your SQL database(MicrosoftTrafficMgmt) in azure portal.
 		          (b). Click on overview and click on connection strings 
 			  (c). Copy the server name,DATABASE/Catalog name, User ID and fill into above SQL Connection string
@@ -178,7 +178,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
        * Enter the Blob connection strings & Access key (Storage account & Access Keys) 
 			 "BlobConnectionString": "<connection string>",       
 			 "BlobstoraccountKey": "<key>",
-		To fetch connection string and key
+		Note: To fetch connection string and key
 			(a). Go to azure access Blob storage account
 			(b). Select "Access Keys" option on left
 			(c). Copy Key and Connection string from key1 section
@@ -197,7 +197,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			 
 		* Enter the web API URL
 			 "BaseURL":"<web API URL>" + “/api/”
-		To fetch web API URL
+		Note: fetch web API URL
 			(a). Go to azure app service (web API)
 			(b). Select "Overview" option on left
 			(c). Copy URL value from page 
@@ -208,19 +208,18 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
             "Key": "<Keys  Primary Key > ",
             "DatabaseName": "<Database Name>"                
             }
-		To fetch web CosmosDb details
-			(a). Go to azure CosmosDb service.
-			(b). Select "Overview" option on left
-			(c). Copy the database under container section
-			(d). Select "Key" option on left under settings section
-			(e). Copy URI,PRIMARY KEY, and PRIMARY CONNECTIONSTRING 
-
+		Note: To fetch the comsoDb Details go through below points.
+			    (a). Go to azure CosmosDb account created in step2.
+			    (c). Select "Key" option on left.
+			    (c). Go to Read-write Keys section.
+			    (d). Copy account URI and PRIMARY KEY and fill into above Cosmo db connection.
+		
 
 ## Step 6B. Deploy the WebAPI
 
 		* open the solution(/Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring/HighwayMonitoringWebAPI/HighwayMonitoringWebAPI.sln) in visual studio
 		* Get the publish settings file from azure portal app service (WebAPI)
-			 * To Get publish profile file
+		   Note: To Get publish profile file
 				(a). Go to azure app service (web API)
 				(b). Select "Overview" option on left
 				(c). click on Get publish profile file on top right top side 
@@ -232,7 +231,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 
      * Enter the Web API URL        
         window.baseURL="<app service (web API) URL>" + "/api/"			
-	 * To fetch web API URL
+	    Note:  fetch web API URL
 			(a). Go to azure app service (web API)
 			(b). Select "Overview" option on left
 			(c). Copy URL from page
@@ -246,7 +245,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 
 ## Step 7B. Set up  configuration Reactjs public/Index.js in HighwayMonitoring 
 	
-	*Change the bing map key & credentials to new bing map key
+	*Replace bingmapkey value at 2 places below
 		
 		<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key="<bingMapKey>"&cp=47.621065~-122.352534&style=o&lvl=14&trfc=1' async defer></script>
 		 
