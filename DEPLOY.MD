@@ -237,7 +237,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		   
 ## Step 7C. Deploy the ReactJS	
 		
-		* Open the React JS folder/appliction(/Traffic-Monitoring-Solution-Acceleraton/ReactJS) in Visual studio code	
+		* Open the React JS folder/application(/Traffic-Monitoring-Solution-Acceleraton/ReactJS) in Visual studio code	
 		* Install the project library run the command (npm install --legacy-peer-deps) in terminal
 		* Create the build run the command (npm run build)
 		
