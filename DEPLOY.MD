@@ -225,7 +225,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 	
 	*Change the bing map key & credentials to new bing map key
 		
-			 <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key="<bingMapKey>"&cp=47.621065~-122.352534&style=o&lvl=14&trfc=1' async defer></script>
+		<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key="<bingMapKey>"&cp=47.621065~-122.352534&style=o&lvl=14&trfc=1' async defer></script>
 		 
 		 var mapOptions = {
           credentials:"<bingMapKey>"
