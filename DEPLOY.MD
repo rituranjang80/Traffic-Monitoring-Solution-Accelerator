@@ -258,7 +258,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			4) Create a stream locator 
 			5) Run the stream endpoint from media service page
 				6) open the enconding video from browse assets then go to stream URL
-			7) Copy the stram hls URL path -> Add the hls URL path to web application  camera configuration page.
+			7) Copy the stream HLS URL path -> Add the HLS URL path to web application  camera configuration page.
 
 
 
