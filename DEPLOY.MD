@@ -241,10 +241,10 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		* Install the project library run the command (npm install --legacy-peer-deps) in terminal
 		* Create the build run the command (npm run build)
 		
-			(a). Select app service  Web UI on azure
-			(b). Select "Deployment Center" option on left than click ftp credentials on top			 
-		    (c). copy the FTPS endpoint,User name, Password
-			(d). Open the FTP server enter the ftp endpoint, user name, Password Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build)
+		   (a). Select app service  Web UI on azure
+		   (b). Select "Deployment Center" option on left than click ftp credentials on top			 
+		   (c). copy the FTPS endpoint,User name, Password
+		   (d). Open the FTP server enter the ftp endpoint, user name, Password Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build)
 			
 		
 ## Appendix - Use of media service for Live stream .
