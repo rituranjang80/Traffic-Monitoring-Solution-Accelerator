@@ -258,10 +258,9 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 				b) Built in present name (select the option-> H254MultipleBitrate1080P)
 			4) Open the new created encoding video file 
 			5) Click on new streaming locator
-			6) A new streaming locator window open enter the expiry date (current date+2 years or which you want)		
-			7) The encoding video show on  browse assets then go to stream URL			
+			6) A new streaming locator window open enter the expiry date (current date+2 years or which you want)
 			8) Now encoding video show on portal
-			9) click on streaming URL under section Streaming locators (1
+			9) click on streaming URL under section Streaming locators (1)
 			10)A new pop Streaming URLs window open copy the HLS URL 
 			11)Open the HighwayMonitoring project on and camera configuration page add paste HLS URL in endpoint
 
