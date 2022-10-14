@@ -187,7 +187,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
             }
 		To fetch web CosmosDb details
 			(a). Go to azure CosmosDb service.
-			(b). Copy the database  under cntainers section
+			(b). Copy the database  under container section
 			(c). Select "Key" option on left
 			(d). Copy URI,PRIMARY KEY, and PRIMARY CONNECTION STRING 
 
