@@ -195,7 +195,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		* Enter the SAS URL expiry year  
               "SASURLValidYear": "2",
 			 
-		* Enter the web API URL
+		* Enter the web API URL (There are 2 app services created, one is set up as webAPI and other is web UI)
 			 "BaseURL":"<web API URL>" + “/api/”
 		Note: fetch web API URL
 			(a). Go to azure app service (web API)
@@ -220,7 +220,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		* open the solution(/Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring/HighwayMonitoringWebAPI/HighwayMonitoringWebAPI.sln) in visual studio
 		* Get the publish settings file from azure portal app service (WebAPI)
 		   Note: To Get publish profile file
-				(a). Go to azure app service (web API)
+				(a). Go to azure app service (web API) (There are 2 app services created, one is set up as webAPI and other is web UI))
 				(b). Select "Overview" option on left
 				(c). click on Get publish profile file on top right top side 
 		* In the visual studio solution right click the project 
@@ -229,7 +229,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 ## Step 7A. Set up  configuration Reactjs public/Config.js in HighwayMonitoring      
 
 
-     * Enter the Web API URL        
+     * Enter the Web API URL (There are 2 app services created, one is set up as webAPI and other is web UI))     
         window.baseURL="<app service (web API) URL>" + "/api/"			
 	    Note:  fetch web API URL
 			(a). Go to azure app service (web API)
@@ -263,7 +263,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		* Install the project library run the command (npm install --legacy-peer-deps) in terminal
 		* Create the build run the command (npm run build)
 		
-		   (a). Select app service  Web UI on azure
+		   (a). Select app service  Web UI on azure (There are 2 app services created, one is set up as webAPI and other is web UI)
 		   (b). Select "Deployment Center" option on left than click ftp credentials on top			 
 		   (c). copy the FTPS endpoint,User name, Password
 		   (d). Open the FTP server enter the ftp endpoint, user name, Password Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build)
