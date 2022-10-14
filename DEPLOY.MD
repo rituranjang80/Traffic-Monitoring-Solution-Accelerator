@@ -62,9 +62,9 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			Traffic_mon_url: <web api url> + "/Vehicletrend" 
 			
 			Note: To fetch Blob storage connection string go through below points.
-			     (a) Go to Blob storage account
-			     (b) Select "Access Keys" option on left
-			     (c) Copy Connection string from key1 section
+			     (a). Go to Blob storage account
+			     (b). Select "Access Keys" option on left
+			     (c). Copy Connection string from key1 section
 
 		##	Edit Config file for AccidentDetection_Live Model
 		
@@ -75,10 +75,10 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			containerName: "VehicleAccidentLive"	
 			
 			Note: To fetch the comsoDb Details go through below points.
-			    (a) Go to azure CosmosDb account.
-			    (c) Select "Key" option on left.
-			    (c) Go to Read-write Keys.
-			    (d) Copy account URI and PRIMARY KEY and fill into above Cosmo db connection.
+			    (a). Go to azure CosmosDb account.
+			    (c). Select "Key" option on left.
+			    (c). Go to Read-write Keys.
+			    (d). Copy account URI and PRIMARY KEY and fill into above Cosmo db connection.
 		
 		##	Edit Config file for AccidentDetection_Video Model
 		*       Front end api url 
