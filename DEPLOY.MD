@@ -77,8 +77,8 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		##	Edit Config file for AccidentDetection_Live Model
 		
 		*       Cosmos db Connection
-			Account: <Enter the account name for cosmo db>
-			Key: <Enter the key of cosmo db>
+			Account: <Enter the URI for cosmo db>
+			Key: <Enter the Primary Key of cosmo db>
 			DatabaseName: "HighwayMonitoringSystem2"
 			containerName: "VehicleAccidentLive"	
 			
@@ -100,10 +100,13 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		1. Open command prompt and navigate to root directory (Where repo code is downloaded/cloned).
                     
                    steps to connect with Kubernetes service ( Created above in ARM Template)
-		       (a). Access Kubernetes Service on azure portal
-		       (b). Select kubernetes service (created above in ARM Template)
-		       (c). Select "Connect" option at top.
-		       (d). Run below commands (copy from connect page)
+		       (a). open command prompt/terminal and run this below commnad
+		            command: az login 
+			    Note: This command will connect to browser and would ask for login. Verify your azure portal credentials. 
+		       (b). Access Kubernetes Service on azure portal
+		       (c). Select kubernetes service (created above in ARM Template)
+		       (d). Select "Connect" option at top.
+		       (e). Run below commands (copy from connect page)
 		          az account set --subscription <....>
 		          az aks get-credentials --resource-group <resource group name> --name <AKS service name> 
 		
