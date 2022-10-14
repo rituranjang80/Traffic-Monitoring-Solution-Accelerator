@@ -212,8 +212,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			    (a). Go to azure CosmosDb account created in step2.
 			    (c). Select "Key" option on left.
 			    (c). Go to Read-write Keys section.
-			    (d). Copy account URI and PRIMARY KEY and fill into above Cosmo db connection.
-		
+			    (d). Copy account URI and PRIMARY KEY and fill into above Cosmo db connection.		
 
 ## Step 6B. Deploy the WebAPI
 
