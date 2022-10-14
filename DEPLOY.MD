@@ -208,13 +208,11 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 
 
      * Enter the Web API URL        
-        window.baseURL="<app service (web API) URL>" + "/api/"
-		
+        window.baseURL="<app service (web API) URL>" + "/api/"			
 	 * To fetch web API URL
 			(a). Go to azure app service (web API)
 			(b). Select "Overview" option on left
 			(c). Copy URL from page
-
 	   
 	* Enter the bing Map Key (Need to create account at Bing Map to get key)       
        * window.bingMapKey="<bingMapKey>"
