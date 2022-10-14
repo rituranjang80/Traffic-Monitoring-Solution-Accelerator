@@ -123,7 +123,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			 "BlobConnectionString": "<connection string>",       
 			 "BlobstoraccountKey": "<key>",
 		To fetch connection string and key
-			(a. Go to access Blob storage account
+			(a. Go to azure access Blob storage account
 			b. Select "Access Keys" option on left
 			c. Copy Key and Connection string from key1 section)
 			
@@ -174,7 +174,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 
 
      * Enter the Web API URL        
-        window.baseURL=”<app service (web API) URL>” + “/api/”
+        window.baseURL="<app service (web API) URL>" + "/api/"
 		
 	 * To fetch web API URL
 			(a. Go to azure app service (web API)
@@ -192,7 +192,9 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 ## Step 7B. Set up  configuration Reactjs public/Index.js in HighwayMonitoring 
 	
 		*Change the bing map key & credentials to new bing map key
+		
 			 <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key="<bingMapKey>"&cp=47.621065~-122.352534&style=o&lvl=14&trfc=1' async defer></script>
+		 
 		 var mapOptions = {
           credentials:"<bingMapKey>"
           center: curPos,
