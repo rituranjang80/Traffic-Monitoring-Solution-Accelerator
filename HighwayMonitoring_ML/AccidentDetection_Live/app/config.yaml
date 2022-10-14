@@ -1,5 +1,4 @@
-Account: "https://mspocdb.documents.azure.com:443/"
-Key: "R79EBwOGMIbYFnwFXbN33p1eLX30uLVAT1XnIckuxpaZ7y9ZXa1LGaRTeHHD3jIJYuzzTo21cq9NLxHPqPf9uw=="
+Account: "*********"
+Key: "***********"
 DatabaseName: "HighwayMonitoringSystem2"
 containerName: "VehicleAccidentLive"
-stream_url: "https://mspocmediaservice-usea.streaming.media.azure.net/3b1f6b2e-a36f-452f-9fb3-d7c4336a2d1a/32745.ism/manifest(format=m3u8-cmaf)"
