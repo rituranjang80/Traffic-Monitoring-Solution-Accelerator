@@ -189,7 +189,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			(a). Go to azure CosmosDb service.
 			(b). Select "Overview" option on left
 			(c). Copy the database under container section
-			(d). Select "Key" option on left
+			(d). Select "Key" option on left under settings section
 			(e). Copy URI,PRIMARY KEY, and PRIMARY CONNECTIONSTRING 
 
 
