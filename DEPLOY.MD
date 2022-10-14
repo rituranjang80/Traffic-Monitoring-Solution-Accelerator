@@ -143,7 +143,8 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 ## Step 6A. Set up  configuration appsetting.json in web API
         
         * Enter the SQL sever connection strings        
-            "DefaultConnection": "Server=*************;Initial Catalog=MicrosoftTrafficMgmt;Persist Security Info=False;User ID=****************;Password=***********;MultipleActiveResultSets=False;TrustServerCertificate=False;"
+            "DefaultConnection": "Server=*************;Initial Catalog=MicrosoftTrafficMgmt;Persist Security Info=False;User ID=****************;Password=***********;MultipleActiveResultSets=False;TrustServerCertificate=False;"				
+
         
        * Enter the Blob connection strings & Access key (Storage account & Access Keys) 
 			 "BlobConnectionString": "<connection string>",       
