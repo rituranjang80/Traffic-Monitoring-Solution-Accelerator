@@ -145,6 +145,19 @@ Note:Steps below will refer and use Azure resources created in this step
 			 (c) Copy login Server, username, password and fill into above (docker-server, docker-username and docker paasword.)
 		   Note: Plz note down secret name as should be same as one in yaml files. No need to change in yaml file if secret name 
 		         is  "vechicle"
+			 
+		# Prerequisites for deploying Machine learning models.
+		 (a). Create a empty folder with the name of 'videos' at below loaction in cloned repository
+		        (Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/TrafficMonitoring_video/app)
+			
+		 (b). Add 'yolov4 weights' in below locations in cloned repository
+		        (Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/TrafficMonitoring_video/app)
+		        (Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/TrafficMonitoring_stream/app)
+			
+		 (c) Add 'trafficnet_resnet_model_ex-055_acc-0.913750.h5' weigths in below locations in cloned repository
+		        (Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/AccidentDetection_Video/app)
+			( Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/AccidentDetection_Live/app)
+		      
 
 		# Perform below steps for each of 4 models/folders in folder highwaymonitoring_ML. 
 		
