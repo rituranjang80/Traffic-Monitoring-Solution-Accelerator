@@ -254,7 +254,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			2) Open the Media Service->Overview->Encoding->uploading a video
 			3) After video upload click on job fill the form and 
 				a) check the option encoding
-				b) Bulit in present name
+				b) Built in present name
 			4) Create a stream locator 
 			5) Run the stream endpoint from media service page
 				6) open the enconding video from browse assets then go to stream URL
