@@ -52,6 +52,14 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		##      sql Connection string
 		        'DRIVER={ODBC Driver 17 for SQLServer};SERVER=<Server Name>;
 		                 DATABASE=<Data Name>;UID=<user ID>;PWD=<Password>'
+						 
+				To fetch SQL sever Server details 
+				  (a). Go to SQL database in azure portal
+				  (b). Click on your databasename in my case MicrosoftTrafficMgmt
+				  (c). Click on overview then click on connection strings 
+				  (d). Copy the server name,DATABASE name user 
+				  (e). Enter the password of sql server
+
 
 		
 		##	Edit Config file for TrafficMonitoring_Video model
