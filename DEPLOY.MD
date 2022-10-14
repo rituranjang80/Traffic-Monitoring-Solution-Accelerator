@@ -66,7 +66,12 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		*       Blob Storage Connection
 			azure_storage_connectionstring: <Enter azure storage connection string for blob storage>;
 			process_container_name: "processvideo"
-			Traffic_mon_url: <web api url> + "/Vehicletrend" 
+			Traffic_mon_url: <web API URL> + "/Vehicletrend" 
+			
+			To fetch web API URL
+			     (a). Go to azure app service (web API)
+			     (b). Select "Overview" option on left
+			     (c). Copy URL from page
 			
 			Note: To fetch Blob storage connection string go through below points
 			     (a). Go to Blob storage account
@@ -91,6 +96,11 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		*       Front end api url 
 		
 			Traffic_accident_url: <web api url> + "/TrafficAnalysis" 
+			
+			To fetch web API URL
+			  (a). Go to azure app service (web API)
+			  (b). Select "Overview" option on left
+			  (c). Copy URL from page
 			
 ## Step 5 Deploy ML Models.                
 		
