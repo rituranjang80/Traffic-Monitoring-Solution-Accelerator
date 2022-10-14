@@ -68,7 +68,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			process_container_name: "processvideo"
 			Traffic_mon_url: <web api url> + "/Vehicletrend" 
 			
-			Note: To fetch Blob storage connection string go through below points.
+			Note: To fetch Blob storage connection string go through below points
 			     (a). Go to Blob storage account
 			     (b). Select "Access Keys" option on left
 			     (c). Copy Connection string from key1 section
@@ -82,10 +82,10 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			containerName: "VehicleAccidentLive"	
 			
 			Note: To fetch the comsoDb Details go through below points.
-			    (a). Go to azure CosmosDb account.
-			    (c). Select "Key" option on left.
-			    (c). Go to Read-write Keys.
-			    (d). Copy account URI and PRIMARY KEY and fill into above Cosmo db connection.
+			    (a). Go to azure CosmosDb account
+			    (c). Select "Key" option on left
+			    (c). Go to Read-write Keys
+			    (d). Copy account URI and PRIMARY KEY and fill into above Cosmo db connection
 		
 		##	Edit Config file at  Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/AccidentDetection_Video/app 
 		*       Front end api url 
@@ -122,22 +122,25 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
                                  --docker-server= <docker server name in ACR access keys> \
                                  --docker-username= <docker username in ACR access keys>\
                                  --docker-password= <docker paasword  in ACR access Keys>
-
+                   To fetch azure container registry(ACR):
+		         (a) Go to azure container registry.
+			 (b) Select access keys
+			 (c) Copy login Server, username, password and fill into above (docker-server, docker-username and docker paasword.)
 		   Note: Plz note down secret name as should be same as one in yaml files. No need to change in yaml file if secret name 
 		         is  "vechicle"
 
-		# Perform below steps for each of 4 models in folder highwaymonitoring_ML. 
+		# Perform below steps for each of 4 models/folders in folder highwaymonitoring_ML. 
 		
 		1.	Open terminal/ command prompt 
 		2.	Select folder containing docker file (e.g. TrafficMonitoring_Video)
 		3.	Build Docker image by using Dockerfile. 
-		        Command: docker build -t [<container_registry_name>.azurecr.io/<Image Name>: <Tag>] . 
+		        Command: docker build -t [<azure container registry name>.azurecr.io/<Image Name>: <Tag>] . 
 		        (e.g. mspoccrdemo.azurecr.io/traffic_monitoring:0.1)
 			
 		4.	login to azure container registry
-		        command: az acr login -n <container registry name>
+		        command: az acr login -n <azure container registry name>
 		5.      Push image in azure container registry. 
-			Command: docker push [<container_registry_name>.azurecr.io/<Image Name>: <Tag>]
+			Command: docker push [<azure container registry name>.azurecr.io/<Image Name>: <Tag>]
 		        Note: If we gets unauthorized error please perform previous step(login to azure container registory.)
 		6.      Edit secrets name in yaml file.
 		        Note: please edit the last line of yaml file with name of secrets that we created above.     
@@ -146,7 +149,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		8.	Deploy traffic monitoring model on Kubernetes cluster using yml file.
 		        Command: Kubectl apply -f [<yml file Name>] 
 		        Note: (Yaml file name as in folder)
-		9.      kubectl expose create service.
+		9.      kubectl expose create service by using below commands.
 		        command: kubectl expose deploy <deploymentname> --type LoadBalancer --name <servicename> --port <portnumber>
 		        Note: Deploymentname and portnumber should be same as in yaml file. Servicename can be anything of our choice. 
 			
