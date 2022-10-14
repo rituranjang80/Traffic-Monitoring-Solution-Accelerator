@@ -154,7 +154,7 @@ Note:Steps below will refer and use Azure resources created in this step
 		        (Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/TrafficMonitoring_video/app)
 		        (Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/TrafficMonitoring_stream/app)
 			
-		 (c) Add 'trafficnet_resnet_model_ex-055_acc-0.913750.h5' weigths in below locations in cloned repository
+		 (c). Add 'trafficnet_resnet_model_ex-055_acc-0.913750.h5' weigths in below locations in cloned repository
 		        (Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/AccidentDetection_Video/app)
 			( Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/AccidentDetection_Live/app)
 		      
