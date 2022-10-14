@@ -239,7 +239,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		
 		* Open the React JS folder/appliction(/Traffic-Monitoring-Solution-Acceleraton/ReactJS) in Visual studio code	
 		* Install the project library run the command (npm install --legacy-peer-deps) in terminal
-		* Create the build  run the command  (npm run build)
+		* Create the build run the command (npm run build)
 		
 			(a). Select app service  Web UI on azure
 			(b). Select "Deployment Center" option on left than click ftp credentials on top			 
