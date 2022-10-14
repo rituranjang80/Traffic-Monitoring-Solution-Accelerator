@@ -146,9 +146,10 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
             "DefaultConnection": "Server=*************;Initial Catalog=MicrosoftTrafficMgmt;Persist Security Info=False;User ID=****************;Password=***********;MultipleActiveResultSets=False;TrustServerCertificate=False;"				
 			To fetch SQL sever Server details 
 			  (a). Go to SQL databae in azure portal
-			  (b). click on your databaename in my case MicrosoftTrafficMgmt
-			  (c). click on overview then click on connection strings 
-			  (d). copy the server name,catalog name user 
+			  (b). Click on your databaename in my case MicrosoftTrafficMgmt
+			  (c). Click on overview then click on connection strings 
+			  (d). Copy the server name,catalog name user 
+			  (e). Enter the password of sql server
 
         
        * Enter the Blob connection strings & Access key (Storage account & Access Keys) 
