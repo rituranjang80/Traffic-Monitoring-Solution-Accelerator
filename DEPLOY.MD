@@ -27,6 +27,9 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 
 [![Deploy AKS to Azure 1](/Media/deploy-to-azure.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Frituranjang80%2FTraffic-Monitoring-Solution-Accelerator%2Fmain%2FARMTemplate%2FARMTemplate_mspoc_AKSResourceGroup.json
 )
+
+Note:Steps below will refer and use Azure resources created in this step
+
 ## Step 3. Setup site and  Databases
 	
 	* Create a SQL Server instance or use existing SQL server instance 
@@ -49,14 +52,14 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			    (c). Go to Read-write Keys section.
 			    (d). Copy account URI and PRIMARY KEY and fill into above Cosmo db connection.
 		
-		##      sql Connection string
+		*      sql Connection string
 		        'DRIVER={ODBC Driver 17 for SQLServer};SERVER=<Server Name>;
 		                 DATABASE=<Catalog>;UID=<user ID>;PWD=<Password>'
-			'database' = 'MicrosoftTrafficMgmt'
+			database = 'MicrosoftTrafficMgmt'
 			
 			 To fetch SQL sever Server details 
 			    (a). Select your SQL database(MicrosoftTrafficMgmt) in azure portal.
-			    (b). Click on overview and click on connection strings 
+			    (b). Click on overview (by default overview is loaded) and click on connection strings 
 			    (c). Copy the server name,DATABASE/Catalog name, User ID and fill into above SQL Connection string
 			    (d). Enter the password of sql server
 
@@ -70,7 +73,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			Traffic_mon_url: <web API URL> + "/Vehicletrend" 
 			
 			To fetch web API URL
-			     (a). Go to azure app service (web API)
+			     (a). Go to azure app service and select Web API (Note: ARMS template creates 2 app services - one to be used as WEB API and Other as Web 					UI. Once decided which one is WEB API, use that app service for all steps applicable to WEB API and similarly for WEB UI)
 			     (b). Select "Overview" option on left
 			     (c). Copy URL from page
 			
@@ -103,7 +106,8 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			  (b). Select "Overview" option on left
 			  (c). Copy URL from page
 			
-## Step 5 Deploy ML Models.                
+			
+## Step 5 Deploy ML Models.             
 		
 		
 	# Setup kuberentes with gpu nodes
@@ -113,17 +117,17 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		       (a). open command prompt/terminal and run this below commnad
 		            command: az login 
 			    Note: This command will connect to browser and would ask for login. Verify your azure portal credentials. 
-		       (b). Access Kubernetes Service on azure portal
+		       (b). Access Azure Kubernetes Service (AKS) on azure portal
 		       (c). Select kubernetes service (created above in ARM Template)
 		       (d). Select "Connect" option at top.
-		       (e). Run below commands (copy from connect page)
+		       (e). Run below commands (below commands are to be copied from from connect page on AKS service)
 		          az account set --subscription <....>
 		          az aks get-credentials --resource-group <resource group name> --name <AKS service name> 
 		
 		2. Create a namespace for NVIDIA GPU RESOURCES by using below command.
 		   Command:  kubectl create namespace gpu-resources
 		3. Install the NVIDIA device plugin by using yamlfile.
-		   Command: kubectl apply -f nvidia-device-plugin-ds.yaml (the file is present in main repository) 
+		   Command: kubectl apply -f nvidia-device-plugin-ds.yaml (the file is present in root folder i.e. Traffic-Monitoring-Solution-Accelerator) 
 		4. To check kubernetes node are up and running,run below command.
 		   Command: Kubectl get nodes
 		   Note: Check kubernetes pod is up or not.
@@ -133,8 +137,10 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
                                  --docker-server= <docker server name in ACR access keys> \
                                  --docker-username= <docker username in ACR access keys>\
                                  --docker-password= <docker paasword  in ACR access Keys>
-                   To fetch azure container registry(ACR):
-		         (a) Go to azure container registry.
+                   (Note: above 5 lines are single command, '\' is used to indicate continuation)
+		   
+		   To fetch azure container registry(ACR):
+		         (a) Go to azure container registry resource.
 			 (b) Select access keys
 			 (c) Copy login Server, username, password and fill into above (docker-server, docker-username and docker paasword.)
 		   Note: Plz note down secret name as should be same as one in yaml files. No need to change in yaml file if secret name 
@@ -167,7 +173,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 ## Step 6A. Set up  configuration (/Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring/HighwayMonitoringWebAPI/appsetting.json) in web API
         
         * Enter the SQL sever connection strings details       
-            "DefaultConnection": "Server=*************;Initial Catalog=<Catalog>;Persist Security Info=False;User ID=****************;Password=***********;MultipleActiveResultSets=False;TrustServerCertificate=False;"				
+            "DefaultConnection": "Server=*************;Initial Catalog=<Catalog>;Persist Security Info=False;User 			ID=****************;Password=***********;MultipleActiveResultSets=False;TrustServerCertificate=False;"				
 			Note: To fetch SQL sever Server details 
 			  (a). Select your SQL database(MicrosoftTrafficMgmt) in azure portal.
 		          (b). Click on overview and click on connection strings 
@@ -178,6 +184,7 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
        * Enter the Blob connection strings & Access key (Storage account & Access Keys) 
 			 "BlobConnectionString": "<connection string>",       
 			 "BlobstoraccountKey": "<key>",
+			 
 		Note: To fetch connection string and key
 			(a). Go to azure access Blob storage account
 			(b). Select "Access Keys" option on left
@@ -188,14 +195,14 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
              "BlobContainerNameUnProcessvideo": "unprocessvideo",
 			
         * Enter the Model APIs path  
-              "ML_VechileDetection_API": "http://<API IP: Port>/",
-              "ML_Accident_API": "http://<API IP: Port>/",
-		(run command "kubectl get svc" to get Model APIs IP & Port        
+              "ML_VechileDetection_API": "http://<Vehicle API IP: Port>/",
+              "ML_Accident_API": "http://<Accident API IP: Port>/",
+		(run command "kubectl get svc" to get Vehicle Detection and Accident APIs IP & Port        
 		
 		* Enter the SAS URL expiry year  
               "SASURLValidYear": "2",
 			 
-		* Enter the web API URL (There are 2 app services created, one is set up as webAPI and other is web UI)
+		* Enter the web API URL (As mentione in Step 4, 2 app services created by ARM template, one is set up as web API and other as web UI)
 			 "BaseURL":"<web API URL>" + “/api/”
 		Note: fetch web API URL
 			(a). Go to azure app service (web API)
@@ -266,11 +273,12 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 		   (b). Select "Deployment Center" option on left than click ftp credentials on top			 
 		   (c). copy the FTPS endpoint,User name, Password
 		   (d). Open the FTP server enter the ftp endpoint, user name, Password Upload all the files from(/Traffic-Monitoring-Solution-Acceleraton/ReactJS/build)
-			
+
+On Succcesfull execution of all steps, access the Traffic Monitoring website on browser using WEB UI URL (Web UI app service URL)
 		
-## Appendix - Use of media service for Live stream .
+## Appendix - Use of media service for Live video/stream .
 			
-			 please refer this video https://www.youtube.com/watch?v=o2uiYLT6KU8 
+			 please refer tutorial at https://www.youtube.com/watch?v=o2uiYLT6KU8 
 			1) Create a media service in azure portal
 			2) Open the Media Service->Overview->Encoding->uploading a video
 			3) After video upload select the file than click on job 
@@ -283,10 +291,9 @@ select below buttbon to create  Azure resources for Azure Kubernetes services (A
 			8) Now encoding video show on portal
 			9) click on streaming URL under section Streaming locators (1)
 			10) A new popup Streaming URLs window open copy the HLS URL in show advance section 
-			11)Open the HighwayMonitoring website and camera configuration page add paste HLS URL in endpoint
+			11)Open the Traffic Monitoring website and while adding/editing a camera, paste HLS URL in endpoint field on screen and save
 
 
 
 # Congratulations
-You have completed this solution accelerator and should now have a report to explore the personalized recommendations:
-
+You have completed this Traffic Monitoring solution accelerator 
