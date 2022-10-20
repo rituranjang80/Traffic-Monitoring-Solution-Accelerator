@@ -110,6 +110,10 @@ class CameraAdd extends CreateParent {
     CameraValue['place'] = document.getElementById('Search').value;
     CameraValue['CameraIp'] = document.getElementById('CameraIp').value;
 
+    //CameraValue['City'] = document.getElementById('City').value;
+    //CameraValue['state'] = document.getElementById('State').value;
+
+
     if (!CameraValue.Latitude) {
       //this.handelMessage('Requried name');
       alert('required Latitude');
@@ -276,12 +280,12 @@ class CameraAdd extends CreateParent {
       MenuData,
       initinalFormFill,
     } = this.state;
-    if (formOption.PageLoad == true) {
-      CameraValue.State = window.StateName;
-      CameraValue.City = window.CityName;
-      formOption.PageLoad == false;
-      //this.setState({formOption:formOption});
-    }
+    // if (formOption.PageLoad == true) {
+    //   CameraValue.State = window.StateName;
+    //   CameraValue.City = window.CityName;
+    //   formOption.PageLoad == false;
+    //   //this.setState({formOption:formOption});
+    // }
     return (
       <div className="datagrid">
         <SnackbarError

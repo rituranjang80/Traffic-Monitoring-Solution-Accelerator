@@ -71,13 +71,13 @@ namespace HighwayMonitoring_BAL.Service
                 var Result = GetVideoByID(videoDetails.VideoId);
                 if (Result != null)
                 {
-                    if (string.IsNullOrEmpty(videoDetails.ProcessSasURL))
+                     if (string.IsNullOrEmpty(videoDetails.ProcessSasURL))
                     {
 
                         Result.Remark = videoDetails.Remark;
                         Result.Name = videoDetails.Name;
                         Result.CameraIp = videoDetails.CameraIp;
-                        Result.Analyse = videoDetails.Analyse;
+                       //Result.Analyse = videoDetails.Analyse;
                         _VideoDetail.Update(Result);
                     }
                     else
@@ -87,6 +87,9 @@ namespace HighwayMonitoring_BAL.Service
                         Result.Analyse = videoDetails.Analyse;
                         _VideoDetail.Update(Result);
                     }
+                    
+
+
                 }
                 return true;
 
