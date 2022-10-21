@@ -229,22 +229,19 @@ namespace HighwayMonitoringWebAPI.Controllers
                 string blobstorageconnection = (_configuration.GetValue<string>("BlobConnectionString"));
                 string BlobContainerName = _configuration.GetValue<string>("BlobContainerNameprocessvideo");
                 VehicletrendController vehicletrendController = new VehicletrendController(_cosmosDbService, _configuration,server,hostApplicationLifetime);
+                var result2 = _cameraService.DeleteVideoByid(VideoDetails);
+                var r = await vehicletrendController.Delete(VideoDetails.VideoId);
+                TrafficAnalysisController trafficAnalysisController = new TrafficAnalysisController(_cosmosDbServiceAccident);
+                var result = await trafficAnalysisController.Delete(VideoDetails.VideoId);
 
                 if (await DeleteFile(VideoDetails.VideoId + ".webm", blobstorageconnection, BlobContainerName))
                 {
                     BlobContainerName = _configuration.GetValue<string>("BlobContainerNameUnProcessvideo");
                     if (await DeleteFile(VideoDetails.VideoPath, blobstorageconnection, BlobContainerName))
                     {
-                        var result2 = _cameraService.DeleteVideoByid(VideoDetails);
+                        return true;
                     }
                 }
-                var r = await vehicletrendController.Delete(VideoDetails.VideoId);
-                TrafficAnalysisController trafficAnalysisController = new TrafficAnalysisController(_cosmosDbServiceAccident);
-                var result = await trafficAnalysisController.Delete(VideoDetails.VideoId);
-
-
-
-
                 return true;
             }
             catch (Exception ex)
