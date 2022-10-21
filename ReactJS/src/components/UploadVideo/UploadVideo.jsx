@@ -184,7 +184,12 @@ class UploadVideo extends CreateParent {
     // if(this.props.item.videoId>0){
     if (!CameraValue.name) {
       //this.handelMessage('Requried name');
-      alert('Required name');
+      alert('Required Name');
+      return false;
+    }
+    if (!CameraValue.remark) {
+      //this.handelMessage('Requried name');
+      alert('Required Description');
       return false;
     }
     if (!CameraValue.cameraId) {
@@ -193,6 +198,9 @@ class UploadVideo extends CreateParent {
       return false;
     }
     //}
+
+   
+    
     if (files === undefined || files === '') {
       this.handelMessage('Please choose file to upload', 'errorBoll');
     } else {
@@ -206,6 +214,10 @@ class UploadVideo extends CreateParent {
         VideoId: videoid,
         Cameraid: CameraValue.cameraId,
       });
+      if (!files.length){
+        alert('Please choose file to upload');
+        return false;
+      }
       for (let i = 0; i < files.length; i++) {
         form_data.append(`file[${i}]`, files[i]);
       }
