@@ -1,5 +1,5 @@
 window.baseURL= 'https://localhost:5001/api'; 
-window.baseURL='https://highwaymonitoringwebapidemoaa.azurewebsites.net/api';
+window.baseURL='https://highwaymonitoringwebapidemoaa.azurewebsites.net/api/';
 window.bingMapKey='AuU1ciWa-v2D4MXrLhXxgbVY6676TOmemFJ3LpCO52P5Mnx8_KIdez1M7G2j0ZIN';
 //let baseURL='https://highwaymonitoringwebapi.azurewebsites.net/api/';
 //baseURL = 'https://localhost:5001/api/';
