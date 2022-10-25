@@ -294,14 +294,14 @@ On Succcesfull execution of all steps, access the Traffic Monitoring website on 
 			 please refer tutorial at https://www.youtube.com/watch?v=o2uiYLT6KU8 
 			1) Create a media service in azure portal
 			2) Open the Media Service->Overview->Encoding->uploading a video
-			3) After video upload select the file than click on job 
+			3) After video upload select the file than click on add job 
 				a) Job page open enter the details
 				a) check the option encoding
-				b) Built in present name (select the option-> H254MultipleBitrate1080P)
+				b) Built in present name (select the option-> H264MultipleBitrate1080P)
 			4) Open the new created encoding video file 
 			5) Click on new streaming locator
 			6) A new streaming locator window open enter the expiry date (current date+2 years or which you want)
-			8) Now encoding video show on portal
+			8) if stream end point not start than start. now encoding video show on portal
 			9) click on streaming URL under section Streaming locators (1)
 			10) A new popup Streaming URLs window open copy the HLS URL in show advance section 
 			11)Open the Traffic Monitoring website and while adding/editing a camera, paste HLS URL in endpoint field on screen and save
