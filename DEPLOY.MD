@@ -291,7 +291,7 @@ On Succcesfull execution of all steps, access the Traffic Monitoring website on 
 		
 ## Appendix - Use of media service for Live video/stream .
 			
-			 please refer tutorial at https://www.youtube.com/watch?v=o2uiYLT6KU8 
+			 
 			1) Create a media service in azure portal
 			2) Open the Media Service->Overview->Encoding->uploading a video
 			3) After video upload select the file than click on add job 
