@@ -300,10 +300,10 @@ On Succcesfull execution of all steps, access the Traffic Monitoring website on 
 				b) Built in present name (select the option-> H264MultipleBitrate1080P)
 			4) Open the new created encoding video file 
 			5) Click on new streaming locator
-			6) A new streaming locator window open enter the expiry date (current date+2 years or which you want)
-			8) if stream end point not start than start. now encoding video show on portal
+			6) A new streaming locator window opened, enter the expiry date (current date+2 years or which you want)
+			8) if stream end point not start than start. now encoded video show on portal
 			9) click on streaming URL under section Streaming locators (1)
-			10) A new popup Streaming URLs window open copy the HLS URL in show advance section 
+			10) A new popup Streaming URLs window, open copy the HLS URL in show advance section 
 			11)Open the Traffic Monitoring website and while adding/editing a camera, paste HLS URL in endpoint field on screen and save
 
 
