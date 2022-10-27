@@ -167,7 +167,8 @@ Note:Steps below will refer and use Azure resources created in this step
 		      
 
 		# Perform below steps for each of 4 models/folders in folder highwaymonitoring_ML. 
-		Note: Perform model deployement for AccidetDetection_live before deployment of TrafficMonitoring_Stream model. This is reuired because we                       need to update config file of TrafficMonitoring_stream with AccidentDetection API URL. 
+		Note: Perform model deployement for AccidetDetection_live before deployment of TrafficMonitoring_Stream model. 
+		      This is reuired because we need to update config file of TrafficMonitoring_stream with AccidentDetection API URL. 
 		
 		1.	Open terminal/ command prompt 
 		2.	Select folder containing docker file (e.g. TrafficMonitoring_Video)
