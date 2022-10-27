@@ -73,6 +73,7 @@ def upload_data(dict_1):
     container1.upsert_item(dict_1)
     
 def load_endpoint(camera_id):
+    config = load_config()
     conn = pyodbc.connect(config['sql_connection_string'])
     cursor = conn.cursor()
     cursor.execute("SELECT [IP_Address] FROM [{0}].[dbo].[CameraDetails] c where c.cameraID={1}".format(config['database'],camera_id))
@@ -184,7 +185,8 @@ def realTime(id_stream):
                cv2.imwrite('temp.jpg', img)
                headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
                payload = Paylod_acc('temp.jpg', camera_id_1, Id_1)
-               r = requests.post('http://20.81.114.67:8083/files/', data=payload, headers=headers)
+               config = load_config()
+               r = requests.post(config['accident_live_api'], data=payload, headers=headers)
 
             cv2.putText(img, "Car:" + " " + str(dict_vehicle['car']), (20, 40), cv2.FONT_HERSHEY_SIMPLEX, font_size,
                         font_color, font_thickness)
