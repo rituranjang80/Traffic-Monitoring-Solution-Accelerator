@@ -5,4 +5,5 @@ DatabaseName: "HighwayMonitoringSystem2"
 containerName: "VehicleTrendingLive"
 # sql server connection string
 sql_connection_string: 'DRIVER={ODBC Driver 17 for SQL Server};SERVER=predictivesql.database.windows.net;DATABASE=MicrosoftTrafficMgmt;UID=*****;PWD=***'
+accident_live_api: 'http://<load balancer>:<port number>/files/'
 database: "MicrosoftTrafficMgmt"
