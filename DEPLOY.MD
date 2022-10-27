@@ -45,7 +45,8 @@ Note:Steps below will refer and use Azure resources created in this step
 			Traffic_mon_url: <web API URL> + "/Vehicletrend" 
 			
 			To fetch web API URL
-			     (a). Go to azure app service and select Web API (Note: ARMS template creates 2 app services - one to be used as WEB API and Other as Web 					UI. Once decided which one is WEB API, use that app service for all steps applicable to WEB API and similarly for WEB UI)
+			     (a). Go to azure app service and select Web API (Note: ARMS template creates 2 app services - one to be used as WEB API and                                   other as Web UI. Once decided which one is WEB API, use that app service for all steps applicable to WEB API and 
+			          similarly for WEB UI)
 			     (b). Select "Overview" option on left
 			     (c). Copy URL from page
 			
@@ -105,7 +106,7 @@ Note:Steps below will refer and use Azure resources created in this step
 			    (c). Copy the server name,DATABASE/Catalog name, User ID and fill into above SQL Connection string
 			    (d). Enter the password of sql server
 		
-		*      Add accident live api Url in config file
+		*      Add accident live api Url in config file (This will be available after deployment of AccidentDetection_live model in Step 5)
 		       
 		       To fetch Accident live api details
 		          (a) Run this below command in  terminal
@@ -132,7 +133,8 @@ Note:Steps below will refer and use Azure resources created in this step
 		2. Create a namespace for NVIDIA GPU RESOURCES by using below command.
 		   Command:  kubectl create namespace gpu-resources
 		3. Install the NVIDIA device plugin by using yamlfile.
-		   Command: kubectl apply -f nvidia-device-plugin-ds.yaml (the file is present in root folder i.e. Traffic-Monitoring-Solution-Accelerator) 
+		   Command: kubectl apply -f nvidia-device-plugin-ds.yaml (the file is present in root folder i.e. 
+		   Traffic-Monitoring-Solution-Accelerator) 
 		4. To check kubernetes node are up and running,run below command.
 		   Command: Kubectl get nodes
 		   Note: Check kubernetes pod is up or not.
@@ -165,6 +167,7 @@ Note:Steps below will refer and use Azure resources created in this step
 		      
 
 		# Perform below steps for each of 4 models/folders in folder highwaymonitoring_ML. 
+		Note: Perform model deployement for AccidetDetection_live before deployment of TrafficMonitoring_Stream model. This is reuired because we                       need to update config file of TrafficMonitoring_stream with AccidentDetection API URL. 
 		
 		1.	Open terminal/ command prompt 
 		2.	Select folder containing docker file (e.g. TrafficMonitoring_Video)
