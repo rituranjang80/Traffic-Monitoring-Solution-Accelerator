@@ -37,6 +37,48 @@ Note:Steps below will refer and use Azure resources created in this step
     
 ## Step  4 Setup configuration for Ml models
 
+               ##	Edit Config file at Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/TrafficMonitoring_Video/app 
+		
+		*       Blob Storage Connection
+			azure_storage_connectionstring: <Enter azure storage connection string for blob storage>;
+			process_container_name: "processvideo"
+			Traffic_mon_url: <web API URL> + "/Vehicletrend" 
+			
+			To fetch web API URL
+			     (a). Go to azure app service and select Web API (Note: ARMS template creates 2 app services - one to be used as WEB API and Other as Web 					UI. Once decided which one is WEB API, use that app service for all steps applicable to WEB API and similarly for WEB UI)
+			     (b). Select "Overview" option on left
+			     (c). Copy URL from page
+			
+			Note: To fetch Blob storage connection string go through below points
+			     (a). Go to Blob storage account
+			     (b). Select "Access Keys" option on left
+			     (c). Copy Connection string from key1 section
+			     
+	        ##	Edit Config file at  Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/AccidentDetection_Video/app 
+		*       Front end api url 
+		
+			Traffic_accident_url: <web api url> + "/TrafficAnalysis" 
+			
+			To fetch web API URL
+			  (a). Go to azure app service (web API)
+			  (b). Select "Overview" option on left
+			  (c). Copy URL from page
+		
+		##	Edit Config file at  Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/AccidentDetection_Live/app 
+		
+		*       Cosmos db Connection
+			Account: <Enter the URI for cosmo db>
+			Key: <Enter the Primary Key of cosmo db>
+			DatabaseName: "HighwayMonitoringSystem2"
+			containerName: "VehicleAccidentLive"	
+			
+			Note: To fetch the comsoDb Details go through below points.
+			    (a). Go to azure CosmosDb account
+			    (c). Select "Key" option on left
+			    (c). Go to Read-write Keys
+			    (d). Copy account URI and PRIMARY KEY and fill into above Cosmo db connection
+			
+
 		##	Edit config file at Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/TrafficMonitoring_Stream/app 
 		
 		*      Cosmos db connetion
@@ -62,51 +104,14 @@ Note:Steps below will refer and use Azure resources created in this step
 			    (b). Click on overview (by default overview is loaded) and click on connection strings 
 			    (c). Copy the server name,DATABASE/Catalog name, User ID and fill into above SQL Connection string
 			    (d). Enter the password of sql server
-
-
 		
-		##	Edit Config file at Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/TrafficMonitoring_Video/app 
-		
-		*       Blob Storage Connection
-			azure_storage_connectionstring: <Enter azure storage connection string for blob storage>;
-			process_container_name: "processvideo"
-			Traffic_mon_url: <web API URL> + "/Vehicletrend" 
-			
-			To fetch web API URL
-			     (a). Go to azure app service and select Web API (Note: ARMS template creates 2 app services - one to be used as WEB API and Other as Web 					UI. Once decided which one is WEB API, use that app service for all steps applicable to WEB API and similarly for WEB UI)
-			     (b). Select "Overview" option on left
-			     (c). Copy URL from page
-			
-			Note: To fetch Blob storage connection string go through below points
-			     (a). Go to Blob storage account
-			     (b). Select "Access Keys" option on left
-			     (c). Copy Connection string from key1 section
-
-		##	Edit Config file at  Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/AccidentDetection_Live/app 
-		
-		*       Cosmos db Connection
-			Account: <Enter the URI for cosmo db>
-			Key: <Enter the Primary Key of cosmo db>
-			DatabaseName: "HighwayMonitoringSystem2"
-			containerName: "VehicleAccidentLive"	
-			
-			Note: To fetch the comsoDb Details go through below points.
-			    (a). Go to azure CosmosDb account
-			    (c). Select "Key" option on left
-			    (c). Go to Read-write Keys
-			    (d). Copy account URI and PRIMARY KEY and fill into above Cosmo db connection
-		
-		##	Edit Config file at  Traffic-Monitoring-Solution-Accelerator/HighwayMonitoring_ML/AccidentDetection_Video/app 
-		*       Front end api url 
-		
-			Traffic_accident_url: <web api url> + "/TrafficAnalysis" 
-			
-			To fetch web API URL
-			  (a). Go to azure app service (web API)
-			  (b). Select "Overview" option on left
-			  (c). Copy URL from page
-			
-			
+		*      Add accident live api Url in config file
+		       
+		       To fetch Accident live api details
+		          (a) Run this below command in  terminal
+			         kubectl get svc
+		          (b) Copy load balancer and port number of 'accident live' pod and fill into config file
+			        'accident_live_api': http://<loadbalancer>:<port number>/files/>
 ## Step 5 Deploy ML Models.             
 		
 		
