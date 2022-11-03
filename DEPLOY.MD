@@ -268,8 +268,11 @@ Note:Steps below will refer and use Azure resources created in this step
        * window.bingMapKey="<bingMapKey>"
 	    Follow these steps for creating Bing map account key
 			https://docs.microsoft.com/en-us/bingmaps/getting-started/bing-maps-dev-center-help/getting-a-bing-maps-key
-	* Enter the Live Stream ML API URL      
-       * window.MLAPI=<bingMapKey>
+	* Enter the traffic monitoring live stream ML API URL    
+       * window.MLAPI= "http://<traffic monitoring live stream ML API External IP: Port>/"
+	    Note: fetch Trafic monitoring live stream URL
+		(run command "kubectl get svc" to get Trafic monitoring live stream API IP & Port        
+		
 
 ## Step 7B. Set up  configuration Reactjs public/Index.js in HighwayMonitoring 
 	
@@ -307,7 +310,7 @@ On Succcesfull execution of all steps, access the Traffic Monitoring website on 
 				a) Job page open enter the details
 				a) check the option encoding
 				b) Built in present name (select the option-> H264MultipleBitrate1080P)
-			4) Open the new created encoding video file 
+			4) Refresh the page than open the new created encoding video file 
 			5) Click on new streaming locator
 			6) A new streaming locator window opened, enter the expiry date (current date+2 years or which you want)
 			8) if stream end point not start then start. now encoded video show on portal
